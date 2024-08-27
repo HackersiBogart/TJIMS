@@ -1,0 +1,28 @@
+<div id="<%= dom_id color %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= color.name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Code:</strong>
+    <%= color.code %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Size:</strong>
+    <%= color.size %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Quantity:</strong>
+    <%= color.quantity %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show", [:admin, color], class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit", edit_admin_color_path(color), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+
+</div>
