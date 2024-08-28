@@ -1,0 +1,8 @@
+<div class="mx-auto md:w-2/3 w-full">
+  <h1 class="font-bold text-4xl">Editing paint color</h1>
+
+  <%= render "form", admin_paint_color: @admin_paint_color %>
+
+  <%= link_to "Show this paint color",[:admin, @admin_paint_color], class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <%= link_to "Back to paint colors", admin_paint_colors_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+</div>

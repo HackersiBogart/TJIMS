@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   namespace :admin do
-    resources :colors
+    resources :orders
+    resources :paint_colors do
+      resources :stocks, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+    end
+      resources :colors
   end
   devise_for :admins
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -18,5 +22,8 @@ Rails.application.routes.draw do
 
   get "admin" => "admin#index"
 
+  resources :colors, only: [:show]
+  resources :paint_colors, only: [:show]
   
 end
+ 
