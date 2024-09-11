@@ -39,13 +39,10 @@
                   Size 
                 </th>
                 <th scope="col" class="text-sm font-medium text-gray-800 px-6 py-4 text-left">
-                  Quantity 
-                </th>
-                <th scope="col" class="text-sm font-medium text-gray-800 px-6 py-4 text-left">
                   Price
                 </th>
                 <th scope="col" class="text-sm font-medium text-gray-800 px-6 py-4 text-left">
-                  Color
+                  Product
                 </th>
                 <th scope="col" class="text-sm font-medium text-gray-800 px-6 py-4 text-left">
                   Active
@@ -58,8 +55,6 @@
                   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 underline">
                     <%= p.image.attached? ? image_tag(p.image, size: "50x50") : image_tag("https://via.placeholder.com/50", size: "50x50") %>
                   </td>
-
-
                   <td class="px-6 py-4 whitepsace-nowrap tex-sm font-medium text-gray-800 underline">
                     <%= link_to p.name, edit_admin_paint_color_path(p) %>
                   </td>
@@ -70,13 +65,14 @@
                     <%= p.size %>
                   </td>
                   <td class="px-6 py-4 whitepsace-nowrap tex-sm font-medium text-gray-800">
-                    <%= p.quantity %>
-                  </td>
-                  <td class="px-6 py-4 whitepsace-nowrap tex-sm font-medium text-gray-800">
                     ₱<%= p.price %>
                   </td>
-                  <td class="px-6 py-4 whitepsace-nowrap tex-sm font-medium text-gray-800">
-                    <%= p.color %>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                    <% if p.product %>
+                      <%= p.product.name %>
+                    <% else %>
+                      <p class="text-gray-500">No Product</p>
+                    <% end %>
                   </td>
                   <td class="px-6 py-4 whitepsace-nowrap tex-sm font-medium text-gray-800">
                     <%= p.active %>

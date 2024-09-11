@@ -4,10 +4,16 @@ class Admin::ColorsController < AdminController
   # GET /admin/colors or /admin/colors.json
   def index
     @admin_colors = Color.all
+    if params[:query].present?
+      @pagy, @admin_colors = pagy(Color.where("name LIKE ?", "%#{params[:query]}%"))
+    else
+      @pagy, @admin_colors = pagy(Color.all)
+    end
   end
-
+  
   # GET /admin/colors/1 or /admin/colors/1.json
   def show
+    
   end
 
   # GET /admin/colors/new
@@ -17,6 +23,7 @@ class Admin::ColorsController < AdminController
 
   # GET /admin/colors/1/edit
   def edit
+    
   end
 
   # POST /admin/colors or /admin/colors.json

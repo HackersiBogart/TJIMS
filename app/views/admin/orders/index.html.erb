@@ -20,10 +20,13 @@
                   Order ID
                 </th>
                 <th scope="col" class="text-sm font-medium text-gray-800 px-6 py-4 text-left">
+                  Name
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-800 px-6 py-4 text-left">
                   Customer Email
                 </th>
                 <th scope="col" class="text-sm font-medium text-gray-800 px-6 py-4 text-left">
-                  Address
+                  Phone Number
                 </th>
                 <th scope="col" class="text-sm font-medium text-gray-800 px-6 py-4 text-left">
                   Total 
@@ -37,10 +40,13 @@
                     <%= link_to o.id, [:admin, o], class: 'underline' %>
                   </td>
                   <td class="px-6 py-4 whitepsace-nowrap tex-sm font-medium text-gray-800">
+                    <%= o.name %>
+                  </td>
+                  <td class="px-6 py-4 whitepsace-nowrap tex-sm font-medium text-gray-800">
                     <%= o.customer_email %>
                   </td>
                   <td class="px-6 py-4 whitepsace-nowrap tex-sm font-medium text-gray-800">
-                    <%= o.address %>
+                    <%= o.phone_number %>
                   </td>
                   <td class="px-6 py-4 whitepsace-nowrap tex-sm font-medium text-gray-800">
                     <%= o.total %>
@@ -49,6 +55,7 @@
               <% end %>
             </tbody>
           </table>
+          <%== pagy_nav(@not_fulfilled_pagy) if @not_fulfilled_pagy.pages > 1 %>
 
         </div>
       </div>
@@ -67,10 +74,13 @@
                   Order ID
                 </th>
                 <th scope="col" class="text-sm font-medium text-gray-800 px-6 py-4 text-left">
+                  Name
+                </th>
+                <th scope="col" class="text-sm font-medium text-gray-800 px-6 py-4 text-left">
                   Customer Email
                 </th>
                 <th scope="col" class="text-sm font-medium text-gray-800 px-6 py-4 text-left">
-                  Address
+                  Phone Number
                 </th>
                 <th scope="col" class="text-sm font-medium text-gray-800 px-6 py-4 text-left">
                   Total 
@@ -84,10 +94,13 @@
                     <%= link_to o.id, [:admin, o], class: 'underline' %>
                   </td>
                   <td class="px-6 py-4 whitepsace-nowrap tex-sm font-medium text-gray-800">
+                    <%= o.name %>
+                  </td>
+                  <td class="px-6 py-4 whitepsace-nowrap tex-sm font-medium text-gray-800">
                     <%= o.customer_email %>
                   </td>
                   <td class="px-6 py-4 whitepsace-nowrap tex-sm font-medium text-gray-800">
-                    <%= o.address %>
+                    <%= o.phone_number %>
                   </td>
                   <td class="px-6 py-4 whitepsace-nowrap tex-sm font-medium text-gray-800">
                     <%= o.total %>
@@ -96,6 +109,7 @@
               <% end %>
             </tbody>
           </table>
+          <%== pagy_nav(@fulfilled_pagy) if @fulfilled_pagy.pages > 1 %>
         </div>
       </div>
     </div>

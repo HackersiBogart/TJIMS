@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_28_075545) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_10_160218) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -51,6 +51,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_28_075545) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "checkouts", force: :cascade do |t|
+    t.string "reference_number"
+    t.date "date_of_retrieval"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "name"
+  end
+
   create_table "colors", force: :cascade do |t|
     t.string "name"
     t.string "code"
@@ -75,9 +83,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_28_075545) do
     t.string "customer_email"
     t.boolean "fulfilled"
     t.integer "total"
-    t.string "address"
+    t.string "phone_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "name"
   end
 
   create_table "paint_colors", force: :cascade do |t|
@@ -90,7 +99,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_28_075545) do
     t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "product_id"
     t.index ["color_id"], name: "index_paint_colors_on_color_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "color_code"
+    t.text "color_name"
+    t.integer "color_id"
+    t.index ["color_id"], name: "index_products_on_color_id"
   end
 
   create_table "stocks", force: :cascade do |t|

@@ -3,7 +3,8 @@ class Admin::PaintColorsController < AdminController
 
   # GET /admin/paint_colors or /admin/paint_colors.json
   def index
-    @admin_paint_colors = PaintColor.all
+    @admin_paint_colors = PaintColor.where(params[:paint_color_id])
+    
   end
 
   # GET /admin/paint_colors/1 or /admin/paint_colors/1.json
@@ -65,6 +66,6 @@ class Admin::PaintColorsController < AdminController
 
     # Only allow a list of trusted parameters through.
     def admin_paint_color_params
-      params.require(:paint_color).permit(:name, :code, :size, :quantity, :price, :color_id, :active , :image)
+      params.require(:paint_color).permit(:name, :code, :size, :quantity, :price, :product_id, :active , :image)
     end
 end

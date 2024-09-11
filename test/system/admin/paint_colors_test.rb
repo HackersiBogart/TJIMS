@@ -16,7 +16,7 @@ class Admin::PaintColorsTest < ApplicationSystemTestCase
 
     check "Active" if @admin_paint_color.active
     fill_in "Code", with: @admin_paint_color.code
-    fill_in "Color", with: @admin_paint_color.color_id
+    fill_in "Color", with: @admin_paint_color.product_id
     fill_in "Name", with: @admin_paint_color.name
     fill_in "Price", with: @admin_paint_color.price
     fill_in "Quantity", with: @admin_paint_color.quantity
@@ -33,7 +33,7 @@ class Admin::PaintColorsTest < ApplicationSystemTestCase
 
     check "Active" if @admin_paint_color.active
     fill_in "Code", with: @admin_paint_color.code
-    fill_in "Color", with: @admin_paint_color.color_id
+    fill_in "Color", with: @admin_paint_color.product_id
     fill_in "Name", with: @admin_paint_color.name
     fill_in "Price", with: @admin_paint_color.price
     fill_in "Quantity", with: @admin_paint_color.quantity
