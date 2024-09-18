@@ -24,13 +24,7 @@ class CheckoutsController < ApplicationController
     # Render the view with payment options
   end
 
-  def walk_in_payment
-    # Handle walk-in payment logic here
-    @checkout = current_checkout # Assuming you have a method to get the current checkout
-
-    # Render a confirmation or redirect as needed
-    redirect_to show_orders_path, notice: "Your order is placed. Please visit the store to complete your payment."
-  end
+  
 
   def online_payment
     # Redirect to the 'new' action of the checkouts controller

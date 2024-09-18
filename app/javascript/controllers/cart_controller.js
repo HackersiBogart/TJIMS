@@ -67,7 +67,7 @@ export default class extends Controller {
 
   checkout(event) {
     event.preventDefault();
-    window.location.href = "/checkouts/payment_options";
+    window.location.href = "/checkouts/new";
   }
 }
 
