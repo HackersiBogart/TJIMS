@@ -4,8 +4,13 @@ one:
   size: MyString
   amount: 1
   paint_color: one
+  price: 10.50
+  unit: liters
 
 two:
   size: MyString
   amount: 1
   paint_color: two
+  price: 20.75
+  unit: gallons
+

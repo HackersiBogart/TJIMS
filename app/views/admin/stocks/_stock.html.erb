@@ -1,23 +1,40 @@
 <div id="<%= dom_id stock %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Size:</strong>
-    <%= stock.size %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Amount:</strong>
-    <%= stock.amount %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Paint color:</strong>
-    <%= stock.paint_color_id %>
-  </p>
+  <table class="table-auto w-full border-collapse border border-gray-300 mt-5">
+    <thead>
+      <tr class="bg-gray-100">
+        <th class="border px-4 py-2">Attribute</th>
+        <th class="border px-4 py-2">Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="border px-4 py-2 font-medium">Unit</td>
+        <td class="border px-4 py-2"><%= stock.unit %></td>
+      </tr>
+      <tr>
+        <td class="border px-4 py-2 font-medium">Size</td>
+        <td class="border px-4 py-2"><%= stock.size %></td>
+      </tr>
+      <tr>
+        <td class="border px-4 py-2 font-medium">Price</td>
+        <td class="border px-4 py-2"><%= stock.price %></td>
+      </tr>
+      <tr>
+        <td class="border px-4 py-2 font-medium">Amount</td>
+        <td class="border px-4 py-2"><%= stock.amount %></td>
+      </tr>
+      <tr>
+        <td class="border px-4 py-2 font-medium">Paint Color</td>
+        <td class="border px-4 py-2"><%= stock.paint_color_id %></td>
+      </tr>
+    </tbody>
+  </table>
 
   <% if action_name != "show" %>
-    <%= link_to "Show this stock", [:admin, stock.paint_color, stock], class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Edit this stock", edit_admin_paint_color_stock_path(stock.paint_color, stock), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <div class="mt-6">
+      <%= link_to "Show this stock", [:admin, stock.paint_color, stock], class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      <%= link_to "Edit this stock", edit_admin_paint_color_stock_path(stock.paint_color, stock), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    </div>
     <hr class="mt-6">
   <% end %>
-
 </div>

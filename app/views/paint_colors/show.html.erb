@@ -11,33 +11,52 @@
   </div>
 
   <!-- Paint Color Details Section -->
-   <div data-controller="paint-colors"
-     data-paint-colors-id-value="<%= @paint_color.id %>"
-     data-paint-colors-name-value="<%= @paint_color.name %>"
-     data-paint-colors-code-value="<%= @paint_color.code %>"
-     data-paint-colors-price-value="<%= @paint_color.price %>" class="flex flex-col items-start max-w-sm">
-  <h1 class="font-bold text-4xl uppercase"><%= @paint_color.name %></h1>
-  <p class="text-2xl mt-4">₱<%= @paint_color.price.to_s %></p>
+  <div data-controller="paint-colors"
+       data-paint-colors-id-value="<%= @paint_color.id %>"
+       data-paint-colors-name-value="<%= @paint_color.name %>"
+       data-paint-colors-code-value="<%= @paint_color.code %>"
+       data-paint-colors-price-value="<%= @paint_color.price %>" 
+       class="flex flex-col items-start max-w-sm">
 
-  <div class="my-8">
-    <p class='uppercase text-lg'>Size</p>
-    <% @paint_color.stocks.each do |stock| %>
-      <% if stock.amount.present? && stock.amount > 0 %>
-        <button data-action="click->paint-colors#selectSize" value="<%= stock.size %>" class="bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
-          <%= stock.size %>
-        </button>
-      <% else %> 
-        <button disabled value="<%= stock.size %>" class="disabled:bg-gray-400 bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
-          <%= stock.size %>
-        </button>
+    <h1 class="font-bold text-4xl uppercase"><%= @paint_color.name %></h1>
+
+    <!-- Price Section -->
+    <p id="price-display" class="text-2xl mt-4">₱<%= @paint_color.price.to_s %></p>
+
+    <select data-action="change->paint-colors#selectUnit">
+  <option value="liters">Liters</option>
+  <option value="gallons">Gallons</option>
+</select>
+
+<div id="selected-unit">Selected Unit: Liters</div>
+
+
+    <div class="my-8">
+      <p class='uppercase text-lg'>Size</p>
+      <% @paint_color.stocks.each do |stock| %>
+        <% if stock.amount.present? && stock.amount > 0 %>
+          <button data-action="click->paint-colors#selectSize" 
+                  data-price="<%= stock.price %>" 
+                  data-unit="<%= stock.unit %>" 
+                  value="<%= stock.size %>" 
+                  class="bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
+            <%= stock.size %>
+          </button>
+        <% else %> 
+          <button disabled 
+                  value="<%= stock.size %>" 
+                  class="disabled:bg-gray-400 bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
+            <%= stock.size %>
+          </button>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
+
+
+    <div id="selected-size"></div>
+    <button data-action="click->paint-colors#addToCart" 
+            class="inline-flex items-center justify-center px-5 py-3 border border-transparent font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+      Add To Cart
+    </button>
   </div>
-
-  <div id="selected-size"></div>
-  <button data-action="click->paint-colors#addToCart" class="inline-flex items-center justify-center px-5 py-3 border border-transparent font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-    Add To Cart
-  </button>
 </div>
-
-

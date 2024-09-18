@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_10_160218) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_18_081335) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -57,6 +57,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_10_160218) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "name"
+    t.integer "order_id"
   end
 
   create_table "colors", force: :cascade do |t|
@@ -87,6 +88,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_10_160218) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "name"
+    t.integer "quantity"
+    t.string "size"
   end
 
   create_table "paint_colors", force: :cascade do |t|
@@ -100,6 +103,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_10_160218) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "product_id"
+    t.integer "order_id"
+    t.integer "whole_size"
+    t.string "fraction_size"
+    t.string "unit"
     t.index ["color_id"], name: "index_paint_colors_on_color_id"
   end
 
@@ -115,12 +122,31 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_10_160218) do
     t.index ["color_id"], name: "index_products_on_color_id"
   end
 
+  create_table "purchase_items", force: :cascade do |t|
+    t.integer "quantity"
+    t.integer "paint_color_id"
+    t.integer "purchase_id"
+    t.decimal "total"
+    t.decimal "unit_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "purchases", force: :cascade do |t|
+    t.decimal "subtotal"
+    t.decimal "total"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "stocks", force: :cascade do |t|
     t.string "size"
     t.integer "amount"
     t.integer "paint_color_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "unit"
+    t.decimal "price"
     t.index ["paint_color_id"], name: "index_stocks_on_paint_color_id"
   end
 
