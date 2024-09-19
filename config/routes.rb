@@ -27,7 +27,8 @@ Rails.application.routes.draw do
   end
 
   # Define routes for the checkouts controller outside the admin namespace
-  resources :checkouts, only: [:new, :create] 
+  resources :checkouts, only: [:new, :create]
+  
 
   resources :colors, only: [:show]
   resources :products, only: [:show]
@@ -36,6 +37,8 @@ Rails.application.routes.draw do
   get "admin" => "admin#index"
   get "cart" => "carts#show"
   post "checkouts" => "checkouts#create"
+  get 'summary', to: 'summary#show'
+  get 'summary/:id', to: 'summary#show', as: 'order_summary'
  
 end
  
