@@ -5,7 +5,7 @@ class Order < ApplicationRecord
 
   has_one_attached :receipt_image # Assuming Active Storage is set up for receipt images
 
-  validates :name, :customer_email, :phone_number, :total, :reference_number, presence: true
+  validates :name, :customer_email, :phone_number, :total, :size, :quantity, :item, :date_of_retrieval, :reference_number, presence: true
 
   
 

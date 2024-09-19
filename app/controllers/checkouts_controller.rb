@@ -11,6 +11,8 @@ class CheckoutsController < ApplicationController
     @cart = retrieve_cart
 
     if @admin_order.save
+      save_cart_items_to_order(@admin_order, @cart)
+      session[:cart] = []
       # Redirect to the unfulfilled orders page after saving checkout details
       redirect_to unfulfilled_orders_path, notice: "Checkout completed successfully."
     else
@@ -24,7 +26,27 @@ class CheckoutsController < ApplicationController
     # Render the view with payment options
   end
 
-  
+  def retrieve_cart
+    session[:cart] || []
+  end
+
+  def save_cart_items_to_order(order, cart)
+    cart.each do |item|
+      paint_color = PaintColor.find(item["paint_color_id"])
+      
+      # Create an OrderPaintColor or similar model to associate the cart item with the order
+      order.order_paint_colors.create!(
+        paint_color: paint_color,
+        quantity: item["quantity"],
+        size: item["size"],
+        price: item["price"] # assuming this is the price per unit
+      )
+
+      # Optionally reduce stock
+      reduce_stock(paint_color, item["quantity"])
+    end
+  end
+
 
   def online_payment
     # Redirect to the 'new' action of the checkouts controller
@@ -34,7 +56,7 @@ class CheckoutsController < ApplicationController
   private
 
   def checkout_params
-    params.require(:checkout).permit(:customer_email, :name, :phone_number, :reference_number, :receipt_image, :date_of_retrieval, :total, :size, :quantity)
+    params.require(:checkout).permit(:customer_email, :name, :phone_number, :reference_number, :receipt_image, :date_of_retrieval, :total, :size, :quantity,:item)
   end
 
  

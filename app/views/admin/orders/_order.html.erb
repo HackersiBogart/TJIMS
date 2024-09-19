@@ -17,7 +17,7 @@
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Fulfilled:</strong>
-    <%= order.fulfilled %>
+    <%= order.fulfilled ? 'Yes' : 'No' %>
   </p>
 
   <p class="my-5">
@@ -30,22 +30,29 @@
     <%= order.date_of_retrieval %>
   </p>
 
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Item:</strong>
+    <%= order.item %>
+  </p>
+
+   <p class="my-5">
+    <strong class="block font-medium mb-1">Size:</strong>
+    <%= order.size %>
+  </p>
+
+   <p class="my-5">
+    <strong class="block font-medium mb-1">Quantity:</strong>
+    <%= order.quantity %>
+  </p>
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Total:</strong>
     <%= order.total %>
   </p>
 
-  
 
-  <% if order.order_paint_color.any? %>
-    <strong class="block font-medium mb-1">Products:</strong>
-    <% order.order_paint_color.each do |op| %>
-      <%= op.paint_color.name %> 
-      <%= op.size %>
-      <%= op.quantity %>
-    <% end %>
-  <% end %>
+
+
 
   <% if action_name != "show" %>
     <%= link_to "Show this order", [:admin, order], class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
