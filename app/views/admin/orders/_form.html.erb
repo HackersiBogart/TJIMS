@@ -22,22 +22,41 @@
   </div>
 
   <div class="my-5">
+    <%= form.label :phone_number %>
+    <%= form.text_field :phone_number, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :date_of_retrieval %>
+    <%= form.text_field :date_of_retrieval, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
     <%= form.label :fulfilled %>
     <%= form.check_box :fulfilled, class: "block mt-2 h-5 w-5" %>
   </div>
 
   <div class="my-5">
+    <%= form.label :reference_number %>
+    <%= form.text_field :reference_number, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :total %>
+    <%= form.text_field :total, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+
+ <!-- <div class="my-5">
   <div data-controller="cart">
     <%= form.label :total %>
     <%= form.text_field :total, id: "order_total", readonly: true, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
-</div>
+</div>-->
 
 
-  <div class="my-5">
-    <%= form.label :phone_number %>
-    <%= form.text_field :phone_number, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
+
+  
 
   <div class="my-5">
     <%= form.label :paint_color_id, "Select Paint Color" %>

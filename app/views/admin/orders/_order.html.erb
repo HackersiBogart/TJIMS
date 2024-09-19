@@ -11,19 +11,32 @@
   </p>
 
   <p class="my-5">
+    <strong class="block font-medium mb-1">Phone Number:</strong>
+    <%= order.phone_number %>
+  </p>
+
+  <p class="my-5">
     <strong class="block font-medium mb-1">Fulfilled:</strong>
     <%= order.fulfilled %>
   </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Reference Number:</strong>
+    <%= order.reference_number %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Date of Retrieval:</strong>
+    <%= order.date_of_retrieval %>
+  </p>
+
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Total:</strong>
     <%= order.total %>
   </p>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Phone Number:</strong>
-    <%= order.phone_number %>
-  </p>
+  
 
   <% if order.order_paint_color.any? %>
     <strong class="block font-medium mb-1">Products:</strong>
