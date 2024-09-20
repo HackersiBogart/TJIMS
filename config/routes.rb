@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   namespace :admin do
+    resources :primary_colors
     resources :orders
     resources :products
     resources :paint_colors do

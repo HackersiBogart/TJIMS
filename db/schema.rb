@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_18_134510) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_20_023340) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -92,6 +92,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_18_134510) do
     t.string "size"
     t.string "reference_number"
     t.datetime "date_of_retrieval"
+    t.text "item"
+    t.index "\"paint_color_id\"", name: "index_orders_on_paint_color_id"
   end
 
   create_table "paint_colors", force: :cascade do |t|
@@ -110,6 +112,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_18_134510) do
     t.string "fraction_size"
     t.string "unit"
     t.index ["color_id"], name: "index_paint_colors_on_color_id"
+  end
+
+  create_table "primary_colors", force: :cascade do |t|
+    t.string "color_name"
+    t.string "color_code"
+    t.decimal "price"
+    t.decimal "stocks"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "products", force: :cascade do |t|
