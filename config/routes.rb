@@ -1,13 +1,24 @@
 Rails.application.routes.draw do
+  get 'mix/new'
+  get 'mix/create'
+  get 'mix/index'
+  post 'mix/deduct_stock', to: 'mix#deduct_stock', as: 'mix_deduct_stock'
   namespace :admin do
+    resources :mix, only: [:index, :create, :deduct] do
+      post 'deduct_stock', on: :collection
+    end
     resources :primary_colors
     resources :orders
     resources :products
     resources :paint_colors do
-      resources :stocks, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+    resources :stocks, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+      
     end
     resources :colors
+
   end
+
+  
   
   devise_for :admins, path: 'admins'
   
@@ -36,6 +47,7 @@ Rails.application.routes.draw do
   resources :paint_colors, only: [:show]
 
   get "admin" => "admin#index"
+  get "mix" => "mix#index"
   get "cart" => "carts#show"
   post "checkouts" => "checkouts#create"
   get 'summary', to: 'summary#show'

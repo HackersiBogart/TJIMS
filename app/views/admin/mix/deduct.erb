@@ -1,0 +1,9 @@
+<%= form_with url: admin_mixes_deduct_stock_path, method: :post do |f| %>
+  <%= fields_for :admin_primary_color do |color_form| %>
+    <%= color_form.fields_for :colors_attributes do |colors_fields| %>
+      <%= colors_fields.select :primary_color_id, options_for_select(@primary_colors.pluck(:color_name, :id)) %>
+      <%= colors_fields.text_field :amount %>
+    <% end %>
+  <% end %>
+  <%= f.submit "Deduct Stock" %>
+<% end %>
