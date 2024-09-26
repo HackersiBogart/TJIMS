@@ -1,0 +1,2 @@
+module Admin::MixturesHelper
+end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_24_050800) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_26_164327) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -77,6 +77,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_24_050800) do
     t.integer "primary_color_id"
     t.integer "order_id"
     t.index ["paint_color_id"], name: "index_mixes_on_paint_color_id"
+  end
+
+  create_table "mixtures", force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "primary_color_id", null: false
+    t.decimal "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_mixtures_on_order_id"
+    t.index ["primary_color_id"], name: "index_mixtures_on_primary_color_id"
   end
 
   create_table "order_paint_colors", force: :cascade do |t|
@@ -179,6 +189,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_24_050800) do
   add_foreign_key "mixes", "orders"
   add_foreign_key "mixes", "paint_colors"
   add_foreign_key "mixes", "primary_colors"
+  add_foreign_key "mixtures", "orders"
+  add_foreign_key "mixtures", "primary_colors"
   add_foreign_key "order_paint_colors", "orders"
   add_foreign_key "order_paint_colors", "paint_colors"
   add_foreign_key "paint_colors", "colors"

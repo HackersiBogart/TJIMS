@@ -1,0 +1,70 @@
+class Admin::MixturesController < AdminController
+  before_action :set_admin_mixture, only: %i[ show edit update destroy ]
+
+  # GET /admin/mixtures or /admin/mixtures.json
+  def index
+    @admin_mixtures = Mixture.all
+  end
+
+  # GET /admin/mixtures/1 or /admin/mixtures/1.json
+  def show
+  end
+
+  # GET /admin/mixtures/new
+  def new
+    @admin_mixture = Mixture.new
+  end
+
+  # GET /admin/mixtures/1/edit
+  def edit
+  end
+
+  # POST /admin/mixtures or /admin/mixtures.json
+  def create
+    @admin_mixture = Mixture.new(admin_mixture_params)
+
+    respond_to do |format|
+      if @admin_mixture.save
+        format.html { redirect_to admin_mixture_url(@admin_mixture), notice: "Mixture was successfully created." }
+        format.json { render :show, status: :created, location: @admin_mixture }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @admin_mixture.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /admin/mixtures/1 or /admin/mixtures/1.json
+  def update
+    respond_to do |format|
+      if @admin_mixture.update(admin_mixture_params)
+        format.html { redirect_to admin_mixture_url(@admin_mixture), notice: "Mixture was successfully updated." }
+        format.json { render :show, status: :ok, location: @admin_mixture }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @admin_mixture.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /admin/mixtures/1 or /admin/mixtures/1.json
+  def destroy
+    @admin_mixture.destroy!
+
+    respond_to do |format|
+      format.html { redirect_to admin_mixtures_url, notice: "Mixture was successfully destroyed." }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_admin_mixture
+      @admin_mixture = Mixture.find(params[:id])
+    end
+
+    # Only allow a list of trusted parameters through.
+    def admin_mixture_params
+      params.require(:mixture).permit(:order_id, :primary_color_id, :amount)
+    end
+end

@@ -1,0 +1,23 @@
+<div id="<%= dom_id mixture %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Order:</strong>
+    <%= mixture.order_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Primary color:</strong>
+    <%= mixture.primary_color_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Amount:</strong>
+    <%= mixture.amount %>
+  </p>
+
+   <% if action_name != "show" %>
+    <%= link_to "Show", [:admin, mixture], class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit", edit_admin_mixture_path(mixture), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+
+</div>
