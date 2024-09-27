@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  devise_for :admins, controllers: {
+    sessions: 'admins/sessions',
+    registrations: 'admins/registrations',
+    passwords: 'admins/passwords',
+    shared: 'admins/shared'
+  }
   get 'mix/new'
   get 'mix/create'
   get 'mix/index'
@@ -19,9 +25,7 @@ Rails.application.routes.draw do
 
   end
 
-  
-  
-  devise_for :admins, path: 'admins'
+
   
   namespace :admin do
     resources :products
