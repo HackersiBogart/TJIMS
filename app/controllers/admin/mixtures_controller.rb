@@ -13,6 +13,8 @@ class Admin::MixturesController < AdminController
   # GET /admin/mixtures/new
   def new
     @admin_mixture = Mixture.new
+    @admin_mixture.mixture_details.build
+    @admin_mixture.mixture_thirds.build
   end
 
   # GET /admin/mixtures/1/edit
@@ -65,6 +67,18 @@ class Admin::MixturesController < AdminController
 
     # Only allow a list of trusted parameters through.
     def admin_mixture_params
-      params.require(:mixture).permit(:order_id, :primary_color_id, :amount)
+      params.require(:mixture).permit(:order_id, :primary_color_id, :amount, mixture_details_attributes: %i[
+        id
+        order_id
+        primary_color_id
+        amount
+        _destroy
+      ], mixture_thirds_attributes: %i[
+        id
+        order_id
+        primary_color_id
+        amount
+        _destroy])
+
     end
 end

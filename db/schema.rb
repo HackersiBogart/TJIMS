@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_26_164327) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_04_173038) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -77,6 +77,35 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_26_164327) do
     t.integer "primary_color_id"
     t.integer "order_id"
     t.index ["paint_color_id"], name: "index_mixes_on_paint_color_id"
+  end
+
+  create_table "mixture_details", force: :cascade do |t|
+    t.integer "mixture_id", null: false
+    t.integer "order_id"
+    t.integer "primary_color_id"
+    t.decimal "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mixture_id"], name: "index_mixture_details_on_mixture_id"
+  end
+
+  create_table "mixture_items", force: :cascade do |t|
+    t.integer "mixture_id", null: false
+    t.integer "primary_color_id"
+    t.decimal "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mixture_id"], name: "index_mixture_items_on_mixture_id"
+  end
+
+  create_table "mixture_thirds", force: :cascade do |t|
+    t.integer "mixture_id", null: false
+    t.integer "order_id"
+    t.integer "primary_color_id"
+    t.decimal "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mixture_id"], name: "index_mixture_thirds_on_mixture_id"
   end
 
   create_table "mixtures", force: :cascade do |t|
@@ -189,6 +218,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_26_164327) do
   add_foreign_key "mixes", "orders"
   add_foreign_key "mixes", "paint_colors"
   add_foreign_key "mixes", "primary_colors"
+  add_foreign_key "mixture_details", "mixtures"
+  add_foreign_key "mixture_items", "mixtures"
+  add_foreign_key "mixture_thirds", "mixtures"
   add_foreign_key "mixtures", "orders"
   add_foreign_key "mixtures", "primary_colors"
   add_foreign_key "order_paint_colors", "orders"

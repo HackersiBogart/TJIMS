@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get 'mix/index'
   post 'mix/deduct_stock', to: 'mix#deduct_stock', as: 'mix_deduct_stock'
   namespace :admin do
+    resources :mixture_thirds
+    resources :mixture_details
     resources :mixtures
     resources :mix, only: [:index, :create, :deduct] do
       post 'deduct_stock', on: :collection

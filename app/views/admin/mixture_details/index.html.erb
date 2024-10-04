@@ -1,0 +1,21 @@
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <% content_for :title, "Mixture details" %>
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">Mixture details</h1>
+    <%= link_to "New mixture detail", new_admin_mixture_detail_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+  </div>
+
+  <div id="admin_mixture_details" class="min-w-full">
+    <% @admin_mixture_details.each do |admin_mixture_detail| %>
+      <%= render admin_mixture_detail %>
+      <p>
+        <%= link_to "Show this mixture detail", admin_mixture_detail, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      </p>
+    <% end %>
+  </div>
+</div>

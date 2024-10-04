@@ -14,10 +14,25 @@
     <%= mixture.amount %>
   </p>
 
+  <h3>Details</h3>
+    <div id=  "mixture_details">
+      <% mixture.mixture_details.each do |mixture_detail| %> 
+        <%= render partial: "admin/mixture_details/mixture_mixture_detail", locals: { mixture_detail: mixture_detail } %>
+
+      <% end %>
+
+    <h3>Thirds</h3>
+    <div id=  "mixture_thirds">
+      <% mixture.mixture_thirds.each do |mixture_third| %> 
+        <%= render partial: "admin/mixture_thirds/mixture_mixture_third", locals: { mixture_third: mixture_third } %>
+
+      <% end %>
+
    <% if action_name != "show" %>
     <%= link_to "Show", [:admin, mixture], class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Edit", edit_admin_mixture_path(mixture), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
     <hr class="mt-6">
   <% end %>
+  </div>
 
 </div>
