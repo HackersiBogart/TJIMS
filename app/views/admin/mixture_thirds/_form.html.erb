@@ -1,3 +1,5 @@
+<%= javascript_pack_tag 'cocoon', 'data-turbo-track': 'reload' if controller_name == 'cocoon' %>
+
 <%= form_with(model: admin_mixture_third, class: "contents") do |form| %>
   <% if admin_mixture_third.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">

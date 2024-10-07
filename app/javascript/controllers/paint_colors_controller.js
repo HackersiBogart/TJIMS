@@ -86,3 +86,5 @@ export default class extends Controller {
     this.unitDisplay.innerHTML = `Unit: ${unit}`
   }
 }
+
+
