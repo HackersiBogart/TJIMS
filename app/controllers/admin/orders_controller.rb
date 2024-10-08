@@ -9,6 +9,8 @@ class Admin::OrdersController < AdminController
 
   # GET /admin/orders/1 or /admin/orders/1.json
   def show
+    @order = Order.find(params[:id])
+    @paint_color = @order.paint_color # Assuming an order has one paint color
   end
 
   # GET /admin/orders/new
@@ -66,6 +68,6 @@ class Admin::OrdersController < AdminController
 
     # Only allow a list of trusted parameters through.
     def admin_order_params
-      params.require(:order).permit(:customer_email, :fulfilled,:name, :phone_number, :reference_number, :receipt_image, :date_of_retrieval, :total,:size,:quantity, :item)
+      params.require(:order).permit(:customer_email, :fulfilled,:name, :phone_number, :reference_number, :image, :date_of_retrieval, :total,:size,:quantity, :item)
     end
 end

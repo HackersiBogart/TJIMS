@@ -25,6 +25,11 @@
     <%= order.reference_number %>
   </p>
 
+   <p class="my-5">
+    <strong class="block font-medium mb-1">References Image:</strong>
+    <%= order.image.attached? ? image_tag(order.image, size: "50x50") : image_tag("https://via.placeholder.com/50", size: "50x50") %>
+  </p>
+
   <p class="my-5">
     <strong class="block font-medium mb-1">Date of Retrieval:</strong>
     <%= order.date_of_retrieval %>
