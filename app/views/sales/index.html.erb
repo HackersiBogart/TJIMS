@@ -1,0 +1,39 @@
+<h1 class="text-2xl mb-4">Sales Data</h1>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+  <div>
+    <h2 class="text-xl font-semibold">Sales by Brand</h2>
+    <ul>
+      <% @sales_data[:colors].each do |color, total| %>
+        <li><%= color %>: ₱<%= total %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div>
+    <h2 class="text-xl font-semibold">Sales by Product</h2>
+    <ul>
+      <% @sales_data[:products].each do |product, total| %>
+        <li><%= product %>: ₱<%= total %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div>
+    <h2 class="text-xl font-semibold">Sales by Paint Color</h2>
+    <ul>
+      <% @sales_data[:paint_colors].each do |paint_color, total| %>
+        <li><%= paint_color %>: ₱<%= total %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div>
+    <h2 class="text-xl font-semibold">Sales by Primary Color</h2>
+    <ul>
+      <% @sales_data[:primary_colors].each do |primary_color, total| %>
+        <li><%= primary_color %>: ₱<%= total %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>

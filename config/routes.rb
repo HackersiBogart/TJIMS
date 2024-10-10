@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'sales/index'
   get 'reports/index'
   devise_for :admins, controllers: {
     sessions: 'admins/sessions',
@@ -61,6 +62,7 @@ Rails.application.routes.draw do
   post "checkouts" => "checkouts#create"
   get 'summary', to: 'summary#show'
   get 'summary/:id', to: 'summary#show', as: 'order_summary'
+  get 'sales', to: 'sales#index'
  
 end
  

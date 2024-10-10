@@ -1,6 +1,7 @@
 class PrimaryColor < ApplicationRecord
   has_one_attached :image
   has_many :mixes
+  has_many :orders
   has_many :mixtures
   has_many :mixture_details
   has_many :mixture_thirds

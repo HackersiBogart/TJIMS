@@ -9,5 +9,5 @@ class PaintColor < ApplicationRecord
   belongs_to :color
   belongs_to :product
   has_many :orders
-  has_many :order_paint_colors
+
 end
