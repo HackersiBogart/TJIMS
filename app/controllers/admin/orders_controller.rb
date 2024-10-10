@@ -44,11 +44,13 @@ class Admin::OrdersController < AdminController
         format.html { redirect_to admin_order_url(@admin_order), notice: "Order was successfully updated." }
         format.json { render :show, status: :ok, location: @admin_order }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit }
         format.json { render json: @admin_order.errors, status: :unprocessable_entity }
       end
     end
   end
+
+
 
   # DELETE /admin/orders/1 or /admin/orders/1.json
   def destroy
@@ -68,6 +70,6 @@ class Admin::OrdersController < AdminController
 
     # Only allow a list of trusted parameters through.
     def admin_order_params
-      params.require(:order).permit(:customer_email, :fulfilled,:name, :phone_number, :reference_number, :image, :date_of_retrieval, :total,:size,:quantity, :item)
+      params.require(:order).permit(:customer_email, :fulfilled,:name, :phone_number, :reference_number, :image, :date_of_retrieval, :total,:size,:quantity, :item, :product_id)
     end
 end

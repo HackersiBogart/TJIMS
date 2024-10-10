@@ -1,8 +1,10 @@
 class Order < ApplicationRecord
   belongs_to :paint_color, optional: true
   has_many :mixes
-  belongs_to :products
+  has_many :products, class_name: 'Product', foreign_key: 'order_id', dependent: :destroy
+  belongs_to :product
   belongs_to :primary_colors
+  # has_many :primary_colors, class_name: 'PrimaryColor', foreign_key: 'order_id', dependent: :destroy
 
 
   has_one_attached :image # Assuming Active Storage is set up for receipt images

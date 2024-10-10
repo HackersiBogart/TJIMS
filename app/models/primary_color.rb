@@ -6,6 +6,7 @@ class PrimaryColor < ApplicationRecord
   has_many :mixture_details
   has_many :mixture_thirds
   validates :stocks, numericality: { greater_than_or_equal_to: 0 }
+  # belongs_to :order
 
   def deduct_stock!(amount)
     if stocks >= amount
