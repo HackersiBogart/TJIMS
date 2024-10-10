@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :mixture_thirds
     resources :mixture_details
     resources :mixtures
+    resources :sales, only: [:index, :show]
     resources :mix, only: [:index, :create, :deduct] do
       post 'deduct_stock', on: :collection
     end

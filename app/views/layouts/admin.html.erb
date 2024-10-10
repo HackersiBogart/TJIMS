@@ -61,6 +61,12 @@
               <% end %>
             </li>
 
+             <li>
+              <%= link_to admin_sales_path, class: "block px-4 py-2 hover:rounded hover:bg-gray-700" do %>
+                <%= icon('fa-solid', 'list', class: 'mr-2') %> <span class="hidden md:inline-block">Sales</span>
+              <% end %>
+            </li>
+
            
             <li>
               <%= link_to destroy_admin_session_path, data: { "turbo-method": :delete, "turbo-confirm": "Are you sure you want to sign out?" }, class: "block px-4 py-2 hover:rounded hover:bg-gray-700" do %>

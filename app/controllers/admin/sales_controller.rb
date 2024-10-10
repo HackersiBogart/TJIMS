@@ -1,4 +1,4 @@
-class SalesController < ApplicationController
+class Admin::SalesController < AdminController
   def index
     @colors = Color.includes(:orders) # Assuming Brand model is related to Order
     @products = Product.includes(:orders) # Assuming Product model is related to Order
