@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'reports/index'
   devise_for :admins, controllers: {
     sessions: 'admins/sessions',
     registrations: 'admins/registrations',
@@ -53,6 +54,7 @@ Rails.application.routes.draw do
   resources :products, only: [:show]
   resources :paint_colors, only: [:show]
 
+ get 'reports', to: 'reports#index'
   get "admin" => "admin#index"
   get "mix" => "mix#index"
   get "cart" => "carts#show"

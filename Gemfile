@@ -68,7 +68,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-
+gem 'groupdate'
 gem "devise", "~> 4.9"
 
 gem "font-awesome-sass", "~> 6.5.1"
