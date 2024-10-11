@@ -11,6 +11,8 @@
     </div>
   <% end %>
 
+  <h3>Checkout</h3>
+
   <div class="my-5">
     <%= form.label :customer_email %>
     <%= form.text_field :customer_email, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
@@ -24,6 +26,11 @@
   <div class="my-5">
     <%= form.label :phone_number %>
     <%= form.text_field :phone_number, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+   <div class="mt-4">
+    <h3>QR Code:</h3>
+    <%= image_tag "qrcode.jpg", alt: "QR Code", class: "mt-2 rounded-lg", style: "max-width: 200px; height: auto;" %>
   </div>
 
   <div class="mt-4">
@@ -46,33 +53,27 @@
     <%= form.check_box :fulfilled, class: "block mt-2 h-5 w-5" %>
   </div>
 
-  <h2>Guide for inputs:</h2>
-<div class="my-5">
+  <div class="my-5">
   <div data-controller="cart">
-    <%= form.label :total %>
-    <%= form.text_field :total, id: "order_total", readonly: true %>
+    <div class="my-5">
+      <%= form.label :items %>
+      <%= form.text_field :items, id: "order_items", readonly: true %>
+    </div>
+    <div class="my-5">
+      <%= form.label :size %>
+      <%= form.text_field :size, id: "order_size", readonly: true %>
+    </div>
+    <div class="my-5">
+      <%= form.label :quantity %>
+      <%= form.text_field :quantity, id: "order_quantity", readonly: true %>
+    </div>
+    <div class="my-5">
+      <%= form.label :total %>
+      <%= form.text_field :total, id: "order_total", readonly: true %>
+    </div>
+  </div>
 </div>
-  </div>
 
-   <div class="my-5">
-    <%= form.label :item, "Item" %>
-    <%= form.text_field :item, class: "form-input mt-1 block w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :size, "Size" %>
-    <%= form.text_field :size, class: "form-input mt-1 block w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :quantity, "Quantity" %>
-    <%= form.text_field :quantity, class: "form-input mt-1 block w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :total, "Total" %>
-    <%= form.text_field :total, class: "form-input mt-1 block w-full" %>
-  </div>
 
   <div class="inline">
     <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>

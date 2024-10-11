@@ -1,26 +1,31 @@
 class CheckoutsController < ApplicationController
-  def new
-    @cart = retrieve_cart
-    @total_price = calculate_total_price(@cart)
-    @admin_order = Order.new
-    @cart_items = @cart # Pass cart items to the view
-  end
-
-  def create
-    @admin_order = Order.new(checkout_params) # Use Order instead of Checkout
-    @cart = retrieve_cart
-
-    if @admin_order.save
-      save_cart_items_to_order(@admin_order, @cart)
-      session[:cart] = []
-      # Redirect to the unfulfilled orders page after saving checkout details
-      redirect_to unfulfilled_orders_path, notice: "Checkout completed successfully."
-    else
+    def new
       @cart = retrieve_cart
       @total_price = calculate_total_price(@cart)
-      render :new
+      @admin_order = Order.new  # Renaming from @admin_order to @order for clarity
+      @cart_items = @cart  # Pass cart items to the view
     end
-  end
+  
+    def create
+      @admin_order = Order.new(order_params)  # Now using order_params
+  
+      @cart = retrieve_cart
+  
+      if @admin_order.save
+        save_cart_items_to_order(@admin_order, @cart)  # Save cart items to the order
+        session[:cart] = []  # Clear the cart after successful checkout
+  
+        # Redirect to the unfulfilled orders page after saving checkout details
+        redirect_to unfulfilled_orders_path, notice: "Checkout completed successfully."
+      else
+        @cart = retrieve_cart
+        @total_price = calculate_total_price(@cart)
+        render :new  # Re-render the form if there is an error
+      end
+    end
+  
+
+  
 
   def payment_options
     # Render the view with payment options
@@ -30,7 +35,7 @@ class CheckoutsController < ApplicationController
     session[:cart] || []
   end
 
-  def save_cart_items_to_order(order, cart)
+  def save_cart_items_to_order(admin_order, cart)
     cart.each do |item|
       paint_color = PaintColor.find(item["paint_color_id"])
       
@@ -56,7 +61,7 @@ class CheckoutsController < ApplicationController
   private
 
   def checkout_params
-    params.require(:checkout).permit(:customer_email, :name, :phone_number, :reference_number, :receipt_image, :date_of_retrieval, :total, :size, :quantity,:item)
+    params.require(:checkout).permit(:customer_email, :name, :phone_number, :reference_number, :image, :date_of_retrieval, :total, :size, :quantity,:item)
   end
 
  

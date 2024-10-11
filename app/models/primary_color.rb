@@ -1,12 +1,14 @@
 class PrimaryColor < ApplicationRecord
   has_one_attached :image
   has_many :mixes
-  has_many :orders
+  has_many :orders # If a primary color can belong to multiple orders, this should be plural.
   has_many :mixtures
   has_many :mixture_details
   has_many :mixture_thirds
+
   validates :stocks, numericality: { greater_than_or_equal_to: 0 }
-  # belongs_to :order
+
+
 
   def deduct_stock!(amount)
     if stocks >= amount
