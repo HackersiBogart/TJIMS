@@ -1,8 +1,7 @@
 class Order < ApplicationRecord
   belongs_to :paint_color, optional: true
-  belongs_to :product
-  belongs_to :primary_color # This should be singular if an order only has one primary color.
-
+  belongs_to :product, optional: true
+  belongs_to :primary_color, optional: true
   has_many :mixes
   has_many :products, class_name: 'Product', foreign_key: 'order_id', dependent: :destroy
 

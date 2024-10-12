@@ -70,6 +70,6 @@ class Admin::OrdersController < AdminController
 
     # Only allow a list of trusted parameters through.
     def admin_order_params
-      params.require(:order).permit(:customer_email, :fulfilled,:name, :phone_number, :reference_number, :image, :date_of_retrieval, :total,:size,:quantity, :item, :product_id)
+      params.require(:order).permit(:customer_email, :fulfilled,:name, :phone_number, :reference_number, :image, :date_of_retrieval, :total,:size,:quantity, :item, :product_id, :primary_color_id)
     end
 end

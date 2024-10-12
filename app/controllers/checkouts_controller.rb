@@ -7,7 +7,7 @@ class CheckoutsController < ApplicationController
     end
   
     def create
-      @admin_order = Order.new(order_params)  # Now using order_params
+      @admin_order = Order.new(checkout_params)  # Now using order_params
   
       @cart = retrieve_cart
   
