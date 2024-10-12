@@ -2,10 +2,13 @@ class Admin::OrdersController < AdminController
   before_action :set_admin_order, only: %i[ show edit update destroy ]
 
   # GET /admin/orders or /admin/orders.json
-  def index
-    @not_fulfilled_pagy, @not_fulfilled_orders = pagy(Order.where(fulfilled: false).order(created_at: :asc))
-    @fulfilled_pagy, @fulfilled_orders = pagy(Order.where(fulfilled: true).order(created_at: :asc), page_param: :page_fulfilled)
-  end
+ # GET /admin/orders or /admin/orders.json
+def index
+  # Orders sorted by latest created_at date first
+  @not_fulfilled_pagy, @not_fulfilled_orders = pagy(Order.where(fulfilled: false).order(created_at: :desc))
+  @fulfilled_pagy, @fulfilled_orders = pagy(Order.where(fulfilled: true).order(created_at: :desc), page_param: :page_fulfilled)
+end
+
 
   # GET /admin/orders/1 or /admin/orders/1.json
   def show
