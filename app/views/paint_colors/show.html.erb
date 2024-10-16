@@ -1,7 +1,28 @@
 <h1>Paint Color show page</h1>
 
+
+  <div class="flex justify-center gap-20 py-10">
+  <!-- Brand Image Display Section -->
+  <div class="flex flex-wrap max-w-lg">
+    <% if @color.image.attached? %>
+      <%= image_tag @color.image, class: "w-auto h-32" %>
+    <% else %>
+      <p>No image available.</p>
+    <% end %>
+  </div>
+
+  <div class="flex justify-center gap-20 py-10">
+  <!-- Product Image Display Section -->
+  <div class="flex flex-wrap max-w-lg">
+    <% if @product.image.attached? %>
+      <%= image_tag @product.image, class: "w-auto h-32" %>
+    <% else %>
+      <p>No image available.</p>
+    <% end %>
+  </div>
+
 <div class="flex justify-center gap-20 py-10">
-  <!-- Image Display Section -->
+  <!-- Paint Color Image Display Section -->
   <div class="flex flex-wrap max-w-lg">
     <% if @paint_color.image.attached? %>
       <%= image_tag @paint_color.image, class: "w-auto h-64" %>
@@ -9,6 +30,8 @@
       <p>No image available.</p>
     <% end %>
   </div>
+
+
 
   <!-- Paint Color Details Section -->
   <div data-controller="paint-colors"

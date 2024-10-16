@@ -46,36 +46,32 @@
     <%= form.file_field :image, class: "form-input mt-1 block w-full" %>
   </div>
 
-
+<div data-controller="cart">
   <div class="my-5">
-    <%= form.label :item %>
-    <%= form.text_field :item, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
+      <%= form.label :item %>
+      <%= form.text_field :item, id: "order_items", readonly: true %>
+    </div>
+    <div class="my-5">
+      <%= form.label :size %>
+      <%= form.text_field :size, id: "order_size", readonly: true %>
+    </div>
+    <div class="my-5">
+      <%= form.label :quantity %>
+      <%= form.text_field :quantity, id: "order_quantity", readonly: true %>
+    </div>
+  <!-- Display Total -->
+<div class="my-5">
+  <%= form.label :total, "Total Cost (for reference)" %>
+  <%= form.text_field :total, value: admin_order.total, readonly: true, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+</div>
+</div>
 
- <div class="my-5">
-    <%= form.label :size %>
-    <%= form.text_field :size, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :quantity %>
-    <%= form.text_field :quantity, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :total %>
-    <%= form.text_field :total, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
- 
-
-
- <!-- <div class="my-5">
-  <div data-controller="cart">
-    <%= form.label :total %>
-    <%= form.text_field :total, id: "order_total", readonly: true, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-</div>-->
+<!-- Editable Total Confirmation -->
+<h4>For confirmation, input the total cost.</h4>
+<div class="my-5">
+  <%= form.label :total_confirmation, "Confirm Total" %>
+  <%= form.text_field :total_confirmation, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+</div>
 
 
 

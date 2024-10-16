@@ -9,25 +9,8 @@
     <%= form.text_area :description, rows: 4, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
-  <!-- Container for dynamic color fields -->
-  <div id="colors-container">
-    <!-- Initial Color Fields -->
-    <div class="color-fields my-5">
-      <%= form.label :color_name, "Color Name" %>
-      <%= form.text_field :color_name, name: "admin_product[colors_attributes][0][color_name]", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
 
-      <%= form.label :color_code, "Color Code" %>
-      <%= form.text_field :color_code, name: "admin_product[colors_attributes][0][color_code]", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
 
-      <%= form.label :color_image, "Color Image" %>
-      <%= form.file_field :color_image, name: "admin_product[colors_attributes][0][color_image]", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-    </div>
-  </div>
-
-  <!-- Button to add more color fields -->
-  <div class="my-5">
-    <button type="button" id="add-color" class="rounded-lg py-3 px-5 bg-green-600 text-white inline-block font-medium cursor-pointer">Add More Color</button>
-  </div>
 
   <div class="my-5">
     <%= form.label :active %>
@@ -35,7 +18,7 @@
   </div>
 
    <div class="field">
-    <%= form.label :color_id, "Select Color" %>
+    <%= form.label :color_id, "Select Brand" %>
     <%= form.collection_select :color_id, Color.all, :id, :name, { prompt: "Choose a Color" }, { class: "rounded border-gray-500 text-gray-800" } %>
   </div>
 

@@ -1,38 +1,38 @@
-<div id="<%= dom_id product %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= product.name %>
-  </p>
+<div id="<%= dom_id(product) %>" class="my-6 p-6 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold mb-6">Product Details</h2>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Description:</strong>
-    <%= product.description %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Brand Name:</strong>
-    <%= product.color.name%>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Color Name:</strong>
-    <%= product.color.name %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Color Code</strong>
-    <%= product.color_code%>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Active:</strong>
-    <%= product.active %>
-  </p>
+  <table class="table-auto w-full border-collapse">
+    <thead class="bg-gray-800 text-white">
+      <tr>
+        <th class="px-4 py-2 text-left">Attribute</th>
+        <th class="px-4 py-2 text-left">Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="bg-gray-50">
+        <td class="px-4 py-2 font-medium text-gray-700">Name</td>
+        <td class="px-4 py-2 text-gray-800"><%= product.name %></td>
+      </tr>
+      <tr>
+        <td class="px-4 py-2 font-medium text-gray-700">Description</td>
+        <td class="px-4 py-2 text-gray-800"><%= product.description %></td>
+      </tr>
+      <tr class="bg-gray-50">
+        <td class="px-4 py-2 font-medium text-gray-700">Brand Name</td>
+        <td class="px-4 py-2 text-gray-800"><%= product.color.name %></td>
+      </tr>
+      <tr>
+        <td class="px-4 py-2 font-medium text-gray-700">Active</td>
+        <td class="px-4 py-2 text-gray-800"><%= product.active ? 'Yes' : 'No' %></td>
+      </tr>
+    </tbody>
+  </table>
 
   <% if action_name != "show" %>
-    <%= link_to "Show this product", [:admin, product], class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Edit this product", edit_admin_product_path(product), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
+    <div class="mt-6 flex space-x-4">
+      <%= link_to "Show this product", [:admin, product], class: "bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700" %>
+      <%= link_to "Edit this product", edit_admin_product_path(product), class: "bg-yellow-500 text-white py-2 px-4 rounded-lg shadow hover:bg-yellow-600" %>
+    </div>
+    <hr class="mt-6 border-t border-gray-200">
   <% end %>
-
 </div>

@@ -16,7 +16,6 @@
     <%= f.label :order_id, "Select Order" %>
     <%= f.collection_select :order_id, Order.all, :id, :name, prompt: "Choose an order", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
 
-    <h1>Details</h1>
     <div id=  "mixture_details">
       <%= f.fields_for :mixture_details do |mixture_detail| %> <!-- Changed from `mixture_detail` to `f` -->
         <%= render "mixture_detail_fields", f: mixture_detail %> <!-- Pass `f` as local variable -->
@@ -30,7 +29,6 @@
     </div>
   </div>
 
-  <h1>Mixture Third</h1>
     <div id=  "mixture_thirds">
       <%= f.fields_for :mixture_thirds do |mixture_third| %> <!-- Changed from `mixture_detail` to `f` -->
         <%= render "mixture_third_fields", f: mixture_third %> <!-- Pass `f` as local variable -->

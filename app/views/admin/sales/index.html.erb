@@ -15,20 +15,20 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
   
   <!-- Sales by Brand -->
-  <div class="sales-category" data-category="brand">
-    <h2 class="text-xl font-semibold">Sales by Brand</h2>
+  <div class="sales-category my-6 p-6 bg-white rounded-lg shadow-md" data-category="brand">
+    <h2 class="text-xl font-semibold mb-4">Sales by Brand</h2>
     <table class="table-auto w-full text-left border-collapse border border-gray-300">
-      <thead>
+      <thead class="bg-gray-800 text-white">
         <tr>
           <th class="border border-gray-300 px-4 py-2">Brand</th>
-          <th class="border border-gray-300 px-4 py-2">Total Sales (₱)</th>
+          <th class="border border-gray-300 px-4 py-2">Total Sales</th>
         </tr>
       </thead>
       <tbody>
         <% @sales_data[:colors].each do |color, total| %>
-          <tr>
+          <tr class="bg-gray-50">
             <td class="border border-gray-300 px-4 py-2"><%= color %></td>
-            <td class="border border-gray-300 px-4 py-2">₱<%= total %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= total %></td>
           </tr>
         <% end %>
       </tbody>
@@ -36,10 +36,10 @@
   </div>
 
   <!-- Sales by Product -->
-  <div class="sales-category" data-category="product">
-    <h2 class="text-xl font-semibold">Sales by Product</h2>
+  <div class="sales-category my-6 p-6 bg-white rounded-lg shadow-md" data-category="product">
+    <h2 class="text-xl font-semibold mb-4">Sales by Product</h2>
     <table class="table-auto w-full text-left border-collapse border border-gray-300">
-      <thead>
+      <thead class="bg-gray-800 text-white">
         <tr>
           <th class="border border-gray-300 px-4 py-2">Product</th>
           <th class="border border-gray-300 px-4 py-2">Total Sales (₱)</th>
@@ -47,7 +47,7 @@
       </thead>
       <tbody>
         <% @sales_data[:products].each do |product, total| %>
-          <tr>
+          <tr class="bg-gray-50">
             <td class="border border-gray-300 px-4 py-2"><%= product %></td>
             <td class="border border-gray-300 px-4 py-2">₱<%= total %></td>
           </tr>
@@ -57,10 +57,10 @@
   </div>
 
   <!-- Sales by Paint Color -->
-  <div class="sales-category" data-category="paint-color">
-    <h2 class="text-xl font-semibold">Sales by Paint Color</h2>
+  <div class="sales-category my-6 p-6 bg-white rounded-lg shadow-md" data-category="paint-color">
+    <h2 class="text-xl font-semibold mb-4">Sales by Paint Color</h2>
     <table class="table-auto w-full text-left border-collapse border border-gray-300">
-      <thead>
+      <thead class="bg-gray-800 text-white">
         <tr>
           <th class="border border-gray-300 px-4 py-2">Paint Color</th>
           <th class="border border-gray-300 px-4 py-2">Total Sales (₱)</th>
@@ -68,7 +68,7 @@
       </thead>
       <tbody>
         <% @sales_data[:paint_colors].each do |paint_color, total| %>
-          <tr>
+          <tr class="bg-gray-50">
             <td class="border border-gray-300 px-4 py-2"><%= paint_color %></td>
             <td class="border border-gray-300 px-4 py-2">₱<%= total %></td>
           </tr>
@@ -78,10 +78,10 @@
   </div>
 
   <!-- Sales by Primary Color -->
-  <div class="sales-category" data-category="primary-color">
-    <h2 class="text-xl font-semibold">Sales by Primary Color</h2>
+  <div class="sales-category my-6 p-6 bg-white rounded-lg shadow-md" data-category="primary-color">
+    <h2 class="text-xl font-semibold mb-4">Sales by Primary Color</h2>
     <table class="table-auto w-full text-left border-collapse border border-gray-300">
-      <thead>
+      <thead class="bg-gray-800 text-white">
         <tr>
           <th class="border border-gray-300 px-4 py-2">Primary Color</th>
           <th class="border border-gray-300 px-4 py-2">Total Sales (₱)</th>
@@ -89,7 +89,7 @@
       </thead>
       <tbody>
         <% @sales_data[:primary_colors].each do |primary_color, total| %>
-          <tr>
+          <tr class="bg-gray-50">
             <td class="border border-gray-300 px-4 py-2"><%= primary_color %></td>
             <td class="border border-gray-300 px-4 py-2">₱<%= total %></td>
           </tr>

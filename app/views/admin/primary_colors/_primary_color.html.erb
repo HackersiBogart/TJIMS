@@ -1,34 +1,42 @@
-<div id="<%= dom_id primary_color %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Color name:</strong>
-    <%= primary_color.color_name %>
-  </p>
+<div id="<%= dom_id(primary_color) %>" class="my-6 p-6 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold mb-4">Primary Color Details</h2>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Color code:</strong>
-    <%= primary_color.color_code %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Price:</strong>
-    <%= primary_color.price %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Stocks:</strong>
-    <%= primary_color.stocks %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Active:</strong>
-    <%= primary_color.active %>
-  </p>
+  <table class="w-full table-auto border-collapse">
+    <thead class="bg-gray-800 text-white">
+      <tr>
+        <th class="px-4 py-2 text-left">Attribute</th>
+        <th class="px-4 py-2 text-left">Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="bg-gray-50">
+        <td class="px-4 py-2 border-b">Color Name</td>
+        <td class="px-4 py-2 border-b"><%= primary_color.color_name %></td>
+      </tr>
+      <tr>
+        <td class="px-4 py-2 border-b">Color Code</td>
+        <td class="px-4 py-2 border-b"><%= primary_color.color_code %></td>
+      </tr>
+      <tr class="bg-gray-50">
+        <td class="px-4 py-2 border-b">Price</td>
+        <td class="px-4 py-2 border-b">₱<%= number_to_currency(primary_color.price, unit: "", precision: 2) %></td>
+      </tr>
+      <tr>
+        <td class="px-4 py-2 border-b">Stocks</td>
+        <td class="px-4 py-2 border-b"><%= primary_color.stocks %></td>
+      </tr>
+      <tr class="bg-gray-50">
+        <td class="px-4 py-2 border-b">Active</td>
+        <td class="px-4 py-2 border-b"><%= primary_color.active ? 'Yes' : 'No' %></td>
+      </tr>
+    </tbody>
+  </table>
 
   <% if action_name != "show" %>
-    <%= link_to "Show this product", [:admin, primary_color], class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Edit this product", edit_admin_primary_color_path(primary_color), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <div class="mt-6 flex space-x-4">
+      <%= link_to "Show this product", [:admin, primary_color], class: "rounded-lg py-2 px-4 bg-blue-600 text-white font-medium hover:bg-blue-700" %>
+      <%= link_to "Edit this product", edit_admin_primary_color_path(primary_color), class: "rounded-lg py-2 px-4 bg-yellow-500 text-white font-medium hover:bg-yellow-600" %>
+    </div>
     <hr class="mt-6">
   <% end %>
-
-
 </div>

@@ -1,74 +1,72 @@
-<div id="<%= dom_id order %>">
+<div id="<%= dom_id(order) %>" class="my-6 p-6 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold mb-6">Order Details</h2>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Customer Name:</strong>
-    <%= order.name %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Customer email:</strong>
-    <%= order.customer_email %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Phone Number:</strong>
-    <%= order.phone_number %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Fulfilled:</strong>
-    <%= order.fulfilled ? 'Yes' : 'No' %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Reference Number:</strong>
-    <%= order.reference_number %>
-  </p>
-
-   <p class="my-5">
-    <strong class="block font-medium mb-1">References Image:</strong>
-    <%= order.image.attached? ? image_tag(order.image, size: "50x50") : image_tag("https://via.placeholder.com/50", size: "50x50") %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Date of Retrieval:</strong>
-    <%= order.date_of_retrieval %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Item:</strong>
-    <%= order.item %>
-  </p>
-
-   <p class="my-5">
-    <strong class="block font-medium mb-1">Size:</strong>
-    <%= order.size %>
-  </p>
-
-   <p class="my-5">
-    <strong class="block font-medium mb-1">Quantity:</strong>
-    <%= order.quantity %>
-  </p>
-
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Product:</strong>
-    <%= order.product_id %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Total:</strong>
-    <%= order.total %>
-  </p>
-
-
-
-
+  <table class="table-auto w-full border-collapse">
+    <thead class="bg-gray-800 text-white">
+      <tr>
+        <th class="px-4 py-2 text-left">Attribute</th>
+        <th class="px-4 py-2 text-left">Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="bg-gray-50">
+        <td class="px-4 py-2 font-medium text-gray-700">Customer Name</td>
+        <td class="px-4 py-2 text-gray-800"><%= order.name %></td>
+      </tr>
+      <tr>
+        <td class="px-4 py-2 font-medium text-gray-700">Customer Email</td>
+        <td class="px-4 py-2 text-gray-800"><%= order.customer_email %></td>
+      </tr>
+      <tr class="bg-gray-50">
+        <td class="px-4 py-2 font-medium text-gray-700">Phone Number</td>
+        <td class="px-4 py-2 text-gray-800"><%= order.phone_number %></td>
+      </tr>
+      <tr>
+        <td class="px-4 py-2 font-medium text-gray-700">Fulfilled</td>
+        <td class="px-4 py-2 text-gray-800"><%= order.fulfilled ? 'Yes' : 'No' %></td>
+      </tr>
+      <tr class="bg-gray-50">
+        <td class="px-4 py-2 font-medium text-gray-700">Reference Number</td>
+        <td class="px-4 py-2 text-gray-800"><%= order.reference_number %></td>
+      </tr>
+      <tr>
+        <td class="px-4 py-2 font-medium text-gray-700">Reference Image</td>
+        <td class="px-4 py-2 text-gray-800">
+          <%= order.image.attached? ? image_tag(order.image, size: "100x100", class: "rounded") : image_tag("https://via.placeholder.com/100", size: "100x100", class: "rounded") %>
+        </td>
+      </tr>
+      <tr class="bg-gray-50">
+        <td class="px-4 py-2 font-medium text-gray-700">Date of Retrieval</td>
+        <td class="px-4 py-2 text-gray-800"><%= order.date_of_retrieval %></td>
+      </tr>
+      <tr>
+        <td class="px-4 py-2 font-medium text-gray-700">Item</td>
+        <td class="px-4 py-2 text-gray-800"><%= order.item %></td>
+      </tr>
+      <tr class="bg-gray-50">
+        <td class="px-4 py-2 font-medium text-gray-700">Size</td>
+        <td class="px-4 py-2 text-gray-800"><%= order.size %></td>
+      </tr>
+      <tr>
+        <td class="px-4 py-2 font-medium text-gray-700">Quantity</td>
+        <td class="px-4 py-2 text-gray-800"><%= order.quantity %></td>
+      </tr>
+      <tr class="bg-gray-50">
+        <td class="px-4 py-2 font-medium text-gray-700">Product ID</td>
+        <td class="px-4 py-2 text-gray-800"><%= order.product_id %></td>
+      </tr>
+      <tr>
+        <td class="px-4 py-2 font-medium text-gray-700">Total</td>
+        <td class="px-4 py-2 text-gray-800">₱<%= order.total %></td>
+      </tr>
+    </tbody>
+  </table>
 
   <% if action_name != "show" %>
-    <%= link_to "Show this order", [:admin, order], class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Edit this order", edit_admin_order_path(order), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
+    <div class="mt-6 flex space-x-4">
+      <%= link_to "Show this order", [:admin, order], class: "bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700" %>
+      <%= link_to "Edit this order", edit_admin_order_path(order), class: "bg-yellow-500 text-white py-2 px-4 rounded-lg shadow hover:bg-yellow-600" %>
+    </div>
+    <hr class="mt-6 border-t border-gray-200">
   <% end %>
-
 </div>

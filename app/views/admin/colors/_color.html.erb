@@ -1,28 +1,28 @@
-<div id="<%= dom_id color %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= color.name %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Code:</strong>
-    <%= color.code %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Size:</strong>
-    <%= color.size %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Quantity:</strong>
-    <%= color.quantity %>
-  </p>
+<div id="<%= dom_id(color) %>" class="my-6 p-6 bg-white rounded-lg shadow-md">
+  <table class="table-auto w-full border-collapse">
+    <thead class="bg-gray-800 text-white">
+      <tr>
+        <th class="px-4 py-2 text-left">Attribute</th>
+        <th class="px-4 py-2 text-left">Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="bg-gray-50">
+        <td class="px-4 py-2 font-medium text-gray-700">Name</td>
+        <td class="px-4 py-2 text-gray-800"><%= color.name %></td>
+      </tr>
+      <tr>
+        <td class="px-4 py-2 font-medium text-gray-700">Code</td>
+        <td class="px-4 py-2 text-gray-800"><%= color.code %></td>
+      </tr>
+    </tbody>
+  </table>
 
   <% if action_name != "show" %>
-    <%= link_to "Show", [:admin, color], class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Edit", edit_admin_color_path(color), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
+    <div class="mt-6 flex space-x-4">
+      <%= link_to "Show", [:admin, color], class: "bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700" %>
+      <%= link_to "Edit", edit_admin_color_path(color), class: "bg-yellow-500 text-white py-2 px-4 rounded-lg shadow hover:bg-yellow-600" %>
+    </div>
+    <hr class="mt-6 border-t border-gray-200">
   <% end %>
-
 </div>

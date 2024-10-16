@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="paint-colors"
 export default class extends Controller {
-  static values = { id: Number, name: String, code: String, price: Number, size: String, unit: String }
+  static values = { id: Number, name: String, code: String, price: Number, size: String, unit: String, color_id: Number, product_id: Number }
 
   connect() {
     this.selectedSize = null
@@ -18,11 +18,16 @@ export default class extends Controller {
     console.log("Paint Color Name:", this.nameValue)
     console.log("Paint Color Code:", this.codeValue)
     console.log("Paint Color Price:", this.priceValue)
+    console.log("Color ID:", this.color_idValue); // Should not be undefined
+    console.log("Product ID:", this.product_idValue); // Should not be undefined
+
 
     const cart = localStorage.getItem("cart")
     let cartArray = cart ? JSON.parse(cart) : []
 
-    const foundIndex = cartArray.findIndex(item => item.id === this.idValue && item.size === this.sizeValue && item.unit === this.unitValue)
+    const foundIndex = cartArray.findIndex(item => item.id === this.idValue && item.size === this.sizeValue && item.unit === this.unitValue
+      && item.color_id === this.color_idValue && item.product_id === this.product_idValue
+     )
     if (foundIndex >= 0) {
       // Update the quantity if the item already exists in the cart
       cartArray[foundIndex].quantity += 1
@@ -35,7 +40,10 @@ export default class extends Controller {
         size: this.sizeValue,
         price: this.priceValue,  // Store the selected size's price
         unit: this.unitValue,    // Store the selected unit
-        quantity: 1
+        quantity: 1,
+        color_id: this.color_idValue,
+        product_id: this.product_idValue
+
       })
     }
 

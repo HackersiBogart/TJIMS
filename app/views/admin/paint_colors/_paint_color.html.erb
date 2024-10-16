@@ -1,43 +1,54 @@
-<div id="<%= dom_id paint_color %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= paint_color.name %>
-  </p>
+<div id="<%= dom_id(paint_color) %>" class="my-6 p-6 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold mb-4">Paint Color Details</h2>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Code:</strong>
-    <%= paint_color.code %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Size:</strong>
-    <%= paint_color.size %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Quantity:</strong>
-    <%= paint_color.quantity %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Price:</strong>
-    <%= paint_color.price %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Product:</strong>
-    <%= paint_color.product_id %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Active:</strong>
-    <%= paint_color.active %>
-  </p>
+  <table class="w-full table-auto border-collapse">
+    <thead class="bg-gray-800 text-white">
+      <tr>
+        <th class="px-4 py-2 text-left">Attribute</th>
+        <th class="px-4 py-2 text-left">Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="bg-gray-50">
+        <td class="px-4 py-2 border-b">Name</td>
+        <td class="px-4 py-2 border-b"><%= paint_color.name %></td>
+      </tr>
+      <tr>
+        <td class="px-4 py-2 border-b">Code</td>
+        <td class="px-4 py-2 border-b"><%= paint_color.code %></td>
+      </tr>
+      <tr class="bg-gray-50">
+        <td class="px-4 py-2 border-b">Size</td>
+        <td class="px-4 py-2 border-b"><%= paint_color.size %></td>
+      </tr>
+      <tr>
+        <td class="px-4 py-2 border-b">Quantity</td>
+        <td class="px-4 py-2 border-b"><%= paint_color.quantity %></td>
+      </tr>
+      <tr class="bg-gray-50">
+        <td class="px-4 py-2 border-b">Price</td>
+        <td class="px-4 py-2 border-b">₱<%= number_to_currency(paint_color.price, unit: "", precision: 2) %></td>
+      </tr>
+      <tr>
+        <td class="px-4 py-2 border-b">Brand</td>
+        <td class="px-4 py-2 border-b"><%= paint_color.color.name %></td>
+      </tr>
+      <tr class="bg-gray-50">
+        <td class="px-4 py-2 border-b">Product</td>
+        <td class="px-4 py-2 border-b"><%= paint_color.product.name %></td>
+      </tr>
+      <tr>
+        <td class="px-4 py-2">Active</td>
+        <td class="px-4 py-2"><%= paint_color.active ? 'Yes' : 'No' %></td>
+      </tr>
+    </tbody>
+  </table>
 
   <% if action_name != "show" %>
-    <%= link_to "Show this product", [:admin, paint_color], class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Edit this product", edit_admin_paint_color_path(paint_color), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <div class="mt-6 flex space-x-4">
+      <%= link_to "Show this product", [:admin, paint_color], class: "rounded-lg py-2 px-4 bg-blue-600 text-white font-medium hover:bg-blue-700" %>
+      <%= link_to "Edit this product", edit_admin_paint_color_path(paint_color), class: "rounded-lg py-2 px-4 bg-yellow-500 text-white font-medium hover:bg-yellow-600" %>
+    </div>
     <hr class="mt-6">
   <% end %>
-
 </div>

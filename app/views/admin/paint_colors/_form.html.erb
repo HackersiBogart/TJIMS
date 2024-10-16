@@ -44,6 +44,11 @@
   </div>-->
 
   <div class="my-5">
+  <%= form.label :color_id, "Select Color" %>
+  <%= form.collection_select :color_id, Color.all, :id, :name, prompt: "Choose a brand", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+</div>
+
+  <div class="my-5">
   <%= form.label :product_id, "Select Product" %>
   <%= form.collection_select :product_id, Product.all, :id, :name, prompt: "Choose a product", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
 </div>
@@ -55,7 +60,7 @@
 
     <% unless admin_paint_color.new_record? %>
     <div class="my-5">
-      <%= link_to "Product Stock", admin_paint_color_stocks_path(admin_paint_color), class: "underline" %>
+      <%= link_to "Product Stock", admin_paint_color_stocks_path(admin_paint_color), class: "ml-2 rounded-lg py-3 px-5 bg-orange-200 inline-block font-medium"  %>
     </div>
   <% end %>
   <div class="inline">

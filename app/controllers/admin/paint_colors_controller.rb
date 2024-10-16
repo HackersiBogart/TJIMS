@@ -66,6 +66,6 @@ class Admin::PaintColorsController < AdminController
 
     # Only allow a list of trusted parameters through.
     def admin_paint_color_params
-      params.require(:paint_color).permit(:name, :code, :size, :quantity, :price, :product_id, :active , :image)
+      params.require(:paint_color).permit(:name, :code, :size, :quantity, :price, :product_id, :active , :image, :color_id)
     end
 end
