@@ -109,6 +109,6 @@ export default class extends Controller {
 
   checkout(event) {
     event.preventDefault();
-    window.location.href = "/checkouts/new";
+    window.location.href = "/customer_orders/new";
   }
 }

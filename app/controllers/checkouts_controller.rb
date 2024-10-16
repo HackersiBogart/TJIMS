@@ -1,34 +1,31 @@
 class CheckoutsController < ApplicationController
-    def new
+  def new
+    @cart = retrieve_cart
+    @total_price = calculate_total_price(@cart)
+    @admin_order = Order.new  # Renaming from @admin_order to @order for clarity
+    @cart_items = @cart  # Pass cart items to the view
+  end
+
+  def create
+    @admin_order = Order.new(checkout_params)  # Now using order_params
+
+    @cart = retrieve_cart
+
+    if @admin_order.save
+      save_cart_items_to_order(@admin_order, @cart)  # Save cart items to the order
+      session[:cart] = []  # Clear the cart after successful checkout
+
+      # Redirect to payment_options_path after saving checkout details
+      redirect_to checkouts_payment_options_path, notice: "Checkout completed successfully. Please select a payment option."
+    else
       @cart = retrieve_cart
       @total_price = calculate_total_price(@cart)
-      @admin_order = Order.new  # Renaming from @admin_order to @order for clarity
-      @cart_items = @cart  # Pass cart items to the view
+      render :new  # Re-render the form if there is an error
     end
-  
-    def create
-      @admin_order = Order.new(checkout_params)  # Now using order_params
-  
-      @cart = retrieve_cart
-  
-      if @admin_order.save
-        save_cart_items_to_order(@admin_order, @cart)  # Save cart items to the order
-        session[:cart] = []  # Clear the cart after successful checkout
-  
-        # Redirect to the unfulfilled orders page after saving checkout details
-        redirect_to unfulfilled_orders_path, notice: "Checkout completed successfully."
-      else
-        @cart = retrieve_cart
-        @total_price = calculate_total_price(@cart)
-        render :new  # Re-render the form if there is an error
-      end
-    end
-  
-
-  
+  end
 
   def payment_options
-    # Render the view with payment options
+    redirect_to checkouts_payment_options_path
   end
 
   def retrieve_cart
@@ -40,7 +37,7 @@ class CheckoutsController < ApplicationController
       paint_color = PaintColor.find(item["paint_color_id"])
       
       # Create an OrderPaintColor or similar model to associate the cart item with the order
-      order.order_paint_colors.create!(
+      admin_order.order_paint_colors.create!(
         paint_color: paint_color,
         quantity: item["quantity"],
         size: item["size"],
@@ -52,7 +49,6 @@ class CheckoutsController < ApplicationController
     end
   end
 
-
   def online_payment
     # Redirect to the 'new' action of the checkouts controller
     redirect_to new_checkout_path
@@ -61,13 +57,7 @@ class CheckoutsController < ApplicationController
   private
 
   def checkout_params
-    params.require(:checkout).permit(:customer_email, :name, :phone_number, :reference_number, :image, :date_of_retrieval, :total, :size, :quantity,:items)
-  end
-
- 
-
-  def retrieve_cart
-    session[:cart] || []
+    params.require(:checkout).permit(:customer_email, :name, :phone_number, :reference_number, :image, :date_of_retrieval, :total, :size, :quantity, :items)
   end
 
   def calculate_total_price(cart)
@@ -84,7 +74,6 @@ class CheckoutsController < ApplicationController
     else 0
     end
   end
-
 
   def reduce_stock(paint_color, quantity)
     if paint_color.stock >= quantity

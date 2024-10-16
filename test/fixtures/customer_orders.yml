@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customer_email: MyString
+  name: MyString
+  phone_number: MyString
+  reference_number: MyString
+  date_of_retrieval: 2024-10-16
+  total: 9.99
+  size: MyString
+  quantity: 1
+  items: MyString
+
+two:
+  customer_email: MyString
+  name: MyString
+  phone_number: MyString
+  reference_number: MyString
+  date_of_retrieval: 2024-10-16
+  total: 9.99
+  size: MyString
+  quantity: 1
+  items: MyString

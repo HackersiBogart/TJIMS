@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :customer_orders
   get 'sales/index'
   get 'reports/index'
   devise_for :admins, controllers: {
