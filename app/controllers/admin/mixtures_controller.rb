@@ -12,9 +12,11 @@ class Admin::MixturesController < AdminController
 
   # GET /admin/mixtures/new
   def new
+    @order = Order.find(params[:order_id]) if params[:order_id].present?
     @admin_mixture = Mixture.new
     @admin_mixture.mixture_details.build
     @admin_mixture.mixture_thirds.build
+   
   end
 
   # GET /admin/mixtures/1/edit

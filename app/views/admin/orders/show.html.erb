@@ -5,6 +5,12 @@
     <% end %>
 
     <%= render @admin_order %>
+ 
+<%= link_to "New Mixture", new_admin_mixture_path(order_id: @admin_order.id), class: "bg-green-500 text-white py-2 px-4 rounded-lg shadow hover:bg-green-600" %>
+
+
+
+
 
     <%= link_to "Edit this order", edit_admin_order_path(@admin_order), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Back to orders", admin_orders_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>

@@ -16,6 +16,15 @@ end
     @paint_color = @order.paint_color # Assuming an order has one paint color
   end
 
+  def reference_image
+    order = Order.find(params[:id])
+    image_url = order.image.attached? ? url_for(order.image) : nil
+  
+    render json: { image_url: image_url }
+  end
+
+  
+
   # GET /admin/orders/new
   def new
     @admin_order = Order.new

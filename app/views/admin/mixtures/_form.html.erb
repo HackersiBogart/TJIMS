@@ -1,60 +1,57 @@
-<%= javascript_pack_tag 'cocoon', 'data-turbo-track': 'reload' if controller_name == 'cocoon' %>
-
-<%= form_with(model: [:admin, admin_mixture], class: "contents") do |f| %>
-  <% if admin_mixture.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(admin_mixture.errors.count, "error") %> prohibited this admin_mixture from being saved:</h2>
-      <ul>
-        <% admin_mixture.errors.each do |error| %>
+<%= form_with(model: [:admin, @admin_mixture], class: "space-y-6 p-6 bg-white rounded-lg shadow-md") do |f| %>
+  <% if @admin_mixture.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-4 py-3 font-medium rounded-lg">
+      <h2 class="font-bold"><%= pluralize(@admin_mixture.errors.count, "error") %> prohibited this admin_mixture from being saved:</h2>
+      <ul class="list-disc pl-6">
+        <% @admin_mixture.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="form-inputs">
-    <%= f.label :order_id, "Select Order" %>
-    <%= f.collection_select :order_id, Order.all, :id, :name, prompt: "Choose an order", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  <div class="flex justify-center my-5">
+    <% if @order && @order.image.attached? %>
+      <%= image_tag @order.image, size: "100x100", class: "rounded shadow-md w-36 h-36 object-cover", alt: "Reference Image" %>
+    <% else %>
+      <%= image_tag "https://via.placeholder.com/100", size: "100x100", class: "rounded shadow-md w-36 h-36 object-cover", alt: "Reference Image" %>
+    <% end %>
+  </div>
 
-    <div id=  "mixture_details">
-      <%= f.fields_for :mixture_details do |mixture_detail| %> <!-- Changed from `mixture_detail` to `f` -->
-        <%= render "mixture_detail_fields", f: mixture_detail %> <!-- Pass `f` as local variable -->
-      <% end %>
-      
-      <div class="links">
-
-        <%= link_to_add_association "Add Details", f, :mixture_details, class: "add_fields" %>
-
-      </div>
+  <div class="form-inputs space-y-4">
+    <div>
+      <%= f.label :order_id, "Select Order", class: "block text-gray-700 font-medium" %>
+      <%= f.collection_select :order_id, Order.all, :id, :name,
+                              selected: params[:order_id],
+                              prompt: "Choose an order",
+                              class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
     </div>
-  </div>
 
-    <div id=  "mixture_thirds">
-      <%= f.fields_for :mixture_thirds do |mixture_third| %> <!-- Changed from `mixture_detail` to `f` -->
-        <%= render "mixture_third_fields", f: mixture_third %> <!-- Pass `f` as local variable -->
+    <div id="mixture_details" class="space-y-4">
+      <%= f.fields_for :mixture_details do |mixture_detail| %>
+        <%= render "mixture_detail_fields", f: mixture_detail %>
       <% end %>
-      
-      <div class="links">
-
-        <%= link_to_add_association "Add Details", f, :mixture_thirds, class: "add_fields" %>
-
-      </div>
     </div>
-  </div>
 
-  <div class="my-5">
-    <%= f.label :primary_color_id, "Select Color" %>
-    <%= f.collection_select :primary_color_id, PrimaryColor.all, :id, :color_name, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
+    <div id="mixture_thirds" class="space-y-4">
+      <%= f.fields_for :mixture_thirds do |mixture_third| %>
+        <%= render "mixture_third_fields", f: mixture_third %>
+      <% end %>
+    </div>
 
-  <div class="my-5">
-    <%= f.label :amount %>
-    <%= f.text_field :amount, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
+    <div class="my-5">
+  <%= f.label :primary_color_id, "Select Color", class: "block text-gray-700 font-medium" %>
+  <%= f.collection_select :primary_color_id, PrimaryColor.all, :id, :color_name,
+                          class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+</div>
+
+<div class="my-5">
+  <%= f.label :amount, "Amount", class: "block text-gray-700 font-medium" %>
+  <%= f.text_field :amount, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+</div>
 
 
-
-  <div class="inline">
-    <%= f.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  <div class="flex justify-end">
+    <%= f.submit "Submit", class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium cursor-pointer hover:bg-blue-700 transition duration-200" %>
   </div>
 <% end %>

@@ -21,7 +21,11 @@ Rails.application.routes.draw do
       post 'deduct_stock', on: :collection
     end
     resources :primary_colors
-    resources :orders
+    resources :orders do
+      member do
+        get :reference_image
+      end
+    end
     resources :products
     resources :paint_colors do
     resources :stocks, only: [:index, :show, :new, :create, :edit, :update, :destroy]
