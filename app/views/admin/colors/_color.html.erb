@@ -1,27 +1,47 @@
-<div id="<%= dom_id(color) %>" class="my-6 p-6 bg-white rounded-lg shadow-md">
-  <table class="table-auto w-full border-collapse">
-    <thead class="bg-gray-800 text-white">
-      <tr>
-        <th class="px-4 py-2 text-left">Attribute</th>
-        <th class="px-4 py-2 text-left">Value</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="bg-gray-50">
-        <td class="px-4 py-2 font-medium text-gray-700">Name</td>
-        <td class="px-4 py-2 text-gray-800"><%= color.name %></td>
-      </tr>
-      <tr>
-        <td class="px-4 py-2 font-medium text-gray-700">Code</td>
-        <td class="px-4 py-2 text-gray-800"><%= color.code %></td>
-      </tr>
-    </tbody>
-  </table>
+<div id="<%= dom_id(color) %>" >
+
+    <table class="table-auto w-full border-collapse">
+      <thead class="bg-gray-800 text-white">
+        <tr>
+          <th class="px-4 py-2 text-left">Attribute</th>
+          <th class="px-4 py-2 text-left">Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="bg-gray-800 text-gray-300">
+          <td class="px-4 py-2 border-b">Name</td>
+          <td class="px-4 py-2 border-b"><%= color.name %></td>
+        </tr>
+        <tr tr class="bg-gray-700 text-gray-300">
+          <td class="px-4 py-2 border-b">Code</td>
+          <td class="px-4 py-2 border-b"><%= color.code %></td>
+        </tr>
+      </tbody>
+    </table>
+
 
   <% if action_name != "show" %>
-    <div class="mt-6 flex space-x-4">
-      <%= link_to "Show", [:admin, color], class: "bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700" %>
-      <%= link_to "Edit", edit_admin_color_path(color), class: "bg-yellow-500 text-white py-2 px-4 rounded-lg shadow hover:bg-yellow-600" %>
+    <div class="mt-6 flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0">
+      <%= link_to [:admin, color], class: "bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700 w-full sm:w-auto text-center flex items-center justify-center" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        Show
+      <% end %>
+
+      <%= link_to edit_admin_color_path(color), class: "bg-yellow-500 text-white py-2 px-4 rounded-lg shadow hover:bg-yellow-600 w-full sm:w-auto text-center flex items-center justify-center" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5m-5-4l5-5m-5 5V6h5" />
+        </svg>
+        Edit
+      <% end %>
+
+      <%= link_to admin_color_path(color), method: :delete, data: { confirm: 'Are you sure?' }, class: "bg-red-600 text-white py-2 px-4 rounded-lg shadow hover:bg-red-700 w-full sm:w-auto text-center flex items-center justify-center" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+        Delete
+      <% end %>
     </div>
     <hr class="mt-6 border-t border-gray-200">
   <% end %>

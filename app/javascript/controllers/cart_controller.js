@@ -24,17 +24,53 @@ export default class extends Controller {
       totalSize += item.size; // Accumulate quantity
       itemNames.push(item.name); // Collect item names
 
-      const div = document.createElement("div");
-      div.classList.add("mt-2");
-      div.innerText = `Item: ${item.name} - ₱${itemPrice.toFixed(2)} - Size: ${item.size} - Quantity: ${item.quantity}`;
+      // Create a container div for the cart item
+      const itemContainer = document.createElement("div");
+      itemContainer.classList.add("flex", "justify-between", "items-center", "bg-gray-100", "rounded-lg", "p-4", "mt-2", "shadow-md");
 
+      // Create a div for the item details
+      const itemDetails = document.createElement("div");
+      itemDetails.classList.add("flex", "flex-col", "gap-1");
+
+      // Add item name
+      const itemName = document.createElement("div");
+      itemName.classList.add("font-semibold", "text-lg", "text-[#1E3E62]");
+      itemName.innerText = `Item: ${item.name}`;
+
+      // Add item price
+      const itemPriceText = document.createElement("div");
+      itemPriceText.classList.add("text-sm", "text-gray-700");
+      itemPriceText.innerText = `Price: ₱${itemPrice.toFixed(2)}`;
+
+      // Add item size
+      const itemSize = document.createElement("div");
+      itemSize.classList.add("text-sm", "text-gray-700");
+      itemSize.innerText = `Size: ${item.size}`;
+
+      // Add item quantity
+      const itemQuantity = document.createElement("div");
+      itemQuantity.classList.add("text-sm", "text-gray-700");
+      itemQuantity.innerText = `Quantity: ${item.quantity}`;
+
+      // Append item details to the itemDetails div
+      itemDetails.appendChild(itemName);
+      itemDetails.appendChild(itemPriceText);
+      itemDetails.appendChild(itemSize);
+      itemDetails.appendChild(itemQuantity);
+
+      // Create a delete button with an icon
       const deleteButton = document.createElement("button");
-      deleteButton.innerText = "Remove";
+      deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
       deleteButton.value = JSON.stringify({ id: item.id, size: item.size });
-      deleteButton.classList.add("bg-gray-500", "rounded", "text-white", "px-2", "py-1", "ml-2");
+      deleteButton.classList.add("bg-red-500", "hover:bg-red-600", "rounded-full", "text-white", "p-2", "ml-4", "transition", "duration-200");
       deleteButton.addEventListener("click", this.removeFromCart.bind(this)); // Bind `this` to the method
-      div.appendChild(deleteButton);
-      this.element.prepend(div);
+
+      // Append item details and delete button to the itemContainer
+      itemContainer.appendChild(itemDetails);
+      itemContainer.appendChild(deleteButton);
+
+      // Append the itemContainer to the main cart element
+      this.element.prepend(itemContainer);
     }
 
     // Update the total in the div

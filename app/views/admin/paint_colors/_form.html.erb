@@ -1,9 +1,8 @@
 <%= form_with(model: [:admin, admin_paint_color], class: "contents") do |form| %>
   <% if admin_paint_color.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(admin_paint_color.errors.count, "error") %> prohibited this admin_paint_color from being saved:</h2>
-
-      <ul>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-4 py-3 font-medium rounded-lg mt-4">
+      <h2 class="font-semibold"><%= pluralize(admin_paint_color.errors.count, "error") %> prohibited this admin_paint_color from being saved:</h2>
+      <ul class="list-disc list-inside mt-2">
         <% admin_paint_color.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -12,58 +11,53 @@
   <% end %>
 
   <div class="my-5">
-
-    <%= form.label :name %>
-    <%= form.text_field :name, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :name, class: "text-white font-semibold" %>
+    <%= form.text_field :name, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
   </div>
 
   <div class="my-5">
-    <%= form.label :code %>
-    <%= form.text_field :code, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :code, class: "text-white font-semibold" %>
+    <%= form.text_field :code, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
   </div>
 
   <div class="my-5">
-
-    <% if admin_paint_color.image.attached? %>
-    <%= image_tag admin_paint_color.image, class: "w-20 h-20 object-cover rounded-md" %>
-  <% else %>
-    <p>No image attached</p>
-  <% end %>
-    <%= form.label :image %>
-    <%= form.file_field :image, rows: 4, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <!--<div class="my-5">
-    <%= form.label :size %>
-    <%= form.text_field :size, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :image, class: "text-white font-semibold" %>
+    <%= form.file_field :image, rows: 4, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
-    <%= form.label :price %>
-    <%= form.number_field :price, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>-->
-
-  <div class="my-5">
-  <%= form.label :color_id, "Select Color" %>
-  <%= form.collection_select :color_id, Color.all, :id, :name, prompt: "Choose a brand", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-</div>
-
-  <div class="my-5">
-  <%= form.label :product_id, "Select Product" %>
-  <%= form.collection_select :product_id, Product.all, :id, :name, prompt: "Choose a product", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-</div>
-
-  <div class="my-5">
-    <%= form.label :active %>
-    <%= form.check_box :active, class: "block mt-2 h-5 w-5" %>
+    <%= form.label :color_id, "Select Color", class: "text-white font-semibold" %>
+    <%= form.collection_select :color_id, Color.all, :id, :name, { prompt: "Choose a brand" }, { class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" } %>
   </div>
 
-    <% unless admin_paint_color.new_record? %>
+  <div class="my-5">
+    <%= form.label :product_id, "Select Product", class: "text-white font-semibold" %>
+    <%= form.collection_select :product_id, Product.all, :id, :name, { prompt: "Choose a product" }, { class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" } %>
+  </div>
+
+  <div class="my-5 flex items-center">
+    <%= form.label :active, class: "text-white font-semibold mr-2" %>
+    <%= form.check_box :active, class: "h-5 w-5 text-[#FF6500] border-gray-600 focus:ring-[#FF6500]" %>
+  </div>
+
+  <% unless admin_paint_color.new_record? %>
     <div class="my-5">
-      <%= link_to "Product Stock", admin_paint_color_stocks_path(admin_paint_color), class: "ml-2 rounded-lg py-3 px-5 bg-orange-200 inline-block font-medium"  %>
+      <%= link_to "Product Stocks", admin_paint_color_stocks_path(admin_paint_color), class: "ml-2 rounded-lg py-3 px-5 bg-orange-200 text-black inline-block font-medium transition duration-200 hover:bg-orange-300" %>
     </div>
   <% end %>
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
-  </div>
+
+  <div class="flex items-center space-x-2 mt-4">
+    <div class="inline">
+      <%= form.submit "Save", class: "rounded-lg py-3 px-5 bg-[#FF6500] hover:bg-[#E65B00] text-white inline-block font-medium cursor-pointer transition duration-200 flex items-center space-x-2" do %>
+        <i class="fas fa-save"></i>
+        <span>Save</span>
+      <% end %>
+    </div>
+
+<!--<%= link_to [:admin, @admin_paint_color], class: "bg-blue-600 text-white py-3 px-5 rounded-lg shadow hover:bg-blue-700 inline-flex items-center space-x-2" do %>
+      <i class="fas fa-eye"></i>
+      <span>Show</span>
+    <% end %>
+  </div> %>-->
+
 <% end %>

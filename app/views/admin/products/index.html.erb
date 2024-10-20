@@ -1,91 +1,66 @@
-<div class="w-full">
+<div class="w-full p-4 bg-[#0B192C]">
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
 
   <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Products</h1>
-    <%= link_to "New Product", new_admin_product_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <h1 class="font-bold text-3xl md:text-4xl text-white">Products</h1>
+    <%= link_to "New Product", new_admin_product_path, class: "rounded-lg py-2 px-4 bg-[#FF6500] hover:bg-[#E65B00] text-white block font-medium transition duration-200" %>
   </div>
 
   <div class="flex mt-4 flex-col md:flex-row items-start md:items-center justify-between w-full">
-    <%= form_with url: admin_products_path, method: :get, class: "flex" do |form| %>
-      <%= form.text_field :query, placeholder: "Search", class: "rounded border-gray-500 text-gray-800" %>
-      <%= form.submit "Submit", class: "cursor-pointer bg-gray-500 ml-2 hover:bg-gray-600 text-white py-2 px-4 rounded" %>
-    <% end %>
-    <%= form_with url: admin_products_path, method: :get, class: 'flex' do |form| %>
-      <%= form.submit "Clear", class: "cursor-pointer bg-gray-500 ml-0 md:ml-2 mt-2 md:mt-0 hover:bg-gray-600 text-white py-2 px-4 rounded" %>
+    <%= form_with url: admin_products_path, method: :get, class: "flex w-full md:w-auto" do |form| %>
+      <%= form.text_field :query, placeholder: "Search", class: "rounded border border-gray-500 text-gray-800 py-2 px-4 focus:outline-none focus:border-[#FF6500] transition duration-200" %>
+      <button type="submit" class="ml-2 bg-[#FF6500] hover:bg-[#E65B00] text-white rounded-full p-2 transition duration-200">
+        <i class="fas fa-search"></i>
+      </button>
+      <%= link_to "Clear", admin_products_path, method: :get, class: "ml-2 cursor-pointer bg-[#1E3E62] hover:bg-[#0B192C] text-white py-2 px-4 rounded transition duration-200" %>
     <% end %>
   </div>
 
-  <div class="flex flex-col w-full">
-    <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
+  <div class="flex flex-col w-full mt-6">
+    <div class="overflow-x-auto">
       <div class="py-2 inline-block min-w-full">
-        <div class="overflow-x-auto">
-          <table class="min-w-full overflow-x-scroll">
-            <thead class="bg-white border-b">
-              <tr>
-                <th scope="col" class="text-sm font-medium text-gray-800 px-6 py-4 text-left">
-                  Image
-                </th>
-                <th scope="col" class="text-sm font-medium text-gray-800 px-6 py-4 text-left">
-                  Name
-                </th>
-                <th scope="col" class="text-sm font-medium text-gray-800 px-6 py-4 text-left">
-                  Description
-                </th>
-                <th scope="col" class="text-sm font-medium text-gray-800 px-6 py-4 text-left">
-                  Brand
-                </th>
-                <th scope="col" class="text-sm font-medium text-gray-800 px-6 py-4 text-left">
-                  Active
-                </th>
-                
-                <!-- Add other column headers here if needed -->
-              </tr>
-            </thead>
-            <tbody>
-              <% @admin_products.each do |admin_product| %>
-                <tr class="bg-gray-50 border-b">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 underline">
-                    <%= admin_product.image.attached? ? image_tag(admin_product.image, size: "50x50") : image_tag("https://via.placeholder.com/50", size: "50x50") %>
-                  </td>
-
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                    <%= link_to admin_product.name, edit_admin_product_path(admin_product) %>
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                    <%= admin_product.description %>
-                  </td>
-
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                  <% if admin_product.color_id %>
-                    <%= admin_product.color_id%>
+        <table class="min-w-full bg-[#1E3E62] text-gray-300 border-collapse">
+          <thead class="bg-[#0B192C]">
+            <tr>
+              <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Image</th>
+              <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Name</th>
+              <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Description</th>
+              <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Brand</th>
+              <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Active</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @admin_products.each do |admin_product| %>
+              <tr class="bg-gray-800 border-b hover:bg-[#1E3E62] transition duration-200">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
+                  <%= admin_product.image.attached? ? image_tag(admin_product.image, size: "50x50") : image_tag("https://via.placeholder.com/50", size: "50x50") %>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
+                  <%= link_to admin_product.name, admin_product_path(admin_product), class: "underline text-[#FF6500] hover:text-[#E65B00]" %>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
+                  <%= admin_product.description %>
+                </td>
+               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
+                  <% if admin_product.color %>
+                    <%= admin_product.color.name %>
                   <% else %>
                     <p class="text-gray-500">No Color</p>
                   <% end %>
                 </td>
-
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                    <%= admin_product.active ? "Yes" : "No" %>
-                  </td>
-                  
-                 
-
-                  <!-- Add other columns with product details if needed -->
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-          <% if @pagy.present? %>
-            <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
-          <% end %>
-        </div>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
+                  <%= admin_product.active ? "Yes" : "No" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <% if @pagy.present? %>
+          <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+        <% end %>
       </div>
     </div>
   </div>
 </div>
-
-
-
-

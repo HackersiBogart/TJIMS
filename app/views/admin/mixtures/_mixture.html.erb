@@ -1,38 +1,55 @@
-<div id="<%= dom_id mixture %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Order:</strong>
-    <%= mixture.order_id %>
-  </p>
+<div id="<%= dom_id(mixture) %>" class="my-6 p-6 bg-[#0B192C] rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold mb-4 text-white">Mixture Details</h2>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Primary color:</strong>
-    <%= mixture.primary_color_id %>
-  </p>
+  <table class="w-full table-auto border-collapse">
+    <thead class="bg-[#1E3E62] text-gray-300">
+      <tr>
+        <th class="px-4 py-2 text-left">Attribute</th>
+        <th class="px-4 py-2 text-left">Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="bg-gray-800 text-gray-300">
+        <td class="px-4 py-2 border-b">Order</td>
+        <td class="px-4 py-2 border-b"><%= mixture.order_id %></td>
+      </tr>
+      <tr class="bg-gray-700 text-gray-300">
+        <td class="px-4 py-2 border-b">Primary Color</td>
+        <td class="px-4 py-2 border-b"><%= mixture.primary_color_id %></td>
+      </tr>
+      <tr class="bg-gray-800 text-gray-300">
+        <td class="px-4 py-2 border-b">Amount</td>
+        <td class="px-4 py-2 border-b"><%= mixture.amount %></td>
+      </tr>
+    </tbody>
+  </table>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Amount:</strong>
-    <%= mixture.amount %>
-  </p>
+  <div id="mixture_details" class="mt-6">
 
-  <h3>Details</h3>
-    <div id=  "mixture_details">
-      <% mixture.mixture_details.each do |mixture_detail| %> 
-        <%= render partial: "admin/mixture_details/mixture_mixture_detail", locals: { mixture_detail: mixture_detail } %>
-
-      <% end %>
-
-    <h3>Thirds</h3>
-    <div id=  "mixture_thirds">
-      <% mixture.mixture_thirds.each do |mixture_third| %> 
-        <%= render partial: "admin/mixture_thirds/mixture_mixture_third", locals: { mixture_third: mixture_third } %>
-
-      <% end %>
-
-   <% if action_name != "show" %>
-    <%= link_to "Show", [:admin, mixture], class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Edit", edit_admin_mixture_path(mixture), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
-  <% end %>
+    <% mixture.mixture_details.each do |mixture_detail| %>
+      <%= render partial: "admin/mixture_details/mixture_mixture_detail", locals: { mixture_detail: mixture_detail } %>
+    <% end %>
   </div>
 
+  <div id="mixture_thirds" class="mt-6">
+
+    <% mixture.mixture_thirds.each do |mixture_third| %>
+      <%= render partial: "admin/mixture_thirds/mixture_mixture_third", locals: { mixture_third: mixture_third } %>
+    <% end %>
+  </div>
+
+  <% if action_name != "show" %>
+    <div class="mt-6 flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0">
+      <%= link_to [:admin, mixture], class: "bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700 w-full sm:w-auto text-center flex items-center justify-center" do %>
+        <i class="fas fa-eye mr-2"></i>
+        Show
+      <% end %>
+
+      <%= link_to edit_admin_mixture_path(mixture), class: "bg-yellow-500 text-white py-2 px-4 rounded-lg shadow hover:bg-yellow-600 w-full sm:w-auto text-center flex items-center justify-center" do %>
+        <i class="fas fa-edit mr-2"></i>
+        Edit
+      <% end %>
+    </div>
+    <hr class="mt-6 border-t border-gray-200">
+  <% end %>
 </div>

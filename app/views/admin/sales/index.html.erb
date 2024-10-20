@@ -1,103 +1,103 @@
-<h1 class="text-2xl mb-4">Sales Data</h1>
+<div class="w-full">
+  <h1 class="font-bold text-4xl text-[#FF6500] mb-4">Sales Data</h1>
 
-<!-- Dropdown for selecting filter category -->
-<div class="mb-4">
-  <label for="sales-filter" class="block text-lg font-medium">Filter by:</label>
-  <select id="sales-filter" class="border-gray-300 rounded-md shadow-sm mt-1 block w-full" onchange="filterSales()">
-    <option value="all">All</option>
-    <option value="brand">Brand</option>
-    <option value="product">Product</option>
-    <option value="paint-color">Paint Color</option>
-    <option value="primary-color">Primary Color</option>
-  </select>
-</div>
-
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-  
-  <!-- Sales by Brand -->
-  <div class="sales-category my-6 p-6 bg-white rounded-lg shadow-md" data-category="brand">
-    <h2 class="text-xl font-semibold mb-4">Sales by Brand</h2>
-    <table class="table-auto w-full text-left border-collapse border border-gray-300">
-      <thead class="bg-gray-800 text-white">
-        <tr>
-          <th class="border border-gray-300 px-4 py-2">Brand</th>
-          <th class="border border-gray-300 px-4 py-2">Total Sales</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @sales_data[:colors].each do |color, total| %>
-          <tr class="bg-gray-50">
-            <td class="border border-gray-300 px-4 py-2"><%= color %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= total %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+  <!-- Dropdown for selecting filter category -->
+  <div class="mb-4">
+    <label for="sales-filter" class="block text-lg font-medium text-[#1E3E62]">Filter by:</label>
+    <select id="sales-filter" class="border-gray-500 rounded-md shadow-sm mt-1 block w-full py-2 px-3 bg-[#1E3E62] text-white focus:outline-none focus:border-[#FF6500] transition duration-200" onchange="filterSales()">
+      <option value="all" class="bg-[#0B192C] text-white">All</option>
+      <option value="brand" class="bg-[#0B192C] text-white">Brand</option>
+      <option value="product" class="bg-[#0B192C] text-white">Product</option>
+      <option value="paint-color" class="bg-[#0B192C] text-white">Paint Color</option>
+      <option value="primary-color" class="bg-[#0B192C] text-white">Primary Color</option>
+    </select>
   </div>
 
-  <!-- Sales by Product -->
-  <div class="sales-category my-6 p-6 bg-white rounded-lg shadow-md" data-category="product">
-    <h2 class="text-xl font-semibold mb-4">Sales by Product</h2>
-    <table class="table-auto w-full text-left border-collapse border border-gray-300">
-      <thead class="bg-gray-800 text-white">
-        <tr>
-          <th class="border border-gray-300 px-4 py-2">Product</th>
-          <th class="border border-gray-300 px-4 py-2">Total Sales (₱)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @sales_data[:products].each do |product, total| %>
-          <tr class="bg-gray-50">
-            <td class="border border-gray-300 px-4 py-2"><%= product %></td>
-            <td class="border border-gray-300 px-4 py-2">₱<%= total %></td>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <!-- Sales by Brand -->
+    <div class="sales-category my-6 p-6 bg-[#1E3E62] text-gray-300 rounded-lg shadow-md" data-category="brand">
+      <h2 class="text-xl font-semibold mb-4">Sales by Brand</h2>
+      <table class="table-auto w-full text-left border-collapse">
+        <thead class="bg-[#0B192C]">
+          <tr>
+            <th class="border border-gray-700 px-4 py-2">Brand</th>
+            <th class="border border-gray-700 px-4 py-2">Total Sales</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+        </thead>
+        <tbody>
+          <% @sales_data[:colors].each do |color, total| %>
+            <tr class="bg-gray-800 hover:bg-[#FF6500] transition duration-200">
+              <td class="border border-gray-700 px-4 py-2"><%= color %></td>
+              <td class="border border-gray-700 px-4 py-2"><%= total %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
 
-  <!-- Sales by Paint Color -->
-  <div class="sales-category my-6 p-6 bg-white rounded-lg shadow-md" data-category="paint-color">
-    <h2 class="text-xl font-semibold mb-4">Sales by Paint Color</h2>
-    <table class="table-auto w-full text-left border-collapse border border-gray-300">
-      <thead class="bg-gray-800 text-white">
-        <tr>
-          <th class="border border-gray-300 px-4 py-2">Paint Color</th>
-          <th class="border border-gray-300 px-4 py-2">Total Sales (₱)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @sales_data[:paint_colors].each do |paint_color, total| %>
-          <tr class="bg-gray-50">
-            <td class="border border-gray-300 px-4 py-2"><%= paint_color %></td>
-            <td class="border border-gray-300 px-4 py-2">₱<%= total %></td>
+    <!-- Sales by Product -->
+    <div class="sales-category my-6 p-6 bg-[#1E3E62] text-gray-300 rounded-lg shadow-md" data-category="product">
+      <h2 class="text-xl font-semibold mb-4">Sales by Product</h2>
+      <table class="table-auto w-full text-left border-collapse">
+        <thead class="bg-[#0B192C]">
+          <tr>
+            <th class="border border-gray-700 px-4 py-2">Product</th>
+            <th class="border border-gray-700 px-4 py-2">Total Sales (₱)</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+        </thead>
+        <tbody>
+          <% @sales_data[:products].each do |product, total| %>
+            <tr class="bg-gray-800 hover:bg-[#FF6500] transition duration-200">
+              <td class="border border-gray-700 px-4 py-2"><%= product %></td>
+              <td class="border border-gray-700 px-4 py-2">₱<%= total %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
 
-  <!-- Sales by Primary Color -->
-  <div class="sales-category my-6 p-6 bg-white rounded-lg shadow-md" data-category="primary-color">
-    <h2 class="text-xl font-semibold mb-4">Sales by Primary Color</h2>
-    <table class="table-auto w-full text-left border-collapse border border-gray-300">
-      <thead class="bg-gray-800 text-white">
-        <tr>
-          <th class="border border-gray-300 px-4 py-2">Primary Color</th>
-          <th class="border border-gray-300 px-4 py-2">Total Sales (₱)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @sales_data[:primary_colors].each do |primary_color, total| %>
-          <tr class="bg-gray-50">
-            <td class="border border-gray-300 px-4 py-2"><%= primary_color %></td>
-            <td class="border border-gray-300 px-4 py-2">₱<%= total %></td>
+    <!-- Sales by Paint Color -->
+    <div class="sales-category my-6 p-6 bg-[#1E3E62] text-gray-300 rounded-lg shadow-md" data-category="paint-color">
+      <h2 class="text-xl font-semibold mb-4">Sales by Paint Color</h2>
+      <table class="table-auto w-full text-left border-collapse">
+        <thead class="bg-[#0B192C]">
+          <tr>
+            <th class="border border-gray-700 px-4 py-2">Paint Color</th>
+            <th class="border border-gray-700 px-4 py-2">Total Sales (₱)</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @sales_data[:paint_colors].each do |paint_color, total| %>
+            <tr class="bg-gray-800 hover:bg-[#FF6500] transition duration-200">
+              <td class="border border-gray-700 px-4 py-2"><%= paint_color %></td>
+              <td class="border border-gray-700 px-4 py-2">₱<%= total %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Sales by Primary Color -->
+    <div class="sales-category my-6 p-6 bg-[#1E3E62] text-gray-300 rounded-lg shadow-md" data-category="primary-color">
+      <h2 class="text-xl font-semibold mb-4">Sales by Primary Color</h2>
+      <table class="table-auto w-full text-left border-collapse">
+        <thead class="bg-[#0B192C]">
+          <tr>
+            <th class="border border-gray-700 px-4 py-2">Primary Color</th>
+            <th class="border border-gray-700 px-4 py-2">Total Sales (₱)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @sales_data[:primary_colors].each do |primary_color, total| %>
+            <tr class="bg-gray-800 hover:bg-[#FF6500] transition duration-200">
+              <td class="border border-gray-700 px-4 py-2"><%= primary_color %></td>
+              <td class="border border-gray-700 px-4 py-2">₱<%= total %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
-  
 </div>
 
 <script>
@@ -107,11 +107,11 @@
 
     categories.forEach(category => {
       if (selectedFilter === 'all') {
-        category.style.display = 'block'; // Show all if 'all' is selected
+        category.style.display = 'block';
       } else if (category.dataset.category === selectedFilter) {
-        category.style.display = 'block'; // Show the selected category
+        category.style.display = 'block';
       } else {
-        category.style.display = 'none'; // Hide other categories
+        category.style.display = 'none';
       }
     });
   }

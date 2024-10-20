@@ -1,10 +1,12 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Edit Color</h1>
+<div class="mx-auto md:w-2/3 w-full p-6 bg-[#0B192C] rounded-lg shadow-md">
 
-  <%= render "form", admin_color: @admin_color %>
+  
+  <%= link_to admin_colors_path, class: "bg-[#1E3E62] text-white py-2 px-4 rounded-lg shadow hover:bg-[#0B192C] inline-flex items-center space-x-2 transition duration-200" do %>
+    <i class="fas fa-arrow-left"></i>
+    <span>Back</span>
+  <% end %>
 
-  <%= link_to "Show", [:admin, @admin_color], class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  <%= link_to "Back", admin_colors_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <div class="mt-6">
+    <%= render "form", admin_color: @admin_color %>
+  </div>
 </div>
-
-

@@ -1,84 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>TJStockOptima</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="flex">
-      <div class="flex w-full">
-        <nav class="w-64 p-4 h-screen bg-gray-600 sticky top-0">
-          <div class="flex">
-            <%= image_tag 'TJlogo.png', class: "w-16" %>
-            <h1 class="text-md py-5 text-white font-bold hidden md:block">TJ Admin</h1>
+  <body class="bg-[#0B192C] text-gray-300">
+    <main class="flex" data-controller="sidebar">
+      <!-- Sidebar -->
+      <div data-sidebar-target="sidebar" class="fixed inset-y-0 left-0 z-40 w-64 bg-[#1E3E62] shadow-lg transition-transform duration-300 ease-in-out transform -translate-x-full md:translate-x-0 md:relative">
+        <nav class="flex flex-col p-6 h-full">
+          <div class="flex items-center justify-between mb-8">
+            <!-- Burger Button (Visible only in mobile mode) -->
+            <button data-action="click->sidebar#toggle" class="text-white md:hidden">
+              <i class="fas fa-bars text-2xl"></i>
+            </button>
+            <h1 class="text-lg text-white font-bold">TJ Admin</h1>
+            <!-- Close Button for Sidebar (Visible only in mobile mode) -->
+            <button data-action="click->sidebar#close" class="text-white hidden md:block">
+              <i class="fas fa-times"></i>
+            </button>
           </div>
-          <ul class="flex flex-col text-white">
-            <li>
-              <%= link_to admin_path, class: "block px-4 py-2 hover:rounded hover:bg-gray-700" do %>
-                <%= icon('fa-solid', 'gauge-high', class: 'mr-2') %> <span class="hidden md:inline-block">Dashboard</span>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to admin_colors_path, class: "block px-4 py-2 hover:rounded hover:bg-gray-700" do %>
-                <%= icon('fa-solid', 'list', class: 'mr-2') %> <span class="hidden md:inline-block">Brands</span>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to admin_products_path, class: "block px-4 py-2 hover:rounded hover:bg-gray-700" do %>
-                <%= icon('fa-solid', 'list', class: 'mr-2') %> <span class="hidden md:inline-block">Products</span>
-              <% end %>
-            </li>
-    
-            <li>
-              <%= link_to admin_paint_colors_path, class: "block px-4 py-2 hover:rounded hover:bg-gray-700" do %>
-                <%= icon('fa-solid', 'list', class: 'mr-2') %> <span class="hidden md:inline-block">Paint Colors</span>
-              <% end %>
-            </li>
-
-            <li>
-              <%= link_to admin_primary_colors_path, class: "block px-4 py-2 hover:rounded hover:bg-gray-700" do %>
-                <%= icon('fa-solid', 'list', class: 'mr-2') %> <span class="hidden md:inline-block">Primary Colors</span>
-              <% end %>
-            </li>
-
-            
-            <li>
-              <%= link_to admin_orders_path, class: "block px-4 py-2 hover:rounded hover:bg-gray-700" do %>
-                <%= icon('fa-solid', 'truck-fast', class: 'mr-2') %> <span class="hidden md:inline-block">Orders</span>
-              <% end %>
-            </li>
-
-            <li>
-              <%= link_to admin_mixtures_path, class: "block px-4 py-2 hover:rounded hover:bg-gray-700" do %>
-                <%= icon('fa-solid', 'list', class: 'mr-2') %> <span class="hidden md:inline-block">Mixtures</span>
-              <% end %>
-            </li>
-
-             <li>
-              <%= link_to admin_sales_path, class: "block px-4 py-2 hover:rounded hover:bg-gray-700" do %>
-                <%= icon('fa-solid', 'list', class: 'mr-2') %> <span class="hidden md:inline-block">Sales</span>
-              <% end %>
-            </li>
-
-           
-            <li>
-              <%= link_to destroy_admin_session_path, data: { "turbo-method": :delete, "turbo-confirm": "Are you sure you want to sign out?" }, class: "block px-4 py-2 hover:rounded hover:bg-gray-700" do %>
-                <%= icon('fa-solid', 'sign-out', class: 'mr-2') %> <span class="hidden md:inline-block">Sign out</span>
-              <% end %>
-            </li>
+          <ul class="flex flex-col space-y-2">
+            <% links = [
+              { path: admin_path, icon: 'fas fa-tachometer-alt', label: 'Dashboard' },
+              { path: admin_colors_path, icon: 'fas fa-paint-brush', label: 'Brands' },
+              { path: admin_products_path, icon: 'fas fa-box', label: 'Products' },
+              { path: admin_paint_colors_path, icon: 'fas fa-paint-roller', label: 'Paint Colors' },
+              { path: admin_primary_colors_path, icon: 'fas fa-palette', label: 'Primary Colors' },
+              { path: admin_orders_path, icon: 'fas fa-shopping-cart', label: 'Orders' },
+              { path: admin_mixtures_path, icon: 'fas fa-blender', label: 'Mixtures' },
+              { path: admin_sales_path, icon: 'fas fa-chart-line', label: 'Sales' },
+              { path: destroy_admin_session_path, icon: 'fas fa-sign-out-alt', label: 'Sign out', data: { "turbo-method": :delete, "turbo-confirm": "Are you sure you want to sign out?" } }
+            ] %>
+            <% links.each do |link| %>
+              <li>
+                <%= link_to link[:path], class: "flex items-center px-4 py-2 text-white hover:bg-[#FF6500] rounded transition duration-200", data: link[:data] do %>
+                  <i class="<%= link[:icon] %> mr-2"></i> <span><%= link[:label] %></span>
+                <% end %>
+              </li>
+            <% end %>
           </ul>
         </nav>
-        <div class="w-full p-8">
+      </div>
+
+      <!-- Main Content -->
+      <div class="flex-1 p-6 md:ml-32 min-h-screen transition-all duration-300 bg-[#0B192C]">
         <%= yield %>
-        </div>
       </div>
     </main>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   </body>
 </html>

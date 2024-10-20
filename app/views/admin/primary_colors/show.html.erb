@@ -1,16 +1,32 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
+<div class="mx-auto w-full flex max-w-2xl">
+  <div class="mx-auto w-full">
     <% if notice.present? %>
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
 
+        <!-- Back Button -->
+    <div class="w-full flex justify-start">
+      <%= link_to admin_primary_colors_path, class: "ml-0 md:ml-2 mt-2 rounded-lg py-3 px-5 bg-[#1E3E62] text-white hover:bg-[#0B192C] font-medium transition duration-200" do %>
+        <i class="fas fa-arrow-left mr-2"></i> Back
+      <% end %>
+    </div>
+
     <%= render @admin_primary_color %>
 
-    <%= link_to "Edit this primary color", edit_admin_primary_color_path(@admin_primary_color), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Back to primary colors", admin_primary_colors_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to "Destroy this primary color", admin_primary_color_path(@admin_primary_color), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-
-    </div>
+    <%= link_to edit_admin_primary_color_path(@admin_primary_color), class: "mt-2 rounded-lg py-3 px-5 bg-[#FF6500] text-white hover:bg-[#E65B00] font-medium transition duration-200" do %>
+        <i class="fas fa-edit mr-2"></i> Edit
+      <% end %>
+   
+   
+    <div class="inline-block ml-0 md:ml-2 mt-2">
+        <%= button_to admin_primary_color_path(@admin_primary_color), method: :delete, class: "rounded-lg py-3 px-5 bg-red-600 text-white hover:bg-red-700 font-medium transition duration-200" do %>
+          <i class="fas fa-trash-alt mr-2"></i> Delete
+        <% end %>
+      </div>
   </div>
 </div>
+
+
+
+
+

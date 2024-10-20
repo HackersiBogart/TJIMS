@@ -1,37 +1,37 @@
-<div id="<%= dom_id(product) %>" class="my-6 p-6 bg-white rounded-lg shadow-md">
-  <h2 class="text-2xl font-bold mb-6">Product Details</h2>
+<div id="<%= dom_id(product) %>" class="my-6 p-6 bg-[#0B192C] rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold mb-4 text-white">Product Details</h2>
 
-  <table class="table-auto w-full border-collapse">
-    <thead class="bg-gray-800 text-white">
+  <table class="w-full table-auto border-collapse">
+    <thead class="bg-[#1E3E62] text-gray-300">
       <tr>
         <th class="px-4 py-2 text-left">Attribute</th>
         <th class="px-4 py-2 text-left">Value</th>
       </tr>
     </thead>
     <tbody>
-      <tr class="bg-gray-50">
-        <td class="px-4 py-2 font-medium text-gray-700">Name</td>
-        <td class="px-4 py-2 text-gray-800"><%= product.name %></td>
+      <tr class="bg-gray-800 text-gray-300">
+        <td class="px-4 py-2 border-b">Name</td>
+        <td class="px-4 py-2 border-b"><%= product.name %></td>
       </tr>
-      <tr>
-        <td class="px-4 py-2 font-medium text-gray-700">Description</td>
-        <td class="px-4 py-2 text-gray-800"><%= product.description %></td>
+      <tr class="bg-gray-700 text-gray-300">
+        <td class="px-4 py-2 border-b">Description</td>
+        <td class="px-4 py-2 border-b"><%= product.description %></td>
       </tr>
-      <tr class="bg-gray-50">
-        <td class="px-4 py-2 font-medium text-gray-700">Brand Name</td>
-        <td class="px-4 py-2 text-gray-800"><%= product.color.name %></td>
+      <tr class="bg-gray-800 text-gray-300">
+        <td class="px-4 py-2 border-b">Brand Name</td>
+        <td class="px-4 py-2 border-b"><%= product.color.name %></td>
       </tr>
-      <tr>
-        <td class="px-4 py-2 font-medium text-gray-700">Active</td>
-        <td class="px-4 py-2 text-gray-800"><%= product.active ? 'Yes' : 'No' %></td>
+      <tr class="bg-gray-700 text-gray-300">
+        <td class="px-4 py-2 border-b">Active</td>
+        <td class="px-4 py-2 border-b"><%= product.active ? 'Yes' : 'No' %></td>
       </tr>
     </tbody>
   </table>
 
   <% if action_name != "show" %>
     <div class="mt-6 flex space-x-4">
-      <%= link_to "Show this product", [:admin, product], class: "bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700" %>
-      <%= link_to "Edit this product", edit_admin_product_path(product), class: "bg-yellow-500 text-white py-2 px-4 rounded-lg shadow hover:bg-yellow-600" %>
+      <%= link_to "Show this product", [:admin, product], class: "bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700 font-medium" %>
+      <%= link_to "Edit this product", edit_admin_product_path(product), class: "bg-yellow-500 text-white py-2 px-4 rounded-lg shadow hover:bg-yellow-600 font-medium" %>
     </div>
     <hr class="mt-6 border-t border-gray-200">
   <% end %>

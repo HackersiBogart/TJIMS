@@ -1,49 +1,58 @@
-<div id="<%= dom_id customer_order %>" class="bg-white shadow-md rounded-lg p-6 my-6">
-  <h2 class="text-2xl font-semibold mb-4">Your order is placed</h2>
-  <table class="w-full table-auto border-collapse border border-gray-300">
-    <tbody>
-      <tr>
-        <th class="border border-gray-300 px-4 py-2 text-left bg-gray-100">Customer Email</th>
-        <td class="border border-gray-300 px-4 py-2"><%= customer_order.customer_email %></td>
-      </tr>
-      <tr>
-        <th class="border border-gray-300 px-4 py-2 text-left bg-gray-100">Name</th>
-        <td class="border border-gray-300 px-4 py-2"><%= customer_order.name %></td>
-      </tr>
-      <tr>
-        <th class="border border-gray-300 px-4 py-2 text-left bg-gray-100">Phone Number</th>
-        <td class="border border-gray-300 px-4 py-2"><%= customer_order.phone_number %></td>
-      </tr>
-      <tr>
-        <th class="border border-gray-300 px-4 py-2 text-left bg-gray-100">Reference Number</th>
-        <td class="border border-gray-300 px-4 py-2"><%= customer_order.reference_number %></td>
-      </tr>
-      <tr>
-        <th class="border border-gray-300 px-4 py-2 text-left bg-gray-100">Receipt Image</th>
-        <td class="border border-gray-300 px-4 py-2">
-          <%= customer_order.image.attached? ? image_tag(customer_order.image, size: "100x100", class: "rounded") : image_tag("https://via.placeholder.com/100", size: "100x100", class: "rounded") %>
-        </td>
-      </tr>
-      <tr>
-        <th class="border border-gray-300 px-4 py-2 text-left bg-gray-100">Date of Retrieval</th>
-        <td class="border border-gray-300 px-4 py-2"><%= customer_order.date_of_retrieval %></td>
-      </tr>
-      <tr>
-        <th class="border border-gray-300 px-4 py-2 text-left bg-gray-100">Total</th>
-        <td class="border border-gray-300 px-4 py-2"><%= number_to_currency(customer_order.order_total, unit: "₱") %></td>
-      </tr>
-      <tr>
-        <th class="border border-gray-300 px-4 py-2 text-left bg-gray-100">Size</th>
-        <td class="border border-gray-300 px-4 py-2"><%= customer_order.size %></td>
-      </tr>
-      <tr>
-        <th class="border border-gray-300 px-4 py-2 text-left bg-gray-100">Quantity</th>
-        <td class="border border-gray-300 px-4 py-2"><%= customer_order.quantity %></td>
-      </tr>
-      <tr>
-        <th class="border border-gray-300 px-4 py-2 text-left bg-gray-100">Item</th>
-        <td class="border border-gray-300 px-4 py-2"><%= customer_order.item %></td>
-      </tr>
-    </tbody>
-  </table>
+<div id="<%= dom_id customer_order %>" class="bg-[#FF6500] shadow-md rounded-lg p-3 my-6">
+  <h2 class="text-3xl font-bold text-white mb-4">Your Order Has Been Placed</h2>
+  
+  <div class="overflow-x-auto">
+    <table class="min-w-full table-auto border-collapse border border-gray-300 bg-white rounded-lg">
+      <thead>
+        <tr class="bg-gray-100 text-[#1E3E62]">
+          <th class="border border-gray-300 px-4 py-2 text-left">Customer Email</th>
+          <th class="border border-gray-300 px-4 py-2 text-left">Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="border border-gray-300 px-4 py-2 font-semibold">Customer Email</td>
+          <td class="border border-gray-300 px-4 py-2"><%= customer_order.customer_email %></td>
+        </tr>
+        <tr>
+          <td class="border border-gray-300 px-4 py-2 font-semibold">Name</td>
+          <td class="border border-gray-300 px-4 py-2"><%= customer_order.name %></td>
+        </tr>
+        <tr>
+          <td class="border border-gray-300 px-4 py-2 font-semibold">Phone Number</td>
+          <td class="border border-gray-300 px-4 py-2"><%= customer_order.phone_number %></td>
+        </tr>
+        <tr>
+          <td class="border border-gray-300 px-4 py-2 font-semibold">Reference Number</td>
+          <td class="border border-gray-300 px-4 py-2"><%= customer_order.reference_number %></td>
+        </tr>
+        <tr>
+          <td class="border border-gray-300 px-4 py-2 font-semibold">Receipt Image</td>
+          <td class="border border-gray-300 px-4 py-2 flex justify-center items-center">
+            <%= customer_order.image.attached? ? image_tag(customer_order.image, size: "100x100", class: "rounded") : image_tag("https://via.placeholder.com/100", size: "100x100", class: "rounded") %>
+          </td>
+        </tr>
+        <tr>
+          <td class="border border-gray-300 px-4 py-2 font-semibold">Date of Retrieval</td>
+          <td class="border border-gray-300 px-4 py-2"><%= customer_order.date_of_retrieval %></td>
+        </tr>
+        <tr>
+          <td class="border border-gray-300 px-4 py-2 font-semibold">Total</td>
+          <td class="border border-gray-300 px-4 py-2"><%= number_to_currency(customer_order.order_total, unit: "₱") %></td>
+        </tr>
+        <tr>
+          <td class="border border-gray-300 px-4 py-2 font-semibold">Size</td>
+          <td class="border border-gray-300 px-4 py-2"><%= customer_order.size %></td>
+        </tr>
+        <tr>
+          <td class="border border-gray-300 px-4 py-2 font-semibold">Quantity</td>
+          <td class="border border-gray-300 px-4 py-2"><%= customer_order.quantity %></td>
+        </tr>
+        <tr>
+          <td class="border border-gray-300 px-4 py-2 font-semibold">Item</td>
+          <td class="border border-gray-300 px-4 py-2"><%= customer_order.item %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

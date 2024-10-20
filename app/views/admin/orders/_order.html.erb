@@ -1,72 +1,89 @@
-<div id="<%= dom_id(order) %>" class="my-6 p-6 bg-white rounded-lg shadow-md">
-  <h2 class="text-2xl font-bold mb-6">Order Details</h2>
+<div id="<%= dom_id(order) %>" class="my-6 p-6 bg-[#0B192C] rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold mb-4 text-white">Order Details</h2>
 
-  <table class="table-auto w-full border-collapse">
-    <thead class="bg-gray-800 text-white">
+  <table class="w-full table-auto border-collapse">
+    <thead class="bg-[#1E3E62] text-gray-300">
       <tr>
         <th class="px-4 py-2 text-left">Attribute</th>
         <th class="px-4 py-2 text-left">Value</th>
       </tr>
     </thead>
     <tbody>
-      <tr class="bg-gray-50">
-        <td class="px-4 py-2 font-medium text-gray-700">Customer Name</td>
-        <td class="px-4 py-2 text-gray-800"><%= order.name %></td>
+      <tr class="bg-gray-800 text-gray-300">
+        <td class="px-4 py-2 border-b">Customer Name</td>
+        <td class="px-4 py-2 border-b"><%= order.name %></td>
       </tr>
-      <tr>
-        <td class="px-4 py-2 font-medium text-gray-700">Customer Email</td>
-        <td class="px-4 py-2 text-gray-800"><%= order.customer_email %></td>
+      <tr class="bg-gray-700 text-gray-300">
+        <td class="px-4 py-2 border-b">Customer Email</td>
+        <td class="px-4 py-2 border-b"><%= order.customer_email %></td>
       </tr>
-      <tr class="bg-gray-50">
-        <td class="px-4 py-2 font-medium text-gray-700">Phone Number</td>
-        <td class="px-4 py-2 text-gray-800"><%= order.phone_number %></td>
+      <tr class="bg-gray-800 text-gray-300">
+        <td class="px-4 py-2 border-b">Phone Number</td>
+        <td class="px-4 py-2 border-b"><%= order.phone_number %></td>
       </tr>
-      <tr>
-        <td class="px-4 py-2 font-medium text-gray-700">Fulfilled</td>
-        <td class="px-4 py-2 text-gray-800"><%= order.fulfilled ? 'Yes' : 'No' %></td>
+      <tr class="bg-gray-700 text-gray-300">
+        <td class="px-4 py-2 border-b">Fulfilled</td>
+        <td class="px-4 py-2 border-b"><%= order.fulfilled ? 'Yes' : 'No' %></td>
       </tr>
-      <tr class="bg-gray-50">
-        <td class="px-4 py-2 font-medium text-gray-700">Reference Number</td>
-        <td class="px-4 py-2 text-gray-800"><%= order.reference_number %></td>
+      <tr class="bg-gray-800 text-gray-300">
+        <td class="px-4 py-2 border-b">Reference Number</td>
+        <td class="px-4 py-2 border-b"><%= order.reference_number %></td>
       </tr>
-      <tr>
-        <td class="px-4 py-2 font-medium text-gray-700">Reference Image</td>
-        <td class="px-4 py-2 text-gray-800">
+      <tr class="bg-gray-700 text-gray-300">
+        <td class="px-4 py-2 border-b">Reference Image</td>
+        <td class="px-4 py-2 border-b">
           <%= order.image.attached? ? image_tag(order.image, size: "100x100", class: "rounded") : image_tag("https://via.placeholder.com/100", size: "100x100", class: "rounded") %>
         </td>
       </tr>
-      <tr class="bg-gray-50">
-        <td class="px-4 py-2 font-medium text-gray-700">Date of Retrieval</td>
-        <td class="px-4 py-2 text-gray-800"><%= order.date_of_retrieval %></td>
+      <tr class="bg-gray-800 text-gray-300">
+        <td class="px-4 py-2 border-b">Date of Retrieval</td>
+        <td class="px-4 py-2 border-b"><%= order.date_of_retrieval %></td>
       </tr>
-      <tr>
-        <td class="px-4 py-2 font-medium text-gray-700">Item</td>
-        <td class="px-4 py-2 text-gray-800"><%= order.item %></td>
+      <tr class="bg-gray-700 text-gray-300">
+        <td class="px-4 py-2 border-b">Item</td>
+        <td class="px-4 py-2 border-b"><%= order.item %></td>
       </tr>
-      <tr class="bg-gray-50">
-        <td class="px-4 py-2 font-medium text-gray-700">Size</td>
-        <td class="px-4 py-2 text-gray-800"><%= order.size %></td>
+      <tr class="bg-gray-800 text-gray-300">
+        <td class="px-4 py-2 border-b">Size</td>
+        <td class="px-4 py-2 border-b"><%= order.size %></td>
       </tr>
-      <tr>
-        <td class="px-4 py-2 font-medium text-gray-700">Quantity</td>
-        <td class="px-4 py-2 text-gray-800"><%= order.quantity %></td>
+      <tr class="bg-gray-700 text-gray-300">
+        <td class="px-4 py-2 border-b">Quantity</td>
+        <td class="px-4 py-2 border-b"><%= order.quantity %></td>
       </tr>
-      <tr class="bg-gray-50">
-        <td class="px-4 py-2 font-medium text-gray-700">Product ID</td>
-        <td class="px-4 py-2 text-gray-800"><%= order.product_id %></td>
+      <tr class="bg-gray-800 text-gray-300">
+        <td class="px-4 py-2 border-b">Product ID</td>
+        <td class="px-4 py-2 border-b"><%= order.product_id %></td>
       </tr>
-      <tr>
-        <td class="px-4 py-2 font-medium text-gray-700">Total</td>
-        <td class="px-4 py-2 text-gray-800">₱<%= order.order_total %></td>
+      <tr class="bg-gray-700 text-gray-300">
+        <td class="px-4 py-2 border-b">Total</td>
+        <td class="px-4 py-2 border-b">₱<%= order.order_total %></td>
       </tr>
     </tbody>
   </table>
 
   <% if action_name != "show" %>
-    <div class="mt-6 flex space-x-4">
-      <%= link_to "Show this order", [:admin, order], class: "bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700" %>
-      <%= link_to "Edit this order", edit_admin_order_path(order), class: "bg-yellow-500 text-white py-2 px-4 rounded-lg shadow hover:bg-yellow-600" %>
-      <%= link_to "New Mixture", new_admin_mixture_path, class: "bg-green-500 text-white py-2 px-4 rounded-lg shadow hover:bg-green-600" %>
+    <div class="mt-6 flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0">
+      <%= link_to [:admin, order], class: "bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700 w-full sm:w-auto text-center flex items-center justify-center" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        Show
+      <% end %>
+
+      <%= link_to edit_admin_order_path(order), class: "bg-yellow-500 text-white py-2 px-4 rounded-lg shadow hover:bg-yellow-600 w-full sm:w-auto text-center flex items-center justify-center" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5m-5-4l5-5m-5 5V6h5" />
+        </svg>
+        Edit
+      <% end %>
+
+      <%= link_to admin_order_path(order), method: :delete, data: { confirm: 'Are you sure?' }, class: "bg-red-600 text-white py-2 px-4 rounded-lg shadow hover:bg-red-700 w-full sm:w-auto text-center flex items-center justify-center" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+        Delete
+      <% end %>
     </div>
     <hr class="mt-6 border-t border-gray-200">
   <% end %>

@@ -1,54 +1,74 @@
-<div id="<%= dom_id(paint_color) %>" class="my-6 p-6 bg-white rounded-lg shadow-md">
-  <h2 class="text-2xl font-bold mb-4">Paint Color Details</h2>
+<div id="<%= dom_id(paint_color) %>" class="my-6 p-6 bg-[#0B192C] rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold mb-4 text-white">Paint Color Details</h2>
 
   <table class="w-full table-auto border-collapse">
-    <thead class="bg-gray-800 text-white">
+    <thead class="bg-[#1E3E62] text-gray-300">
       <tr>
         <th class="px-4 py-2 text-left">Attribute</th>
         <th class="px-4 py-2 text-left">Value</th>
       </tr>
     </thead>
     <tbody>
-      <tr class="bg-gray-50">
+      <tr class="bg-gray-800 text-gray-300">
         <td class="px-4 py-2 border-b">Name</td>
         <td class="px-4 py-2 border-b"><%= paint_color.name %></td>
       </tr>
-      <tr>
+      <tr class="bg-gray-700 text-gray-300">
         <td class="px-4 py-2 border-b">Code</td>
         <td class="px-4 py-2 border-b"><%= paint_color.code %></td>
       </tr>
-      <tr class="bg-gray-50">
+      <!--<tr class="bg-gray-800 text-gray-300">
         <td class="px-4 py-2 border-b">Size</td>
         <td class="px-4 py-2 border-b"><%= paint_color.size %></td>
       </tr>
-      <tr>
+      <tr class="bg-gray-700 text-gray-300">
         <td class="px-4 py-2 border-b">Quantity</td>
         <td class="px-4 py-2 border-b"><%= paint_color.quantity %></td>
-      </tr>
-      <tr class="bg-gray-50">
+      </tr>-->
+      <tr class="bg-gray-800 text-gray-300">
         <td class="px-4 py-2 border-b">Price</td>
         <td class="px-4 py-2 border-b">₱<%= number_to_currency(paint_color.price, unit: "", precision: 2) %></td>
       </tr>
-      <tr>
+      <tr class="bg-gray-700 text-gray-300">
         <td class="px-4 py-2 border-b">Brand</td>
         <td class="px-4 py-2 border-b"><%= paint_color.color.name %></td>
       </tr>
-      <tr class="bg-gray-50">
+      <tr class="bg-gray-800 text-gray-300">
         <td class="px-4 py-2 border-b">Product</td>
         <td class="px-4 py-2 border-b"><%= paint_color.product.name %></td>
       </tr>
-      <tr>
+      <tr class="bg-gray-700 text-gray-300">
         <td class="px-4 py-2">Active</td>
         <td class="px-4 py-2"><%= paint_color.active ? 'Yes' : 'No' %></td>
       </tr>
     </tbody>
   </table>
 
-  <% if action_name != "show" %>
-    <div class="mt-6 flex space-x-4">
-      <%= link_to "Show this product", [:admin, paint_color], class: "rounded-lg py-2 px-4 bg-blue-600 text-white font-medium hover:bg-blue-700" %>
-      <%= link_to "Edit this product", edit_admin_paint_color_path(paint_color), class: "rounded-lg py-2 px-4 bg-yellow-500 text-white font-medium hover:bg-yellow-600" %>
+
+
+    <% if action_name != "show" %>
+    <div class="mt-6 flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0">
+      <%= link_to  [:admin, paint_color], class: "bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700 w-full sm:w-auto text-center flex items-center justify-center" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        Show
+      <% end %>
+
+      <%= link_to edit_admin_paint_color_path(paint_color), class: "bg-yellow-500 text-white py-2 px-4 rounded-lg shadow hover:bg-yellow-600 w-full sm:w-auto text-center flex items-center justify-center" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5m-5-4l5-5m-5 5V6h5" />
+        </svg>
+        Edit
+      <% end %>
+
+      <%= link_to admin_paint_color_path(paint_color), method: :delete, data: { confirm: 'Are you sure?' }, class: "bg-red-600 text-white py-2 px-4 rounded-lg shadow hover:bg-red-700 w-full sm:w-auto text-center flex items-center justify-center" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+        Delete
+      <% end %>
     </div>
-    <hr class="mt-6">
+    <hr class="mt-6 border-t border-gray-200">
   <% end %>
 </div>

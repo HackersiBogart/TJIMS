@@ -1,37 +1,14 @@
-<h1>Paint Color show page</h1>
+<h1 class="text-4xl font-bold text-center mb-8 text-orange-600">Paint Color Show Page</h1>
 
-
-  <div class="flex justify-center gap-20 py-10">
-  <!-- Brand Image Display Section -->
-  <div class="flex flex-wrap max-w-lg">
-    <% if @color.image.attached? %>
-      <%= image_tag @color.image, class: "w-auto h-32" %>
-    <% else %>
-      <p>No image available.</p>
-    <% end %>
-  </div>
-
-  <div class="flex justify-center gap-20 py-10">
-  <!-- Product Image Display Section -->
-  <div class="flex flex-wrap max-w-lg">
-    <% if @product.image.attached? %>
-      <%= image_tag @product.image, class: "w-auto h-32" %>
-    <% else %>
-      <p>No image available.</p>
-    <% end %>
-  </div>
-
-<div class="flex justify-center gap-20 py-10">
+<div class="flex flex-col md:flex-row justify-center py-10"> <!-- Use flex-col for mobile and flex-row for larger screens -->
   <!-- Paint Color Image Display Section -->
-  <div class="flex flex-wrap max-w-lg">
+  <div class="flex flex-col items-center max-w-lg mb-6 md:mb-0 md:mr-6"> <!-- Add margin bottom for mobile -->
     <% if @paint_color.image.attached? %>
-      <%= image_tag @paint_color.image, class: "w-auto h-64" %>
+      <%= image_tag @paint_color.image, class: "w-full h-64 rounded shadow-md" %> <!-- Use w-full for responsive image -->
     <% else %>
-      <p>No image available.</p>
+      <p class="text-gray-600">No image available.</p>
     <% end %>
   </div>
-
-
 
   <!-- Paint Color Details Section -->
   <div data-controller="paint-colors"
@@ -39,24 +16,22 @@
        data-paint-colors-name-value="<%= @paint_color.name %>"
        data-paint-colors-code-value="<%= @paint_color.code %>"
        data-paint-colors-price-value="<%= @paint_color.price %>" 
-       class="flex flex-col items-start max-w-sm">
+       class="flex flex-col items-start max-w-sm mt-6 md:mt-0"> <!-- Adjust margin for mobile -->
 
-    <h1 class="font-bold text-4xl uppercase"><%= @paint_color.name %></h1>
+    <h1 class="font-bold text-4xl uppercase text-gray-800"><%= @paint_color.name %></h1>
 
     <!-- Price Section -->
-    <p id="price-display" class="text-2xl mt-4">₱<%= @paint_color.price.to_s %></p>
-
-
+    <p id="price-display" class="text-2xl mt-4 text-gray-800">₱<%= @paint_color.price.to_s %></p>
 
     <div class="my-8">
-      <p class='uppercase text-lg'>Size</p>
+      <p class="uppercase text-lg font-semibold">Size</p>
       <% @paint_color.stocks.each do |stock| %>
         <% if stock.amount.present? && stock.amount > 0 %>
           <button data-action="click->paint-colors#selectSize" 
                   data-price="<%= stock.price %>" 
                   data-unit="<%= stock.unit %>" 
                   value="<%= stock.size %>" 
-                  class="bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
+                  class="bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 transition duration-200">
             <%= stock.size %>
           </button>
         <% else %> 
@@ -69,10 +44,9 @@
       <% end %>
     </div>
 
-
-    <div id="selected-size"></div>
+    <div id="selected-size" class="text-lg text-gray-800 mb-4"></div>
     <button data-action="click->paint-colors#addToCart" 
-            class="inline-flex items-center justify-center px-5 py-3 border border-transparent font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+            class="inline-flex items-center justify-center px-5 py-3 border border-transparent font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-200">
       Add To Cart
     </button>
   </div>

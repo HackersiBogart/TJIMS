@@ -1,21 +1,20 @@
-<div id="<%= dom_id(mixture_detail) %>" class="my-6 p-6 bg-white rounded-lg shadow-md">
-  <div class="mb-4">
-    <strong class="block text-gray-700 font-medium">Mixture:</strong>
-    <p class="text-gray-800"><%= mixture_detail.mixture_id %></p>
-  </div>
+<div id="<%= dom_id(mixture_detail) %>" >
 
-  <div class="mb-4">
-    <strong class="block text-gray-700 font-medium">Order:</strong>
-    <p class="text-gray-800"><%= mixture_detail.order_id %></p>
-  </div>
 
-  <div class="mb-4">
-    <strong class="block text-gray-700 font-medium">Primary Color:</strong>
-    <p class="text-gray-800"><%= mixture_detail.primary_color_id %></p>
-  </div>
-
-  <div class="mb-4">
-    <strong class="block text-gray-700 font-medium">Amount:</strong>
-    <p class="text-gray-800"><%= mixture_detail.amount %></p>
-  </div>
+  <table class="w-full table-auto border-collapse">
+    <tbody>
+      <tr class="bg-gray-700 text-gray-300">
+        <td class="px-4 py-2 border-b">Order</td>
+        <td class="px-4 py-2 border-b"><%= mixture_detail.order_id %></td>
+      </tr>
+      <tr class="bg-gray-800 text-gray-300">
+        <td class="px-4 py-2 border-b">Primary Color</td>
+        <td class="px-4 py-2 border-b"><%= mixture_detail.primary_color_id %></td>
+      </tr>
+      <tr class="bg-gray-700 text-gray-300">
+        <td class="px-4 py-2 border-b">Amount</td>
+        <td class="px-4 py-2 border-b"><%= mixture_detail.amount %></td>
+      </tr>
+    </tbody>
+  </table>
 </div>

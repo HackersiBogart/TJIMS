@@ -7,6 +7,27 @@ def index
   # Orders sorted by latest created_at date first
   @not_fulfilled_pagy, @not_fulfilled_orders = pagy(Order.where(fulfilled: false).order(created_at: :desc))
   @fulfilled_pagy, @fulfilled_orders = pagy(Order.where(fulfilled: true).order(created_at: :desc), page_param: :page_fulfilled)
+  @query = params[:query]&.downcase
+
+  if @query.present?
+    # Use LIKE for case-insensitive matching in SQLite
+    @not_fulfilled_orders = Order.where(fulfilled: false)
+                                 .where("CAST(id AS TEXT) LIKE :search OR LOWER(name) LIKE :search OR CAST(date_of_retrieval AS TEXT) LIKE :search", search: "%#{@query}%")
+                                 .order(created_at: :desc)
+
+    @fulfilled_orders = Order.where(fulfilled: true)
+                             .where("CAST(id AS TEXT) LIKE :search OR LOWER(name) LIKE :search OR CAST(date_of_retrieval AS TEXT) LIKE :search", search: "%#{@query}%")
+                             .order(created_at: :desc)
+  else
+    # Display all unfulfilled and fulfilled orders if no search query is provided
+    @not_fulfilled_orders = Order.where(fulfilled: false).order(created_at: :desc)
+    @fulfilled_orders = Order.where(fulfilled: true).order(created_at: :desc)
+  end
+
+  # Paginate the results using Pagy
+  @not_fulfilled_pagy, @not_fulfilled_orders = pagy(@not_fulfilled_orders, items: 10)
+  @fulfilled_pagy, @fulfilled_orders = pagy(@fulfilled_orders, items: 10)
+
 end
 
 

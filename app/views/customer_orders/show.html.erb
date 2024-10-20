@@ -4,12 +4,21 @@
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
 
+    <%= link_to "<i class='fas fa-arrow-left'></i> Back".html_safe, customer_orders_path, class: "rounded-lg py-3 px-5 bg-gray-300 text-gray-800 hover:bg-gray-400 transition-colors duration-200 flex items-center" %>
+
     <%= render @customer_order %>
 
-    <%= link_to "Edit this customer order", edit_customer_order_path(@customer_order), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Back to customer orders", customer_orders_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to "Destroy this customer order", @customer_order, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-    </div>
+    <div>
+ <div class="flex flex-col md:flex-row md:items-center mt-4">
+  <%= link_to "<i class='fas fa-edit'></i> Edit".html_safe, edit_customer_order_path(@customer_order), class: "rounded-lg py-3 px-5 bg-blue-500 text-white hover:bg-blue-600 transition-colors duration-200 flex items-center" %>
+  
+  
+  
+  <div class="inline-block md:ml-4 mt-2 md:mt-0">
+    <%= button_to "<i class='fas fa-trash'></i> Delete".html_safe, @customer_order, method: :delete, class: "rounded-lg py-3 px-5 bg-red-500 text-white hover:bg-red-600 transition-colors duration-200 flex items-center" %>
   </div>
+</div>
+
+</div>
+
 </div>

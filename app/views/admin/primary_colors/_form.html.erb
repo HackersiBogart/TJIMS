@@ -12,36 +12,36 @@
   <% end %>
 
   <div class="my-5">
-    <%= form.label :color_name %>
+    <%= form.label :color_name, class: "text-white" %>
     <%= form.text_field :color_name, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
-    <%= form.label :color_code %>
+    <%= form.label :color_code, class: "text-white" %>
     <%= form.text_field :color_code, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
-  <%= form.label :image %>
-  <%= form.file_field :image %>
+    <%= form.label :image, class: "text-white" %>
+    <%= form.file_field :image %>
   </div>
-  
+
   <div class="my-5">
-    <%= form.label :price %>
+    <%= form.label :price, class: "text-white" %>
     <%= form.text_field :price, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
-    <%= form.label :stocks %>
+    <%= form.label :stocks, class: "text-white" %>
     <%= form.text_field :stocks, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
-    <%= form.label :active %>
+    <%= form.label :active, class: "text-white" %>
     <%= form.check_box :active, class: "block mt-2 h-5 w-5" %>
   </div>
 
   <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+     <%= form.submit "Save", class: "rounded-lg py-3 px-5 bg-[#FF6500] hover:bg-[#E65B00] text-white inline-block font-medium cursor-pointer transition duration-200" %>
   </div>
 <% end %>

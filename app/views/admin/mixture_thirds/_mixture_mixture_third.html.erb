@@ -1,16 +1,19 @@
-<div id="<%= dom_id mixture_third %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Order:</strong>
-    <%= mixture_third.order_id %>
-  </p>
+<div id="<%= dom_id(mixture_third) %>">
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Primary color:</strong>
-    <%= mixture_third.primary_color_id %>
-  </p>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Amount:</strong>
-    <%= mixture_third.amount %>
-  </p>
-</div>
+  <table class="w-full table-auto border-collapse">
+
+    <tbody>
+
+      <tr class="bg-gray-700 text-gray-300">
+        <td class="px-4 py-2 border-b">Primary Color</td>
+        <td class="px-4 py-2 border-b"><%= mixture_third.primary_color_id %></td>
+      </tr>
+      <tr class="bg-gray-800 text-gray-300">
+        <td class="px-4 py-2 border-b">Amount</td>
+        <td class="px-4 py-2 border-b"><%= mixture_third.amount %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  </div>

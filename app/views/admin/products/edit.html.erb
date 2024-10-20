@@ -1,10 +1,16 @@
 <div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Editing product</h1>
 
+    <%= link_to admin_products_path, class: "bg-[#1E3E62] text-white py-2 px-4 rounded-lg shadow hover:bg-[#0B192C] inline-flex items-center space-x-2 transition duration-200" do %>
+    <i class="fas fa-arrow-left"></i>
+    <span>Back</span>
+  <% end %>
 
+  <div class="actions">
+    <%= render "form", admin_product: @admin_product %>
+      <%= link_to [:admin, @admin_product], class: "bg-blue-600 text-white py-3 px-4 rounded-lg shadow hover:bg-blue-700 w-full sm:w-auto text-center inline-flex items-center space-x-2" do %>
+    <i class="fas fa-eye"></i>
+    <span>Show</span>
+  <% end %>
 
-<div class="actions">
-  <%= render "form", admin_product: @admin_product %>
-  <%= link_to "Show ", admin_product_path(@admin_product), class: "ml-1 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  <%= link_to "Back", admin_products_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  </div>
 </div>

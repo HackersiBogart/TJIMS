@@ -1,7 +1,14 @@
 <div class="mx-auto md:w-2/3 w-full">
+   <%= link_to admin_colors_path, class: "bg-gray-600 text-white py-2 px-4 rounded-lg shadow hover:bg-gray-700 w-full sm:w-auto text-center inline-flex items-center space-x-2" do %>
+    <i class="fas fa-arrow-left"></i>
+    <span>Back</span>
+  <% end %>
   <h1 class="font-bold text-4xl">New color</h1>
+
 
   <%= render "form", admin_color: @admin_color %>
 
-  <%= link_to "Back", admin_colors_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+ 
+</div>
+
 </div>
