@@ -28,9 +28,19 @@ def index
   @not_fulfilled_pagy, @not_fulfilled_orders = pagy(@not_fulfilled_orders, items: 10)
   @fulfilled_pagy, @fulfilled_orders = pagy(@fulfilled_orders, items: 10)
 
+
+
 end
 
-
+def change_fulfilled
+  @order = Order.find(params[:id])
+  @order.fulfilled = !@order.fulfilled # Toggle fulfillment status
+  if @order.save
+    redirect_to admin_orders_path, notice: 'Order fulfillment status updated successfully.'
+  else
+    redirect_to admin_order_path(@order), alert: 'Failed to update order fulfillment status.'
+  end
+end
   # GET /admin/orders/1 or /admin/orders/1.json
   def show
     @order = Order.find(params[:id])
