@@ -1,7 +1,7 @@
 <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-center py-16 md:py-20">
   <h1 class="text-3xl md:text-5xl font-extrabold mb-3 md:mb-4 tracking-tight">Welcome to TJStockOptima</h1>
   <p class="text-lg md:text-xl mb-6 md:mb-8 opacity-90">Let us give color to your life with our premium selection!</p>
-  <%= link_to "Shop Now", root_path, class: "bg-white text-blue-600 hover:bg-blue-50 font-bold py-3 px-5 md:px-6 rounded-lg shadow-lg transition duration-300" %>
+  
 </div>
 
 <div class="flex flex-wrap justify-center mt-8 md:mt-12 items-center gap-6 md:gap-10 px-4">
@@ -17,11 +17,4 @@
   <% end %>
 </div>
 
-<div class="bg-gray-800 text-white my-12 md:my-16 text-center py-16 md:py-20">
-  <h2 class="text-3xl md:text-4xl font-bold mb-5 md:mb-6 tracking-wide">Stay Updated</h2>
-  <p class="text-base md:text-lg mb-6 md:mb-8 opacity-90">Subscribe to our newsletter for the latest updates and exclusive offers.</p>
-  <%= form_with url: root_path, method: :post, local: true, class: "flex flex-col sm:flex-row justify-center max-w-xs sm:max-w-md mx-auto space-y-3 sm:space-y-0 sm:space-x-2" do %>
-    <%= email_field_tag :email, nil, placeholder: "Enter your email", class: "p-3 rounded-lg sm:rounded-l-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-600 w-full sm:w-auto" %>
-    <%= submit_tag "Subscribe", class: "bg-indigo-600 hover:bg-indigo-700 cursor-pointer text-white font-bold py-3 px-5 rounded-lg sm:rounded-r-lg shadow-md transition duration-300 w-full sm:w-auto" %>
-  <% end %>
-</div>
+
