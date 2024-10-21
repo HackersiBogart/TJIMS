@@ -25,8 +25,10 @@
           <table class="min-w-full bg-[#1E3E62] text-gray-300 border-collapse">
             <thead class="bg-[#0B192C]">
               <tr>
-                <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">ID</th>
+                <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Mixture ID</th>
+                <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Order</th>
                 <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Actions</th>
+
               </tr>
             </thead>
             <tbody>
@@ -34,6 +36,9 @@
                 <tr class="bg-gray-800 border-b hover:bg-[#1E3E62] transition duration-200">
                   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
                     <%= mixture.id %>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
+                    <%= mixture.order.name %>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
                     <%= link_to "Show", admin_mixture_path(mixture), class: "rounded-lg py-2 px-4 bg-[#FF6500] text-white font-medium hover:bg-[#E65B00] transition duration-200" %>

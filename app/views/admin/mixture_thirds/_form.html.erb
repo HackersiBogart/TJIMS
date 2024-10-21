@@ -2,10 +2,9 @@
 
 <%= form_with(model: admin_mixture_third, class: "contents") do |form| %>
   <% if admin_mixture_third.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(admin_mixture_third.errors.count, "error") %> prohibited this admin_mixture_third from being saved:</h2>
-
-      <ul>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-4 py-3 font-medium rounded-lg mt-4">
+      <h2 class="font-semibold"><%= pluralize(admin_mixture_third.errors.count, "error") %> prohibited this admin_mixture_third from being saved:</h2>
+      <ul class="list-disc list-inside mt-2">
         <% admin_mixture_third.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -14,26 +13,31 @@
   <% end %>
 
   <div class="my-5">
-    <%= form.label :mixture_id %>
-    <%= form.text_field :mixture_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :mixture_id, class: "text-white font-semibold" %>
+    <%= form.text_field :mixture_id, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
   </div>
 
   <div class="my-5">
-    <%= form.label :order_id %>
-    <%= form.number_field :order_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :order_id, class: "text-white font-semibold" %>
+    <%= form.number_field :order_id, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
   </div>
 
   <div class="my-5">
-    <%= form.label :primary_color_id %>
-<%= form.number_field :primary_color_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :primary_color_id, class: "text-white font-semibold" %>
+    <%= form.number_field :primary_color_id, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
   </div>
 
   <div class="my-5">
-    <%= form.label :amount %>
-    <%= form.text_field :amount, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+     <label class="block text-gray-700 font-medium" for="mixture_mixture_thirds_attributes_0_amount">Quantity</label>
+    <%= form.text_field :amount, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
   </div>
 
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  <div class="flex items-center space-x-2 mt-4">
+    <div class="inline">
+      <%= form.submit "Save", class: "rounded-lg py-3 px-5 bg-[#FF6500] hover:bg-[#E65B00] text-white inline-block font-medium cursor-pointer transition duration-200 flex items-center space-x-2" do %>
+        <i class="fas fa-save"></i>
+        <span>Save</span>
+      <% end %>
+    </div>
   </div>
 <% end %>

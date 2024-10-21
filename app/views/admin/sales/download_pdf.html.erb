@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sales Data</title>
+  <style>
+    /* Basic styling for the PDF */
+    body { font-family: Arial, sans-serif; }
+    h1 { color: #FF6500; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #000; padding: 8px; text-align: left; }
+    th { background-color: #1E3E62; color: #fff; }
+    tr:nth-child(even) { background-color: #f2f2f2; }
+  </style>
+</head>
+<body>
+  <h1>Sales Data</h1>
+
+  <!-- Sales by Brand -->
+  <h2>Sales by Brand</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Brand</th>
+        <th>Total Sales (₱)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @sales_data[:colors].empty? %>
+        <tr>
+          <td colspan="2">No sales data available.</td>
+        </tr>
+      <% else %>
+        <% @sales_data[:colors].each do |color, total| %>
+          <tr>
+            <td><%= color %></td>
+            <td>₱<%= total %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <!-- Sales by Product -->
+  <h2>Sales by Product</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Total Sales (₱)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @sales_data[:products].empty? %>
+        <tr>
+          <td colspan="2">No sales data available.</td>
+        </tr>
+      <% else %>
+        <% @sales_data[:products].each do |product, total| %>
+          <tr>
+            <td><%= product %></td>
+            <td>₱<%= total %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <!-- Sales by Paint Color -->
+  <h2>Sales by Paint Color</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Paint Color</th>
+        <th>Total Sales (₱)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @sales_data[:paint_colors].empty? %>
+        <tr>
+          <td colspan="2">No sales data available.</td>
+        </tr>
+      <% else %>
+        <% @sales_data[:paint_colors].each do |paint_color, total| %>
+          <tr>
+            <td><%= paint_color %></td>
+            <td>₱<%= total %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <!-- Sales by Primary Color -->
+  <h2>Sales by Primary Color</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Primary Color</th>
+        <th>Total Sales (₱)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @sales_data[:primary_colors].empty? %>
+        <tr>
+          <td colspan="2">No sales data available.</td>
+        </tr>
+      <% else %>
+        <% @sales_data[:primary_colors].each do |primary_color, total| %>
+          <tr>
+            <td><%= primary_color %></td>
+            <td>₱<%= total %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</body>
+</html>

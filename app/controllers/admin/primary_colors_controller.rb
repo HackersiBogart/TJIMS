@@ -4,6 +4,11 @@ class Admin::PrimaryColorsController < AdminController
   # GET /admin/primary_colors or /admin/primary_colors.json
   def index
     @admin_primary_colors = PrimaryColor.all
+      if params[:query].present?
+        @pagy, @admin_primary_colors = pagy(PrimaryColor.where("color_name LIKE ?", "%#{params[:query]}%"))
+      else
+        @pagy, @admin_primary_colors = pagy(PrimaryColor.all)
+      end
   end
 
   # GET /admin/primary_colors/1 or /admin/primary_colors/1.json

@@ -3,7 +3,13 @@ class Admin::MixturesController < AdminController
 
   # GET /admin/mixtures or /admin/mixtures.json
   def index
+
     @admin_mixtures = Mixture.all
+    if params[:query].present?
+      @pagy, @admin_mixtures = pagy(Mixture.where("name LIKE ?", "%#{params[:query]}%"))
+    else
+      @pagy, @admin_mixtures = pagy(Mixture.all)
+    end
   end
 
   # GET /admin/mixtures/1 or /admin/mixtures/1.json

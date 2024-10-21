@@ -15,6 +15,11 @@ Rails.application.routes.draw do
   get 'mix/index'
   post 'mix/deduct_stock', to: 'mix#deduct_stock', as: 'mix_deduct_stock'
 
+  resources :sales do
+    collection do
+      get :download_pdf
+    end
+  end
   namespace :admin do
     resources :orders do
       member do

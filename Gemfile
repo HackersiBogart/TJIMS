@@ -82,3 +82,8 @@ gem "cocoon",  "~> 1.2"
 gem "foreman", github: "ddollar/foreman"
 
 gem "simple_form", "~> 5.2"
+
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
+gem 'prawn'
