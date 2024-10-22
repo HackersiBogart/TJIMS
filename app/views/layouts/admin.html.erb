@@ -1,33 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>TJStockOptima</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TJStockOptima</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const sidebar = document.getElementById('sidebar');
+      const toggleButton = document.getElementById('toggle-button');
+      const closeButton = document.getElementById('close-button');
 
-  <body class="bg-[#0B192C] text-gray-300">
-    <main class="flex" data-controller="sidebar">
-      <!-- Sidebar -->
-      <div data-sidebar-target="sidebar" class="fixed inset-y-0 left-0 z-40 w-64 bg-[#1E3E62] shadow-lg transition-transform duration-300 ease-in-out transform -translate-x-full md:translate-x-0 md:relative">
-        <nav class="flex flex-col p-6 h-full">
-          <div class="flex items-center justify-between mb-8">
-            <!-- Burger Button (Visible only in mobile mode) -->
-            <button data-action="click->sidebar#toggle" class="text-white md:hidden">
-              <i class="fas fa-bars text-2xl"></i>
-            </button>
-            <h1 class="text-lg text-white font-bold">TJ Admin</h1>
-            <!-- Close Button for Sidebar (Visible only in mobile mode) -->
-            <button data-action="click->sidebar#close" class="text-white hidden md:block">
-              <i class="fas fa-times"></i>
-            </button>
-          </div>
-          <ul class="flex flex-col space-y-2">
+      toggleButton.addEventListener('click', () => {
+        sidebar.classList.toggle('-translate-x-full');
+      });
+
+      closeButton.addEventListener('click', () => {
+        sidebar.classList.add('-translate-x-full');
+      });
+    });
+  </script>
+</head>
+
+<body class="bg-[#0B192C] text-gray-300">
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <div id="sidebar" class="fixed inset-y-0 left-0 z-40 w-64 bg-[#1E3E62] shadow-lg transition-transform duration-300 ease-in-out transform -translate-x-full md:translate-x-0">
+      <div class="flex flex-col h-full">
+        <div class="flex items-center justify-between p-4">
+          <h1 class="text-lg text-white font-bold">TJ Admin</h1>
+          <button id="close-button" class="text-white md:hidden">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <nav class="flex-1">
+          <ul class="flex flex-col p-4 space-y-2">
             <% links = [
               { path: admin_path, icon: 'fas fa-tachometer-alt', label: 'Dashboard' },
               { path: admin_colors_path, icon: 'fas fa-paint-brush', label: 'Brands' },
@@ -49,13 +61,17 @@
           </ul>
         </nav>
       </div>
+    </div>
 
-      <!-- Main Content -->
-      <div class="flex-1 p-6 md:ml-32 min-h-screen transition-all duration-300 bg-[#0B192C]">
+    <!-- Main Content -->
+    <div class="flex-1 transition-all duration-300 bg-[#0B192C] md:ml-64">
+      <div class="p-4">
+        <button id="toggle-button" class="text-white md:hidden mb-4">
+          <i class="fas fa-bars text-2xl"></i>
+        </button>
         <%= yield %>
       </div>
-    </main>
-
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  </body>
+    </div>
+  </div>
+</body>
 </html>

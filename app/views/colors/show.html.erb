@@ -17,7 +17,7 @@
             <div class="w-64 h-64 flex justify-center items-center bg-gray-100 rounded overflow-hidden">
               <%= product.image.attached? ? image_tag(product.image, size: "250x250", class: "object-cover") : image_tag("https://via.placeholder.com/250", class: "object-cover") %>
             </div>
-            <h2 class="mt-4 text-lg font-semibold text-gray-900 text-center"><%= product.name %></h2>
+            <h2 class="mt-4 text-lg font-semibold text-white text-center"><%= product.name %></h2>
           </div>
         <% end %>
       <% end %>

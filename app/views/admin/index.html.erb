@@ -1,5 +1,5 @@
 <div class="flex flex-col md:flex-row items-start md:items-center justify-between w-full mt-4 mb-6">
-  <%= form_with url: admin_colors_path, method: :get, class: "flex w-full md:w-auto items-center" do |form| %>
+  <%= form_with url: admin_colors_path, method: :get, class: "flex w-full md:w-auto items-center mb-4 md:mb-0" do |form| %>
     <%= form.text_field :query, placeholder: "Search", class: "rounded border border-gray-500 text-gray-800 py-2 px-4 focus:outline-none focus:border-[#FF6500] transition duration-200 w-full md:w-64" %>
     <button type="submit" class="ml-2 bg-[#FF6500] hover:bg-[#E65B00] text-white rounded-full p-2 transition duration-200">
       <i class="fas fa-search"></i>
@@ -10,8 +10,9 @@
   <% end %>
 </div>
 
-<div class="flex justify-between flex-wrap mt-8 w-full max-w-4xl">
-
+  <div class="flex flex-col w-full mt-6">
+    <div class="overflow-x-auto">
+      <div class="py-2 inline-block min-w-full">
 
   <!-- Time Range Selection -->
   <div class="mb-4 w-full md:w-auto">
@@ -22,8 +23,9 @@
     <% end %>
   </div>
 
-  <div class="flex gap-4 flex-col md:flex-row justify-between w-full">
-    <div class="max-w-sm rounded overflow-hidden shadow-xl bg-gradient-to-r from-orange-400 to-orange-300">
+  <!-- Quick Stats Cards -->
+  <div class="flex gap-4 flex-col md:flex-row justify-between w-full mb-8">
+    <div class="flex-1 max-w-sm rounded overflow-hidden shadow-xl bg-gradient-to-r from-orange-400 to-orange-300">
       <div class="px-6 py-4">
         <div class="font-bold text-xl mb-2 text-white">Revenue</div>
         <p class="text-white text-base">
@@ -31,7 +33,7 @@
         </p>
       </div>
     </div>
-    <div class="max-w-sm rounded overflow-hidden shadow-xl bg-gradient-to-r from-orange-400 to-orange-300">
+    <div class="flex-1 max-w-sm rounded overflow-hidden shadow-xl bg-gradient-to-r from-orange-400 to-orange-300">
       <div class="px-6 py-4">
         <div class="font-bold text-xl mb-2 text-white">Total Sales</div>
         <p class="text-white text-base">
@@ -41,6 +43,7 @@
     </div>
   </div>
 
+  <!-- Revenue Chart -->
   <div class="my-8 w-full">
     <h2 class="text-2xl text-white font-medium mb-4">Revenue</h2>
     <div class="w-full" data-controller="dashboard" data-dashboard-revenue-value="<%= @revenue_by_day.to_json %>">
@@ -48,6 +51,7 @@
     </div>
   </div>
 
+  <!-- Recent Unfulfilled Orders -->
   <div class="flex flex-col w-full">
     <h2 class="text-2xl text-white mb-4 font-medium">Recent Unfulfilled Orders</h2>
     <div class="overflow-x-auto">
@@ -81,4 +85,6 @@
       </table>
     </div>
   </div>
+</div>
+</div>
 </div>
