@@ -11,67 +11,18 @@
     </div>
   <% end %>
 
-  <div class="my-5">
-    <%= form.label :customer_email %>
-    <%= form.text_field :customer_email, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
 
-  <div class="my-5">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
 
-  <div class="my-5">
-    <%= form.label :phone_number %>
-    <%= form.text_field :phone_number, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
 
-  <div class="my-5">
-    <%= form.label :date_of_retrieval %>
-    <%= form.text_field :date_of_retrieval, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
+
 
   <div class="my-5">
     <%= form.label :fulfilled %>
     <%= form.check_box :fulfilled, class: "block mt-2 h-5 w-5" %>
   </div>
 
-  <div class="my-5">
-    <%= form.label :reference_number %>
-    <%= form.text_field :reference_number, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
 
-  <div class="mt-4">
-    <%= form.label :image, "Receipt Image" %>
-    <%= form.file_field :image, class: "form-input mt-1 block w-full" %>
-  </div>
 
-<div data-controller="cart">
-  <div class="my-5">
-      <%= form.label :item %>
-      <%= form.text_field :item, id: "order_items", readonly: true %>
-    </div>
-    <div class="my-5">
-      <%= form.label :size %>
-      <%= form.text_field :size, id: "order_size", readonly: true %>
-    </div>
-    <div class="my-5">
-      <%= form.label :quantity %>
-      <%= form.text_field :quantity, id: "order_quantity", readonly: true %>
-    </div>
-  <!-- Display Total -->
-<div class="my-5">
-  <%= form.label :total, "Total Cost (for reference)" %>
-  <%= form.text_field :total, value: admin_order.total, readonly: true, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-</div>
-</div>
-
-<!-- Editable Total Confirmation -->
-<h4>For confirmation, input the total cost.</h4>
-<div class="my-5">
-  <%= form.label :order_total, "Confirm Total" %>
-  <%= form.text_field :order_total, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-</div>
 
 
 
