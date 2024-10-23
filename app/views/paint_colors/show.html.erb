@@ -1,10 +1,10 @@
-<h1 class="text-4xl font-bold text-center mb-8 text-orange-600">Paint Color Show Page</h1>
 
-<div class="flex flex-col md:flex-row justify-center py-10"> <!-- Use flex-col for mobile and flex-row for larger screens -->
+
+<div class="flex flex-col md:flex-row justify-center py-10 mt-20"> <!-- Use flex-col for mobile and flex-row for larger screens -->
   <!-- Paint Color Image Display Section -->
   <div class="flex flex-col items-center max-w-lg mb-6 md:mb-0 md:mr-6"> <!-- Add margin bottom for mobile -->
     <% if @paint_color.image.attached? %>
-      <%= image_tag @paint_color.image, class: "w-full h-64 rounded shadow-md" %> <!-- Use w-full for responsive image -->
+      <%= image_tag @paint_color.image, class: "w-auto h-64 rounded shadow-md" %> <!-- Use w-full for responsive image -->
     <% else %>
       <p class="text-gray-600">No image available.</p>
     <% end %>

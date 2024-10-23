@@ -34,22 +34,22 @@ export default class extends Controller {
 
       // Add item name
       const itemName = document.createElement("div");
-      itemName.classList.add("font-semibold", "text-lg", "text-[#1E3E62]");
+      itemName.classList.add("font-semibold", "text-lg", "text-gray-800");
       itemName.innerText = `Item: ${item.name}`;
 
       // Add item price
       const itemPriceText = document.createElement("div");
-      itemPriceText.classList.add("text-sm", "text-gray-700");
+      itemPriceText.classList.add("text-sm", "text-gray-800");
       itemPriceText.innerText = `Price: ₱${itemPrice.toFixed(2)}`;
 
       // Add item size
       const itemSize = document.createElement("div");
-      itemSize.classList.add("text-sm", "text-gray-700");
+      itemSize.classList.add("text-sm", "text-gray-800");
       itemSize.innerText = `Size: ${item.size}`;
 
       // Add item quantity
       const itemQuantity = document.createElement("div");
-      itemQuantity.classList.add("text-sm", "text-gray-700");
+      itemQuantity.classList.add("text-sm", "text-gray-800");
       itemQuantity.innerText = `Quantity: ${item.quantity}`;
 
       // Append item details to the itemDetails div
