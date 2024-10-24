@@ -26,7 +26,8 @@
             <tr>
               <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Image</th>
               <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Name</th>
-              <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Description</th>
+              <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">last updated</th>
+              <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Quantity</th>
               <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Brand</th>
               <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Active</th>
             </tr>
@@ -41,7 +42,10 @@
                   <%= link_to admin_product.name, admin_product_path(admin_product), class: "underline text-[#FF6500] hover:text-[#E65B00]" %>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
-                  <%= admin_product.description %>
+                  <%= admin_product.updated_at %>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
+                  <%= admin_product.quantity%>
                 </td>
                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
                   <% if admin_product.color %>

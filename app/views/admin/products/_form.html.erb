@@ -1,17 +1,22 @@
 <%= form_with(model: [:admin, admin_product], class: "contents", local: true, html: { multipart: true }) do |form| %>
   <div class="my-5">
     <%= form.label :name, class: "text-white font-medium" %>
-    <%= form.text_field :name, class: "block shadow rounded-md border border-gray-500 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
+    <%= form.text_field :name, class: "block shadow rounded-md border text-gray-800 border-gray-500 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
   </div>
 
   <div class="my-5">
     <%= form.label :description, class: "text-white font-medium" %>
-    <%= form.text_area :description, rows: 4, class: "block shadow rounded-md border border-gray-500 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
+    <%= form.text_area :description, rows: 4, class: "block shadow rounded-md border text-gray-800 border-gray-500 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
   </div>
 
   <div class="my-5">
     <%= form.label :active, class: "text-white font-medium" %>
     <%= form.check_box :active, class: "block mt-2 h-5 w-5 accent-[#FF6500]" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :quantity, class: "text-white font-medium" %>
+    <%= form.text_field :quantity, class: "block shadow rounded-md border  text-gray-800 border-gray-500 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
   </div>
 
   <div class="my-5">
