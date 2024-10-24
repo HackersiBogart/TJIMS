@@ -52,6 +52,10 @@
         <td class="px-4 py-2 border-b"><%= order.quantity %></td>
       </tr>
       <tr class="bg-gray-800 text-gray-300">
+        <td class="px-4 py-2 border-b">Brand ID</td>
+        <td class="px-4 py-2 border-b"><%= order.color_id %></td>
+      </tr>
+      <tr class="bg-gray-800 text-gray-300">
         <td class="px-4 py-2 border-b">Product ID</td>
         <td class="px-4 py-2 border-b"><%= order.product_id %></td>
       </tr>
@@ -61,7 +65,7 @@
       </tr>
       <tr class="bg-gray-700 text-gray-300">
         <td class="px-4 py-2 border-b">Total</td>
-        <td class="px-4 py-2 border-b">₱<%= order.total %></td>
+        <td class="px-4 py-2 border-b">₱<%= order.order_total %></td>
       </tr>
     </tbody>
   </table>
