@@ -1,0 +1,15 @@
+<div class="mx-auto md:w-2/3 w-full">
+
+      <div class="w-full flex justify-start">
+      <%= link_to admin_product_product_stocks_path, class: "ml-0 md:ml-2 mt-2 rounded-lg py-3 px-5 bg-[#1E3E62] text-white hover:bg-[#0B192C] font-medium transition duration-200" do %>
+        <i class="fas fa-arrow-left mr-2"></i> Back
+      <% end %>
+    </div>
+
+  <%= render "form", admin_product_stock: @admin_product_stock %>
+
+  <%= link_to "Show", @admin_product_product_stock, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  
+      
+
+</div>

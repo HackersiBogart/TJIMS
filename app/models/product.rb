@@ -5,5 +5,7 @@ class Product < ApplicationRecord
   has_many :orders
   belongs_to :order
   belongs_to :paint_color
+  has_many :product_stocks
+  
   
 end

@@ -20,7 +20,14 @@ Rails.application.routes.draw do
       get :download_pdf
     end
   end
+
+
   namespace :admin do
+
+    resources :products do
+      resources :product_stocks, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+    end
+    
     resources :orders do
       member do
         get 'change_fulfilled', to: 'orders#change_fulfilled'
@@ -32,13 +39,13 @@ Rails.application.routes.draw do
     resources :mixture_details
     resources :mixtures
     resources :sales, only: [:index, :show]
-    
+
     resources :mix, only: [:index, :create] do
       post 'deduct_stock', on: :collection
     end
 
     resources :primary_colors
-    resources :products
+
     resources :paint_colors do
       resources :stocks, only: [:index, :show, :new, :create, :edit, :update, :destroy]
     end

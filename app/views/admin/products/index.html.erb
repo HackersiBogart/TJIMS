@@ -27,7 +27,7 @@
               <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Image</th>
               <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Name</th>
               <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">last updated</th>
-              <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Quantity</th>
+
               <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Brand</th>
               <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Active</th>
             </tr>
@@ -44,9 +44,7 @@
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
                   <%= admin_product.updated_at %>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
-                  <%= admin_product.quantity%>
-                </td>
+
                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
                   <% if admin_product.color %>
                     <%= admin_product.color.name %>

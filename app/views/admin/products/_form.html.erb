@@ -15,11 +15,6 @@
   </div>
 
   <div class="my-5">
-    <%= form.label :quantity, class: "text-white font-medium" %>
-    <%= form.text_field :quantity, class: "block shadow rounded-md border  text-gray-800 border-gray-500 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
-  </div>
-
-  <div class="my-5">
     <%= form.label :color_id, "Select Brand", class: "text-white font-medium" %>
     <%= form.collection_select :color_id, Color.all, :id, :name, { prompt: "Choose a Brand" }, { class: "block shadow rounded-md border-gray-500 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" } %>
   </div>
@@ -28,6 +23,14 @@
     <%= form.label :image, class: "text-white font-medium" %>
     <%= form.file_field :image, class: "block shadow rounded-md border border-gray-500 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
   </div>
+
+    <% unless admin_product.new_record? %>
+    <div class="my-5">
+      <%= link_to "Stocks", admin_product_product_stocks_path(admin_product), class: "ml-2 rounded-lg py-3 px-5 bg-orange-200 text-black inline-block font-medium transition duration-200 hover:bg-orange-300" %>
+    
+    </div>
+  <% end %>
+
 
   <div class="inline">
     <%= form.submit "Save", class: "rounded-lg py-3 px-5 bg-[#FF6500] hover:bg-[#E65B00] text-white inline-block font-medium cursor-pointer transition duration-200" %>
