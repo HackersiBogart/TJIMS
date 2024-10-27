@@ -1,0 +1,2 @@
+class PremadeproductsController < ApplicationController
+end

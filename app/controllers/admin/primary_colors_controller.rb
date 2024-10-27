@@ -70,6 +70,6 @@ class Admin::PrimaryColorsController < AdminController
 
     # Only allow a list of trusted parameters through.
     def admin_primary_color_params
-      params.require(:primary_color).permit(:color_name, :color_code, :price, :stocks, :image, :active)
+      params.require(:primary_color).permit(:color_name, :color_code, :price, :size,:stocks, :image, :active, :color_id, :product_id)
     end
 end

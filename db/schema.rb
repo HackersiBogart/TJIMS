@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_24_164024) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_27_100608) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -37,17 +37,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_24_164024) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
-  end
-
-  create_table "admin_product_stocks", force: :cascade do |t|
-    t.integer "product_id", null: false
-    t.string "size"
-    t.decimal "amount"
-    t.decimal "price"
-    t.string "unit"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_admin_product_stocks_on_product_id"
   end
 
   create_table "admins", force: :cascade do |t|
@@ -205,6 +194,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_24_164024) do
     t.integer "order_id"
   end
 
+  create_table "product_stocks", force: :cascade do |t|
+    t.integer "product_id", null: false
+    t.string "size"
+    t.decimal "amount"
+    t.decimal "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_admin_product_stocks_on_product_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -215,7 +214,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_24_164024) do
     t.text "color_name"
     t.integer "color_id"
     t.integer "order_id"
-    t.integer "quantity"
     t.index ["color_id"], name: "index_products_on_color_id"
   end
 
@@ -238,6 +236,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_24_164024) do
 
   create_table "sales", force: :cascade do |t|
     t.decimal "total"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "selects", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -267,7 +270,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_24_164024) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "admin_product_stocks", "products"
   add_foreign_key "customer_orders", "paint_colors"
   add_foreign_key "mixes", "orders"
   add_foreign_key "mixes", "paint_colors"
@@ -280,5 +282,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_24_164024) do
   add_foreign_key "order_paint_colors", "orders"
   add_foreign_key "order_paint_colors", "paint_colors"
   add_foreign_key "paint_colors", "colors"
+  add_foreign_key "product_stocks", "products"
   add_foreign_key "stocks", "paint_colors"
 end

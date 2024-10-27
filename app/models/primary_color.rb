@@ -7,6 +7,10 @@ class PrimaryColor < ApplicationRecord
   has_many :mixture_thirds
 
   validates :stocks, numericality: { greater_than_or_equal_to: 0 }
+  belongs_to :color
+  belongs_to :product
+  has_many :products
+  has_many :colors
 
 
 

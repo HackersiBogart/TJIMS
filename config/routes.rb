@@ -19,8 +19,10 @@ Rails.application.routes.draw do
     collection do
       get :download_pdf
     end
-  end
+  end     
 
+
+  resources :select, only: [:show]
 
   namespace :admin do
 
@@ -71,6 +73,9 @@ Rails.application.routes.draw do
   resources :colors, only: [:show]
   resources :products, only: [:show]
   resources :paint_colors, only: [:show]
+  resources :primary_colors, only: [:show]
+  resources :premadecolors, only: [:show]
+  resources :premadeproducts, only: [:show]
 
   get 'reports', to: 'reports#index'
   get "admin" => "admin#index"
@@ -80,5 +85,9 @@ Rails.application.routes.draw do
   get 'summary', to: 'summary#show'
   get 'summary/:id', to: 'summary#show', as: 'order_summary'
   get 'sales', to: 'sales#index'
+  get 'select', to: 'select#show'
+  get 'premade', to: 'premade#index', as: 'premade'
+   get 'tomix', to: 'tomix#index', as: 'tomix'
+    get 'premadecolors', to: 'premadecolors#show', as: 'premadecolors'
 
 end

@@ -1,0 +1,2 @@
+module PremadeHelper
+end
