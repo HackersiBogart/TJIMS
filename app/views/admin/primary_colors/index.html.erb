@@ -39,10 +39,10 @@
                   <%= primary_color.image.attached? ? image_tag(primary_color.image, size: "50x50") : image_tag("https://via.placeholder.com/50", size: "50x50") %>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300 underline">
-                  <%= link_to primary_color.color_name, admin_primary_color_path(primary_color), class: "text-[#FF6500] hover:text-[#E65B00]" %>
+                  <%= link_to primary_color.name, admin_primary_color_path(primary_color), class: "text-[#FF6500] hover:text-[#E65B00]" %>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
-                  <%= primary_color.color_code %>
+                  <%= primary_color.code %>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
                   ₱<%= primary_color.price %>

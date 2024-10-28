@@ -11,12 +11,12 @@
   <!-- Primary Color Details Section -->
   <div data-controller="primary-colors"
        data-primary-colors-id-value="<%= @primary_color.id %>"
-       data-primary-colors-color-name-value="<%= @primary_color.color_name %>" 
-       data-primary-colors-color-code-value="<%= @primary_color.color_code %>" 
+       data-primary-colors-name-value="<%= @primary_color.name %>" 
+       data-primary-colors-code-value="<%= @primary_color.code %>" 
        data-primary-colors-price-value="<%= @primary_color.price %>" 
        class="flex flex-col items-start max-w-sm mt-6 md:mt-0"> <!-- Adjust margin for mobile -->
 
-    <h1 class="font-bold text-4xl uppercase text-white"><%= @primary_color.color_name %></h1> <!-- Updated -->
+    <h1 class="font-bold text-4xl uppercase text-white"><%= @primary_color.name %></h1> <!-- Updated -->
 
     <!-- Price Section -->
     <p id="price-display" class="text-2xl mt-4 text-white">₱<%= @primary_color.price.to_s %></p>

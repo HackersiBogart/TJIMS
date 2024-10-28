@@ -1,14 +1,14 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="cart"
+// Connects to data-controller="premadecart"
 export default class extends Controller {
   initialize() {
-    console.log("cart controller initialized");
+    console.log("premadecart controller initialized");
     this.updateTotal();
   }
 
   updateTotal() {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const premadecart = JSON.parse(localStorage.getItem("premadecart")) || [];
     
     let total = 0;
     let totalQuantity = 0;
@@ -16,15 +16,15 @@ export default class extends Controller {
     let itemNames = [];
 
     // Calculate total, quantity, and collect item names
-    for (let i = 0; i < cart.length; i++) {
-      const item = cart[i];
+    for (let i = 0; i < premadecart.length; i++) {
+      const item = premadecart[i];
       const itemPrice = parseFloat(item.price); // Ensure price is a number
       total += itemPrice * item.quantity;
       totalQuantity += item.quantity; // Accumulate quantity
       totalSize += item.size; // Accumulate quantity
       itemNames.push(item.name); // Collect item names
 
-      // Create a container div for the cart item
+      // Create a container div for the premadecart item
       const itemContainer = document.createElement("div");
       itemContainer.classList.add("flex", "justify-between", "items-center", "bg-gray-100", "rounded-lg", "p-4", "mt-2", "shadow-md");
 
@@ -63,13 +63,13 @@ export default class extends Controller {
       deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
       deleteButton.value = JSON.stringify({ id: item.id, size: item.size });
       deleteButton.classList.add("bg-red-500", "hover:bg-red-600", "rounded-full", "text-white", "p-2", "ml-4", "transition", "duration-200");
-      deleteButton.addEventListener("click", this.removeFromCart.bind(this)); // Bind `this` to the method
+      deleteButton.addEventListener("click", this.removeFromPremadecart.bind(this)); // Bind `this` to the method
 
       // Append item details and delete button to the itemContainer
       itemContainer.appendChild(itemDetails);
       itemContainer.appendChild(deleteButton);
 
-      // Append the itemContainer to the main cart element
+      // Append the itemContainer to the main premadecart element
       this.element.prepend(itemContainer);
     }
 
@@ -89,14 +89,14 @@ export default class extends Controller {
       console.error("Total field not found");
     }
 
-    // Update the size field after the cart is processed
+    // Update the size field after the premadecart is processed
     this.updateSizeField(totalSize); // Replace 1/2 with actual size logic if necessary
 
-    // Update the quantity field after the cart is processed
-    this.updateQuantityField(totalQuantity); // Update quantity based on cart items
+    // Update the quantity field after the premadecart is processed
+    this.updateQuantityField(totalQuantity); // Update quantity based on premadecart items
 
-    // Update the item field after the cart is processed
-    this.updateItemField(itemNames); // Update item names based on cart items
+    // Update the item field after the premadecart is processed
+    this.updateItemField(itemNames); // Update item names based on premadecart items
   }
 
   updateSizeField(size) {
@@ -127,18 +127,18 @@ export default class extends Controller {
   }
 
   clear() {
-    localStorage.removeItem("cart");
+    localStorage.removeItem("premadecart");
     window.location.reload();
   }
 
-  removeFromCart(event) {
-    const cart = JSON.parse(localStorage.getItem("cart"));
+  removeFromPremadecart(event) {
+    const premadecart = JSON.parse(localStorage.getItem("premadecart"));
     const values = JSON.parse(event.target.value);
     const { id, size } = values;
-    const index = cart.findIndex(item => item.id === id && item.size === size);
+    const index = premadecart.findIndex(item => item.id === id && item.size === size);
     if (index >= 0) {
-      cart.splice(index, 1);
-      localStorage.setItem("cart", JSON.stringify(cart));
+      premadecart.splice(index, 1);
+      localStorage.setItem("premadecart", JSON.stringify(premadecart));
       window.location.reload();
     }
   }

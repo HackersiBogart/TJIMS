@@ -2,16 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="primary-colors"
 export default class extends Controller {
-  static values = {
-    id: Number,
-    color_name: String,
-    color_code: String,
-    price: Number,
-    size: String,
-    unit: String,
-    color_id: Number,
-    product_id: Number,
-  }
+  static values = { id: Number, name: String, code: String, price: Number, stocks: Number, size: String, color_id: Number, product_id: Number }
 
   connect() {
     this.selectedSize = null
@@ -24,18 +15,19 @@ export default class extends Controller {
 
   addToCart() {
     console.log("Primary Color ID:", this.idValue)
-    console.log("Primary Color Name:", this.color_nameValue) // Updated from name to color_name
-    console.log("Primary Color Code:", this.color_codeValue) // Updated from code to color_code
+    console.log("primary Color Name:", this.nameValue)
+    console.log("Primary Color Code:", this.codeValue)
     console.log("Primary Color Price:", this.priceValue)
     console.log("Color ID:", this.color_idValue); // Should not be undefined
     console.log("Product ID:", this.product_idValue); // Should not be undefined
+
 
     const cart = localStorage.getItem("cart")
     let cartArray = cart ? JSON.parse(cart) : []
 
     const foundIndex = cartArray.findIndex(item => item.id === this.idValue && item.size === this.sizeValue && item.unit === this.unitValue
       && item.color_id === this.color_idValue && item.product_id === this.product_idValue
-    )
+     )
     if (foundIndex >= 0) {
       // Update the quantity if the item already exists in the cart
       cartArray[foundIndex].quantity += 1
@@ -43,21 +35,22 @@ export default class extends Controller {
       // Add new item to the cart
       cartArray.push({
         id: this.idValue,
-        color_name: this.color_nameValue, // Use color_name instead of name
-        color_code: this.color_codeValue, // Use color_code instead of code
+        name: this.nameValue,
+        code: this.codeValue,
         size: this.sizeValue,
         price: this.priceValue,  // Store the selected size's price
         unit: this.unitValue,    // Store the selected unit
         quantity: 1,
         color_id: this.color_idValue,
         product_id: this.product_idValue
+
       })
     }
 
     // Save the updated cart to localStorage
     localStorage.setItem("cart", JSON.stringify(cartArray))
 
-    alert(`${this.color_nameValue} has been added to the cart!`) // Updated to use color_name
+    alert(`${this.nameValue} has been added to the cart!`)
   }
 
   selectSize(e) {
@@ -101,3 +94,5 @@ export default class extends Controller {
     this.unitDisplay.innerHTML = `Unit: ${unit}`
   }
 }
+
+

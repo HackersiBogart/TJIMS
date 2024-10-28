@@ -5,7 +5,7 @@ class Admin::PrimaryColorsController < AdminController
   def index
     @admin_primary_colors = PrimaryColor.all
       if params[:query].present?
-        @pagy, @admin_primary_colors = pagy(PrimaryColor.where("color_name LIKE ?", "%#{params[:query]}%"))
+        @pagy, @admin_primary_colors = pagy(PrimaryColor.where("name LIKE ?", "%#{params[:query]}%"))
       else
         @pagy, @admin_primary_colors = pagy(PrimaryColor.all)
       end
@@ -70,6 +70,6 @@ class Admin::PrimaryColorsController < AdminController
 
     # Only allow a list of trusted parameters through.
     def admin_primary_color_params
-      params.require(:primary_color).permit(:color_name, :color_code, :price, :size,:stocks, :image, :active, :color_id, :product_id)
+      params.require(:primary_color).permit(:name, :code, :price, :size,:stocks, :image, :active, :color_id, :product_id)
     end
 end

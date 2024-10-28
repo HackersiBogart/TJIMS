@@ -8,8 +8,8 @@ export default class extends Controller {
     description: String, 
     active: Boolean, 
     color_id: Number, 
-    color_name: String, 
-    color_code: String, 
+    name: String, 
+    code: String, 
     image: String, 
     order_id: Number 
   }
