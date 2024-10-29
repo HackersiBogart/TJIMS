@@ -37,6 +37,17 @@ class Admin::PaintColorsController < AdminController
 
   # PATCH/PUT /admin/paint_colors/1 or /admin/paint_colors/1.json
   def update
+    @admin_paint_color = PaintColor.find(params[:id])
+    
+    # Calculate previous stocks, added stocks, and current quantity
+    previous_quantity = @admin_paint_color.quantity
+    new_quantity = params[:paint_color][:quantity].to_i
+    
+    @admin_paint_color.previous_stocks = previous_quantity
+    @admin_paint_color.added_stocks = new_quantity - previous_quantity
+    @admin_paint_color.quantity = new_quantity
+    @admin_paint_color.updated_at = Time.current # This might be automatically handled by Rails, depending on your setup.
+  
     respond_to do |format|
       if @admin_paint_color.update(admin_paint_color_params)
         format.html { redirect_to admin_paint_color_url(@admin_paint_color), notice: "Paint color was successfully updated." }
@@ -47,6 +58,9 @@ class Admin::PaintColorsController < AdminController
       end
     end
   end
+
+
+  
 
   # DELETE /admin/paint_colors/1 or /admin/paint_colors/1.json
   def destroy

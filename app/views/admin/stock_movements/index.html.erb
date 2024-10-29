@@ -1,0 +1,247 @@
+ <div class="container mx-auto p-6">
+        <h2 class="text-xl text-[#FF6500] mt-6">Movement History</h2>
+        <div class="tabs mb-4 flex space-x-2">
+            <button id="tab1" class="bg-[#1E3E62] text-gray-300 px-4 py-2 rounded focus:outline-none hover:bg-[#FF6500]">Deducted Stocks</button>
+            <button id="tab2" class="bg-[#1E3E62] text-gray-300 px-4 py-2 rounded focus:outline-none hover:bg-[#FF6500]">Added Stocks</button>
+        </div>
+
+        <div id="tab1-content" class="tab-content active">
+            <div class="flex flex-col w-full mt-4">
+                <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
+                    <div class="py-2 inline-block min-w-full">
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-[#1E3E62] text-gray-300 border-collapse">
+                                <thead class="bg-[#0B192C]">
+                                    <tr>
+                                        <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Order ID</th>
+                                        <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Name</th>
+                                        <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Brand</th>
+                                        <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Product</th>
+                                        <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Quantity</th>
+                                        <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if @fulfilled_orders.present? %>
+                                        <% @fulfilled_orders.each do |o| %>
+                                            <tr class="bg-gray-800 border-b hover:bg-[#1E3E62] transition duration-200">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300 underline">
+                                                    <%= link_to o.id, [:admin, o], class: 'underline text-[#FF6500] hover:text-[#E65B00]' %>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
+                                                    <%= o.name %>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
+                                                    <%= o.color.name %>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
+                                                    <%= o.product.present? ? o.product.name : "N/A" %>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
+                                                    -<%= o.quantity %>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
+                                                    <%= o.order_total %>
+                                                </td>
+                                            </tr>
+                                        <% end %>
+                                    <% else %>
+                                        <tr>
+                                            <td colspan="6" class="text-center text-gray-300">No fulfilled orders available.</td>
+                                        </tr>
+                                    <% end %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab2-content" class="tab-content">
+            <h2 class="text-xl text-[#FF6500] mt-6">Category</h2>
+            <div class="nested-tabs mb-4 flex space-x-2 mt-4">
+                <button id="nested-tab1" class="bg-[#1E3E62] text-gray-300 px-4 py-2 rounded focus:outline-none hover:bg-[#FF6500]">Paint Colors</button>
+                <button id="nested-tab2" class="bg-[#1E3E62] text-gray-300 px-4 py-2 rounded focus:outline-none hover:bg-[#FF6500]">Primary Colors</button>
+            </div>
+
+            <div id="nested-tab1-content" class="nested-tab-content active">
+                <h2 class="text-lg text-[#FF6500] mt-4">Paint Colors</h2>
+                <div class="flex flex-col w-full mt-6">
+                    <div class="overflow-x-auto">
+                        <div class="py-2 inline-block min-w-full">
+                            <table class="min-w-full bg-[#1E3E62] text-gray-300 border-collapse">
+                                <thead class="bg-[#0B192C]">
+                                    <tr>
+                                        <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Image</th>
+                                        <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Name</th>
+
+                                        <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Brand</th>
+                                        <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Product</th>
+                                        <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Previous Stocks</th>
+                                        <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Added Stocks</th>
+                                        <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Current Stocks</th>
+                                        <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Updated At</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% @admin_paint_colors.each do |p| %>
+                                        <tr class="bg-gray-800 border-b hover:bg-[#1E3E62] transition duration-200">
+                                            <td class="px-2 md:px-6 py-2 whitespace-nowrap text-xs md:text-sm font-medium text-gray-300">
+                                                <%= p.image.attached? ? image_tag(p.image, size: "50x50") : image_tag("https://via.placeholder.com/50", size: "50x50") %>
+                                            </td>
+                                            <td class="px-2 md:px-6 py-2 whitespace-nowrap text-xs md:text-sm font-medium text-gray-300 underline">
+                                                <%= link_to p.name, admin_paint_color_path(p), class: "text-[#FF6500] hover:text-[#E65B00]" %>
+                                            </td>
+
+                                            <td class="px-2 md:px-6 py-2 whitespace-nowrap text-xs md:text-sm font-medium text-gray-300">
+                                                <% if p.color %>
+                                                    <%= p.color.name %>
+                                                <% else %>
+                                                    <p class="text-gray-500">No Brand</p>
+                                                <% end %>
+                                            </td>
+                                            <td class="px-2 md:px-6 py-2 whitespace-nowrap text-xs md:text-sm font-medium text-gray-300">
+                                                <% if p.product %>
+                                                    <%= p.product.name %>
+                                                <% else %>
+                                                    <p class="text-gray-500">No Product</p>
+                                                <% end %>
+                                            </td>
+                                            <td class="px-2 md:px-6 py-2 whitespace-nowrap text-xs md:text-sm font-medium text-gray-300">
+                                                <%= p.previous_stocks || 0 %>
+                                            </td>
+                                            <td class="px-2 md:px-6 py-2 whitespace-nowrap text-xs md:text-sm font-medium text-gray-300">
+                                                +<%= p.added_stocks || 0 %>
+                                            </td>
+                                            <td class="px-2 md:px-6 py-2 whitespace-nowrap text-xs md:text-sm font-medium text-gray-300">
+                                                <%= p.quantity || 0 %>
+                                            </td>
+                                            <td class="px-2 md:px-6 py-2 whitespace-nowrap text-xs md:text-sm font-medium text-gray-300">
+                                                <%= p.updated_at.present? ? p.updated_at.strftime("%B %d, %Y %H:%M") : "N/A" %>
+                                            </td>
+
+                                        </tr>
+                                    <% end %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="text-lg text-[#FF6500] mt-4">Primary Colors</h2>
+            <div id="nested-tab2-content" class="nested-tab-content">
+                 <div class="flex flex-col w-full mt-6">
+                    <div class="overflow-x-auto">
+                    <div class="py-2 inline-block min-w-full">
+                        <table class="min-w-full bg-[#1E3E62] text-gray-300 border-collapse">
+                        <thead class="bg-[#0B192C]">
+                            <tr>
+                            <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Image</th>
+                            <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Name</th>
+                            <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Brand</th>
+                            <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Product</th>
+                            <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Previous Stock</th>
+                            <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Added Stock</th>
+                            <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Quantity</th>
+                            <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Updated At</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @admin_primary_colors.each do |primary_color| %>
+                            <tr class="bg-gray-800 border-b hover:bg-[#1E3E62] transition duration-200">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
+                                <%= primary_color.image.attached? ? image_tag(primary_color.image, size: "50x50") : image_tag("https://via.placeholder.com/50", size: "50x50") %>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300 underline">
+                                <%= link_to primary_color.name, admin_primary_color_path(primary_color), class: "text-[#FF6500] hover:text-[#E65B00]" %>
+                                </td>
+                                <td class="px-2 md:px-6 py-2 whitespace-nowrap text-xs md:text-sm font-medium text-gray-300">
+                                                <% if primary_color.color %>
+                                                    <%= primary_color.color.name %>
+                                                <% else %>
+                                                    <p class="text-gray-500">No Brand</p>
+                                                <% end %>
+                                            </td>
+                                            <td class="px-2 md:px-6 py-2 whitespace-nowrap text-xs md:text-sm font-medium text-gray-300">
+                                                <% if primary_color.product %>
+                                                    <%= primary_color.product.name %>
+                                                <% else %>
+                                                    <p class="text-gray-500">No Product</p>
+                                                <% end %>
+                                            </td>
+                                
+                                <td class="px-2 md:px-6 py-2 whitespace-nowrap text-xs md:text-sm font-medium text-gray-300">
+                                <%= primary_color.previous_stocks || 0 %>
+                                 </td>
+                                 <td class="px-2 md:px-6 py-2 whitespace-nowrap text-xs md:text-sm font-medium text-gray-300">
+                                 +<%= primary_color.added_stocks || 0 %>
+                                </td>
+                                <td class="px-2 md:px-6 py-2 whitespace-nowrap text-xs md:text-sm font-medium text-gray-300">
+                                <%= primary_color.stocks %>
+                                </td>
+                                <td class="px-2 md:px-6 py-2 whitespace-nowrap text-xs md:text-sm font-medium text-gray-300">
+                                <%= primary_color.updated_at.present? ? primary_color.updated_at.strftime("%B %d, %Y %H:%M") : "N/A" %>
+                                 </td>
+
+                            </tr>
+                            <% end %>
+                        </tbody>
+                        </table>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to handle tab switching for main tabs
+        document.addEventListener("DOMContentLoaded", function() {
+            const tabs = document.querySelectorAll(".tabs button");
+            const tabContents = document.querySelectorAll(".tab-content");
+
+            tabs.forEach(tab => {
+                tab.addEventListener("click", function() {
+                    tabs.forEach(t => t.classList.remove("bg-[#FF6500]", "text-white"));
+                    tabContents.forEach(tc => tc.classList.remove("active"));
+
+                    this.classList.add("bg-[#FF6500]", "text-white");
+                    const activeTabContent = document.getElementById(this.id + "-content");
+                    activeTabContent.classList.add("active");
+                });
+            });
+
+            // JavaScript to handle tab switching for nested tabs
+            const nestedTabs = document.querySelectorAll(".nested-tabs button");
+            const nestedTabContents = document.querySelectorAll(".nested-tab-content");
+
+            nestedTabs.forEach(nestedTab => {
+                nestedTab.addEventListener("click", function() {
+                    nestedTabs.forEach(nt => nt.classList.remove("bg-[#FF6500]", "text-white"));
+                    nestedTabContents.forEach(ntc => ntc.classList.remove("active"));
+
+                    this.classList.add("bg-[#FF6500]", "text-white");
+                    const activeNestedTabContent = document.getElementById(this.id + "-content");
+                    activeNestedTabContent.classList.add("active");
+                });
+            });
+        });
+    </script>
+        <style>
+        .tab-content {
+            display: none; /* Hide all tab content by default */
+        }
+        .tab-content.active {
+            display: block; /* Show active tab content */
+        }
+        .nested-tab-content {
+            display: none; /* Hide nested tab content by default */
+        }
+        .nested-tab-content.active {
+            display: block; /* Show active nested tab content */
+        }
+    </style>

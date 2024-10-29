@@ -25,6 +25,9 @@ Rails.application.routes.draw do
   resources :select, only: [:show]
 
   namespace :admin do
+    get 'movement_histories/add_stock'
+    get 'movement_histories/deduct_stock'
+    resources :stock_movements, only: [:index, :show,:new, :create]
 
     resources :products do
       resources :product_stocks, only: [:index, :show, :new, :create, :edit, :update, :destroy]
@@ -77,6 +80,7 @@ Rails.application.routes.draw do
   resources :premadecolors, only: [:show]
   resources :premadeproducts, only: [:show]
 
+
   get 'reports', to: 'reports#index'
   get "admin" => "admin#index"
   get "mix" => "mix#index"
@@ -89,5 +93,6 @@ Rails.application.routes.draw do
   get 'premade', to: 'premade#index', as: 'premade'
    get 'tomix', to: 'tomix#index', as: 'tomix'
     get 'premadecolors', to: 'premadecolors#show', as: 'premadecolors'
+    get 'stock_movements', to: 'stock_movements#show', as: 'stock_movements'
 
 end

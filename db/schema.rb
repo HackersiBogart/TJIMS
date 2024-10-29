@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_27_100608) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_29_194958) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -180,18 +180,25 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_27_100608) do
     t.datetime "updated_at", null: false
     t.string "unit"
     t.integer "product_id"
+    t.integer "previous_stocks"
+    t.integer "added_stocks"
     t.index ["color_id"], name: "index_paint_colors_on_color_id"
   end
 
   create_table "primary_colors", force: :cascade do |t|
-    t.string "color_name"
-    t.string "color_code"
+    t.string "name"
+    t.string "code"
     t.decimal "price"
     t.decimal "stocks"
     t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "order_id"
+    t.string "size"
+    t.integer "color_id"
+    t.integer "product_id"
+    t.integer "previous_stocks"
+    t.integer "added_stocks"
   end
 
   create_table "product_stocks", force: :cascade do |t|
@@ -243,6 +250,22 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_27_100608) do
   create_table "selects", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "color_id"
+  end
+
+  create_table "stock_movements", force: :cascade do |t|
+    t.integer "product_id", null: false
+    t.integer "primary_color_id", null: false
+    t.integer "paint_color_id", null: false
+    t.string "movement_type"
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "order_id"
+    t.integer "color_id"
+    t.index ["paint_color_id"], name: "index_stock_movements_on_paint_color_id"
+    t.index ["primary_color_id"], name: "index_stock_movements_on_primary_color_id"
+    t.index ["product_id"], name: "index_stock_movements_on_product_id"
   end
 
   create_table "stocks", force: :cascade do |t|
@@ -283,5 +306,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_27_100608) do
   add_foreign_key "order_paint_colors", "paint_colors"
   add_foreign_key "paint_colors", "colors"
   add_foreign_key "product_stocks", "products"
+  add_foreign_key "stock_movements", "paint_colors"
+  add_foreign_key "stock_movements", "primary_colors"
+  add_foreign_key "stock_movements", "products"
   add_foreign_key "stocks", "paint_colors"
 end

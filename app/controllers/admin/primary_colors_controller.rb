@@ -41,6 +41,18 @@ class Admin::PrimaryColorsController < AdminController
 
   # PATCH/PUT /admin/primary_colors/1 or /admin/primary_colors/1.json
   def update
+
+    @admin_primary_color = PrimaryColor.find(params[:id])
+    
+    # Calculate previous stocks, added stocks, and current quantity
+    previous_stocks = @admin_primary_color.stocks
+    new_stocks = params[:primary_color][:stocks].to_i
+    
+    @admin_primary_color.previous_stocks = previous_stocks
+    @admin_primary_color.added_stocks = new_stocks - previous_stocks
+    @admin_primary_color.stocks = new_stocks
+    @admin_primary_color.updated_at = Time.current # This might be automatically handled by Rails, depending on your setup.
+  
     respond_to do |format|
       if @admin_primary_color.update(admin_primary_color_params)
         format.html { redirect_to admin_primary_color_url(@admin_primary_color), notice: "Primary color was successfully updated." }

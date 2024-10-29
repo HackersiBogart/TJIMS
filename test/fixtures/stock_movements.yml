@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  product: one
+  primary_color: one
+  paint_color: one
+  movement_type: MyString
+  quantity: 1
+
+two:
+  product: two
+  primary_color: two
+  paint_color: two
+  movement_type: MyString
+  quantity: 1
