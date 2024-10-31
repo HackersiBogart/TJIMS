@@ -11,6 +11,15 @@ Rails.application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    user_name: 'arjaydelafuente87@gmail.com',
+    password: 'arjay2506',
+    address: 'live.smtp.mailtrap.io',
+    host: 'live.smtp.mailtrap.io',
+    port: '587',
+    authentication: :login
+  }
   # Show full error reports.
   config.consider_all_requests_local = true
 

@@ -69,7 +69,7 @@ class CustomerOrdersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def customer_order_params
-    params.require(:customer_order).permit(:customer_email, :name, :phone_number, :reference_number, :date_of_retrieval, :total, :size, :quantity, :item, :image, :order_total)
+    params.require(:customer_order).permit(:customer_email, :name, :phone_number, :reference_number, :date_of_retrieval, :total, :size, :quantity, :color_id, :product_id, :item, :image, :order_total)
   end
 
   # Create the AdminOrder after CustomerOrder is saved
@@ -85,7 +85,9 @@ class CustomerOrdersController < ApplicationController
       size: customer_order.size,
       quantity: customer_order.quantity,
       item: customer_order.item,
-      fulfilled: false # Ensure the order is marked as unfulfilled
+      fulfilled: false, # Ensure the order is marked as unfulfilled
+      color_id: customer_order.color_id,
+      product_id: customer_order.product_id
     )
     admin_order.image.attach(customer_order.image.blob) if customer_order.image.attached?
     admin_order.save!
