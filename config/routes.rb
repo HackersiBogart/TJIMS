@@ -32,6 +32,8 @@ Rails.application.routes.draw do
     resources :products do
       resources :product_stocks, only: [:index, :show, :new, :create, :edit, :update, :destroy]
     end
+
+
     
     resources :orders do
       member do
@@ -39,10 +41,15 @@ Rails.application.routes.draw do
         get :reference_image
       end
     end
-
+ 
     resources :mixture_thirds
     resources :mixture_details
-    resources :mixtures
+
+    resources :mixtures do
+      member do
+        post :change_fulfilled
+      end
+    end
     resources :sales, only: [:index, :show]
 
     resources :mix, only: [:index, :create] do
@@ -79,7 +86,7 @@ Rails.application.routes.draw do
   resources :primary_colors, only: [:show]
   resources :premadecolors, only: [:show]
   resources :premadeproducts, only: [:show]
-
+  resources :order_mail, only: [:new]
 
   get 'reports', to: 'reports#index'
   get "admin" => "admin#index"
@@ -94,5 +101,7 @@ Rails.application.routes.draw do
    get 'tomix', to: 'tomix#index', as: 'tomix'
     get 'premadecolors', to: 'premadecolors#show', as: 'premadecolors'
     get 'stock_movements', to: 'stock_movements#show', as: 'stock_movements'
+  post 'send_mail', to: 'order_mail#send_mail'
+  get 'order_mail', to: 'order_mail#new', as: 'order_mail'
 
 end

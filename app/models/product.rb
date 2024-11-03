@@ -3,8 +3,8 @@ class Product < ApplicationRecord
   belongs_to :color
   has_many :paint_colors
   has_many :orders
-  belongs_to :order
-  belongs_to :paint_color
+  belongs_to :order, optional: true
+  belongs_to :paint_color, optional: true
   has_many :product_stocks
   
   

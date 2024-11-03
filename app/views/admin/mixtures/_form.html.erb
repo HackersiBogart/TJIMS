@@ -49,6 +49,22 @@
     <%= f.text_field :amount, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
   </div>
 
+<div class="my-5">
+  <%= f.label :customer_email, "Email", class: "text-white font-semibold" %>
+  <%= f.text_field @order.customer_email, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
+</div>
+
+
+<div class="my-5">
+  <%= button_to "Mark as Fulfilled", 
+                change_fulfilled_admin_mixture_path(@order), 
+                method: :post, 
+                class: "rounded-lg py-2 px-4 bg-[#FF6500] hover:bg-[#E65B00] text-white font-semibold transition duration-200" %>
+</div>
+
+
+
+
   <div class="flex justify-end space-x-2 mt-4">
     <%= f.submit "Submit", class: "rounded-lg py-3 px-5 bg-[#FF6500] hover:bg-[#E65B00] text-white inline-block font-medium cursor-pointer transition duration-200 flex items-center space-x-2" do %>
       <i class="fas fa-save"></i>

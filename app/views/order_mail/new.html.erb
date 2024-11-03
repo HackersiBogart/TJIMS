@@ -1,0 +1,17 @@
+<h1>Send Email</h1>
+
+<%= form_with url: send_mail_path, method: :post, class: "contents" %>
+  <div class="my-5">
+    <%= label_tag :email, "Email", class: "text-white font-semibold" %>
+    <%= text_field_tag :email %>
+  </div>
+
+  <div class="my-5">
+    <%=label_tag :name, "Name", class: "text-white font-semibold" %>
+    <%= text_field_tag :name %>
+  </div>
+
+  <div class="flex justify-end space-x-2 mt-4">
+    <%= submit_tag "Send" %>
+  </div>
+

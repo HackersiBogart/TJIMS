@@ -1,10 +1,5 @@
  <h1>Your Order Has Been Fulfilled</h1>
-  <p>Hello <%= @order.name %>,</p>
+  <p>Hello <%= @name %>,</p>
   <p>We’re happy to inform you that your order has been fulfilled!</p>
-  <p>Order Details:</p>
-  <ul>
-    <li>Order ID: <%= @order.id %></li>
-    <li>Date of Retrieval: <%= @order.date_of_retrieval %></li>
-    <li>Total: <%= number_to_currency(@order.total) %></li>
-  </ul>
+
   <p>Thank you for ordering with us!</p>

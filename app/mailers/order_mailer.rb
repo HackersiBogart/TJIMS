@@ -1,8 +1,10 @@
-class OrderMailer < ApplicationMailer
-  default from: 'arjaydelafuente87@gmail.com' # Replace with your sender email
 
-  def fulfillment_email(order)
-    @order = order
-    mail(to: @order.customer_email, subject: "Your Order Has Been Fulfilled")
+
+class OrderMailer < ApplicationMailer
+  def fulfillment_email(email, name)
+    @name = name
+    mail(to: email, subject: "Order Fulfillment Notification")
   end
 end
+
+

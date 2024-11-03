@@ -32,22 +32,7 @@ def index
 
 end
 
-def change_fulfilled
-  @order = Order.find(params[:id])
-  
-  # Toggle fulfillment status
-  was_fulfilled = @order.fulfilled
-  @order.fulfilled = !was_fulfilled
 
-  if @order.save
-    # Send email only if the order was unfulfilled and is now fulfilled
-    OrderMailer.fulfillment_email(@order).deliver_now if !was_fulfilled && @order.fulfilled
-    
-    redirect_to admin_orders_path, notice: 'Order fulfillment status updated successfully.'
-  else
-    redirect_to admin_order_path(@order), alert: 'Failed to update order fulfillment status.'
-  end
-end
 
   # GET /admin/orders/1 or /admin/orders/1.json
   def show
@@ -79,6 +64,7 @@ end
 
     respond_to do |format|
       if @admin_order.save
+        
         format.html { redirect_to admin_order_url(@admin_order), notice: "Order was successfully created." }
         format.json { render :show, status: :created, location: @admin_order }
       else
@@ -88,17 +74,6 @@ end
     end
   end
   
-  def change_fulfilled
-    @order = Order.find(params[:id])
-    @order.fulfilled = !@order.fulfilled # Toggle fulfillment status
-  
-    if @order.save
-      OrderMailer.fulfillment_email(@order).deliver_now if @order.fulfilled # Send email only when fulfilled
-      redirect_to admin_orders_path, notice: 'Order fulfillment status updated successfully.'
-    else
-      redirect_to admin_order_path(@order), alert: 'Failed to update order fulfillment status.'
-    end
-  end
   
   # PATCH/PUT /admin/orders/1 or /admin/orders/1.json
   def update

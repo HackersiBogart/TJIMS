@@ -1,5 +1,6 @@
 class Admin::MixturesController < AdminController
   before_action :set_admin_mixture, only: %i[ show edit update destroy ]
+  before_action :set_order, only: :change_fulfilled
 
   # GET /admin/mixtures or /admin/mixtures.json
   def index
@@ -43,6 +44,22 @@ class Admin::MixturesController < AdminController
       end
     end
   end
+
+  def change_fulfilled
+    # Change the order's fulfillment status or any other field as needed
+    if @admin_order.update(name: params[:name]) # Update to the exact fields you need
+      # Send an email notification upon successful fulfillment change
+      OrderMailer.fulfillment_email(@admin_order).deliver_now
+      redirect_to admin_orders_path, notice: 'Fulfillment status updated and email sent successfully.'
+    else
+      # Handle the case where the update fails
+      redirect_to admin_order_path(@admin_order), alert: 'Failed to update order fulfillment status.'
+    end
+  end
+
+  
+
+  
 
   # PATCH/PUT /admin/mixtures/1 or /admin/mixtures/1.json
   def update
