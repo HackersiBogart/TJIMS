@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "3.3.3"
+ruby "3.3.4"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.4"
@@ -81,7 +81,7 @@ gem "cocoon",  "~> 1.2"
 
 gem "foreman", github: "ddollar/foreman"
 
-gem "simple_form", "~> 5.2"
+
 
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
