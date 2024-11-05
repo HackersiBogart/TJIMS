@@ -22,18 +22,18 @@ export default class extends Controller {
     console.log("Product ID:", this.product_idValue); // Should not be undefined
 
 
-    const cart = localStorage.getItem("cart")
-    let cartArray = cart ? JSON.parse(cart) : []
+    const premadecart = localStorage.getItem("premadecart")
+    let premadecartArray = premadecart ? JSON.parse(premadecart) : []
 
-    const foundIndex = cartArray.findIndex(item => item.id === this.idValue && item.size === this.sizeValue && item.unit === this.unitValue
+    const foundIndex = premadecartArray.findIndex(item => item.id === this.idValue && item.size === this.sizeValue && item.unit === this.unitValue
       && item.color_id === this.color_idValue && item.product_id === this.product_idValue
      )
     if (foundIndex >= 0) {
       // Update the quantity if the item already exists in the cart
-      cartArray[foundIndex].quantity += 1
+      premadecartArray[foundIndex].quantity += 1
     } else {
       // Add new item to the cart
-      cartArray.push({
+      premadecartArray.push({
         id: this.idValue,
         name: this.nameValue,
         code: this.codeValue,
@@ -48,7 +48,7 @@ export default class extends Controller {
     }
 
     // Save the updated cart to localStorage
-    localStorage.setItem("cart", JSON.stringify(cartArray))
+    localStorage.setItem("cart", JSON.stringify(premadecartArray))
 
     alert(`${this.nameValue} has been added to the cart!`)
   }

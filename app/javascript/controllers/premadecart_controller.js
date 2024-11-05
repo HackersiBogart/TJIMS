@@ -37,6 +37,10 @@ export default class extends Controller {
       itemName.classList.add("font-semibold", "text-lg", "text-[#1E3E62]");
       itemName.innerText = `Item: ${item.name}`;
 
+      const itemColor = document.createElement("div");
+      itemColor.classList.add("font-semibold", "text-lg", "text-[#1E3E62]");
+      itemColor.innerText = `Item: ${item.color}`;
+
       // Add item price
       const itemPriceText = document.createElement("div");
       itemPriceText.classList.add("text-sm", "text-gray-700");
