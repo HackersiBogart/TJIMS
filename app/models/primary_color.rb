@@ -11,6 +11,7 @@ class PrimaryColor < ApplicationRecord
   belongs_to :product
   has_many :products
   has_many :colors
+  has_many :primary_color_stocks, dependent: :destroy
 
 
 

@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   resources :select, only: [:show]
 
   namespace :admin do
+
     get 'movement_histories/add_stock'
     get 'movement_histories/deduct_stock'
     resources :stock_movements, only: [:index, :show,:new, :create]
@@ -56,7 +57,9 @@ Rails.application.routes.draw do
       post 'deduct_stock', on: :collection
     end
 
-    resources :primary_colors
+    resources :primary_colors do
+      resources :primary_color_stocks, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+    end
 
     resources :paint_colors do
       resources :stocks, only: [:index, :show, :new, :create, :edit, :update, :destroy]

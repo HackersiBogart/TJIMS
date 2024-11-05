@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_29_194958) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_05_160203) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -183,6 +183,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_29_194958) do
     t.integer "previous_stocks"
     t.integer "added_stocks"
     t.index ["color_id"], name: "index_paint_colors_on_color_id"
+  end
+
+  create_table "primary_color_stocks", force: :cascade do |t|
+    t.string "size"
+    t.decimal "quantity"
+    t.decimal "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "primary_colors", force: :cascade do |t|
