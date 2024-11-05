@@ -18,7 +18,10 @@
        data-paint-colors-price-value="<%= @paint_color.price %>" 
        class="flex flex-col items-start max-w-sm mt-6 md:mt-0"> <!-- Adjust margin for mobile -->
 
-    <h1 class="font-bold text-4xl uppercase text-white"><%= @paint_color.name %></h1>
+    
+    <h3 class="font-bold text-2xl uppercase text-white">Brand:<%= @paint_color.color.name %></h3>
+    <h3 class="font-bold text-2xl uppercase text-white">Product:<%= @paint_color.product.name %></h3>
+    <h1 class="font-bold text-4xl uppercase text-white">Color: <%= @paint_color.name %></h1>
 
     <!-- Price Section -->
     <p id="price-display" class="text-2xl mt-4 text-white">₱<%= @paint_color.price.to_s %></p>
