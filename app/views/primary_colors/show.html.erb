@@ -17,8 +17,8 @@
        data-primary-colors-price-value="<%= @primary_color.price %>"
        class="flex flex-col items-start max-w-sm mt-6 md:mt-0">
 
-    <h3 class="font-bold text-2xl uppercase text-white">Brand:<%= @primary_color.color.name %></h3>
-    <h3 class="font-bold text-2xl uppercase text-white">Product:<%= @primary_color.product.name %></h3>
+    <h3 class="font text-2xl uppercase text-white">Brand: <%= @primary_color.color.name %></h3>
+    <h3 class="font text-2xl uppercase text-white">Product: <%= @primary_color.product.name %></h3>
     <h1 class="font-bold text-4xl uppercase text-white">Color: <%= @primary_color.name %></h1>
     
     <p id="price-display" class="text-4xl mt-4 text-white">₱<%= @primary_color.price.to_s %></p>

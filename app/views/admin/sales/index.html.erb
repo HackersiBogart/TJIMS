@@ -1,6 +1,25 @@
 <div class="w-full">
   <h1 class="font-bold text-4xl text-[#FF6500] mb-4">Sales Data</h1>
 
+<%= form_tag admin_sales_path, method: :get, class: "date-filter-form flex items-center space-x-4 bg-gray-800 p-4 rounded-lg shadow-md" do %>
+  <div class="flex flex-col">
+    <label for="start_date" class="text-white font-semibold mb-1">Start Date:</label>
+    <%= date_field_tag :start_date, params[:start_date], class: "date-input px-3 py-2 border rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500" %>
+  </div>
+
+  <div class="flex flex-col">
+    <label for="end_date" class="text-white font-semibold mb-1">End Date:</label>
+    <%= date_field_tag :end_date, params[:end_date], class: "date-input px-3 py-2 border rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500" %>
+  </div>
+
+  <div>
+    <%= submit_tag "Filter", class: "filter-button bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 py-2 rounded-lg shadow-md transition duration-200" %>
+  </div>
+  <%= link_to 'Download PDF', admin_download_pdf_sales_path, class: 'bg-[#FF6500] text-white px-4 py-2 rounded-md' %>
+<% end %>
+
+
+
   <!-- Dropdown for selecting filter category -->
   <div class="mb-4">
     <label for="sales-filter" class="block text-lg font-medium text-[#1E3E62]">Filter by:</label>
@@ -98,7 +117,7 @@
       </table>
     </div>
   </div>
-  <%= link_to 'Download PDF', admin_download_pdf_sales_path, class: 'bg-[#FF6500] text-white px-4 py-2 rounded-md' %>
+  
 
 </div>
 
