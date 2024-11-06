@@ -15,17 +15,13 @@ Rails.application.routes.draw do
   get 'mix/index'
   post 'mix/deduct_stock', to: 'mix#deduct_stock', as: 'mix_deduct_stock'
 
-  resources :sales do
-    collection do
-      get :download_pdf
-    end
-  end     
+
 
 
   resources :select, only: [:show]
 
   namespace :admin do
-
+    get 'sales/download_pdf', to: 'sales#download_pdf', as: :download_pdf_sales
     get 'movement_histories/add_stock'
     get 'movement_histories/deduct_stock'
     resources :stock_movements, only: [:index, :show,:new, :create]
@@ -106,5 +102,6 @@ Rails.application.routes.draw do
     get 'stock_movements', to: 'stock_movements#show', as: 'stock_movements'
   post 'send_mail', to: 'order_mail#send_mail'
   get 'order_mail', to: 'order_mail#new', as: 'order_mail'
+
 
 end

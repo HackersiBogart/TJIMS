@@ -8,7 +8,7 @@
       <% @primary_colors.each do |primary_color| %>
         <%= link_to primary_color_path(primary_color) do %>
           <div class="max-w-xs flex flex-col p-4 justify-center items-center border border-gray-300 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200">
-            <%= primary_color.image.attached? ? image_tag(primary_color.image, size: "250x250", class: "rounded") : image_tag("http://via.placeholder.com/250", class: "rounded") %>
+            <%= primary_color.image.attached? ? image_tag(primary_color.image, size: "250x250", class: "rounded transform hover:scale-110 transition-transform duration-300") : image_tag("http://via.placeholder.com/250", class: "rounded transform hover:scale-110 transition-transform duration-300") %>
             <p class="mt-4 font-medium text-gray-800 text-center"><%= primary_color.name %></p>
           </div>
         <% end %>

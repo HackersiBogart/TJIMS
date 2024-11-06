@@ -12,7 +12,7 @@ export default class extends Controller {
     
     let total = 0;
     let totalQuantity = 0;
-    let totalSize = 0;
+    let totalSize = [];
     let itemNames = [];
 
     // Calculate total, quantity, and collect item names

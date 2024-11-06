@@ -24,8 +24,8 @@ class AdminController < ApplicationController
     range = time_range_to_range(time_range)
     {
       sales: Order.where(created_at: range).count,
-      revenue: Order.where(created_at: range).sum(:total).round,
-      avg_sale: Order.where(created_at: range).average(:total)&.round,
+      revenue: Order.where(created_at: range).sum(:order_total).round,
+      avg_sale: Order.where(created_at: range).average(:order_total)&.round,
       per_sale: OrderPaintColor.joins(:order).where(orders: { created_at: range }).average(:quantity)
     }
   end
@@ -35,90 +35,136 @@ class AdminController < ApplicationController
     case time_range
     when "daily"
       # Group by hour for the current day
-      Order.where(created_at: Time.zone.today.all_day)
-           .group_by_hour(:created_at, format: "%H:00")
-           .sum(:total)
+      revenue_data = Order.where(created_at: Time.zone.today.all_day)
+                           .group_by_hour(:created_at, format: "%H")
+                           .sum(:order_total)
+      format_revenue_data(revenue_data, 24, :hour)
+  
     when "weekly"
       # Group by day of the current week (Sunday to Saturday)
-      Order.where(created_at: 1.week.ago.beginning_of_day..Time.zone.now.end_of_day)
-           .group_by_day(:created_at, format: "%A")
-           .sum(:total)
+      revenue_data = Order.where(created_at: 1.week.ago.beginning_of_day..Time.zone.now.end_of_day)
+                           .group_by_day(:created_at, format: "%A")
+                           .sum(:order_total)
+      format_revenue_data(revenue_data, 7, :day)
+  
     when "monthly"
-      # Group by day of the month
-      Order.where(created_at: 1.month.ago.beginning_of_day..Time.zone.now.end_of_day)
-           .group_by_day(:created_at)
-           .sum(:total)
+      # Group by week of the month
+      revenue_data = Order.where(created_at: 1.month.ago.beginning_of_day..Time.zone.now.end_of_day)
+                           .group_by_week(:created_at, format: "%U")  # Group by week number (0-53)
+                           .sum(:order_total)
+      format_revenue_data(revenue_data, 5, :week)  # 5 weeks is typical for a month, can vary
+  
     when "yearly"
       # Group by month of the year
-      Order.where(created_at: 1.year.ago.beginning_of_day..Time.zone.now.end_of_day)
-           .group_by_month(:created_at, format: "%B")
-           .sum(:total)
+      revenue_data = Order.where(created_at: 1.year.ago.beginning_of_day..Time.zone.now.end_of_day)
+                           .group_by_month(:created_at, format: "%B")
+                           .sum(:order_total)
+      format_revenue_data(revenue_data, 12, :month)
+  
     else
       # Default to daily grouping
-      Order.group_by_day(:created_at).sum(:total)
+      Order.group_by_day(:created_at).sum(:order_total)
     end
   end
   
+
+  # Helper to format revenue data for different time ranges
+  def format_revenue_data(revenue_data, expected_count, period_type)
+    # Fill in missing periods (e.g., hours for daily, weekdays for weekly, etc.)
+    formatted_data = case period_type
+                     when :hour then fill_in_missing_hours(revenue_data, 24) # 24 hours in a day
+                     when :day then fill_in_missing_weekdays(revenue_data, 7) # 7 days in a week
+                     when :month then fill_in_missing_months(revenue_data, 12) # 12 months in a year
+                     when :week then fill_in_missing_weeks(revenue_data, 5) # 5 weeks in a month (could be 4-5 depending on the month)
+                     else
+                       []
+                     end
+    formatted_data
+  end
+
+  
+
+  # Fill in missing data for different time ranges
+  def fill_in_missing_hours(revenue_data, count)
+    hours = (0...count).map { |i| format("%02d", i) }
+    hours.map { |hour| [hour, revenue_data.fetch(hour, 0)] }
+  end
+
+  def fill_in_missing_weekdays(revenue_data, count)
+    weekdays = Date::DAYNAMES # ["Sunday", "Monday", ..., "Saturday"]
+    weekdays.map { |day| [day, revenue_data.fetch(day, 0)] }
+  end
+
+  def fill_in_missing_months(revenue_data, count)
+    months = Date::MONTHNAMES[1..12] # ["January", ..., "December"]
+    months.map { |month| [month, revenue_data.fetch(month, 0)] }
+  end
 
   # Fetch recent unfulfilled orders
   def fetch_recent_unfulfilled_orders
     Order.where(fulfilled: false).order(created_at: :desc).limit(5)
   end
 
-  # Complete revenue data for time ranges (weekly, monthly, etc.)
+  def fill_in_missing_weeks(revenue_data, count)
+    # Generate weeks (1 through 5, or dynamically calculate the number of weeks in the month)
+    weeks = (1..count).map { |i| "Week #{i}" }
+    
+    # Ensure revenue_data is a hash if it's not already
+    revenue_data = revenue_data.to_h unless revenue_data.is_a?(Hash)
+  
+    # Fill in the missing weeks, setting their revenue to 0 if not already present
+    weeks.map { |week| [week, revenue_data.fetch(week, 0)] }
+  end
+  
+  
+  
+
+  def complete_revenue_data_if_needed
+    if @revenue_by_day.count < expected_data_points(@time_range)
+      case @time_range
+      when "daily"
+        fill_in_missing_hours(@revenue_by_day, 24) # 24 hours in a day
+      when "weekly"
+        fill_in_missing_weekdays(@revenue_by_day, 7) # 7 days in a week
+      when "monthly"
+        fill_in_missing_weeks(@revenue_by_day, 5) # 5 weeks in a month
+      when "yearly"
+        fill_in_missing_months(@revenue_by_day, 12) # 12 months in a year
+      end
+    end
+  end
+
+
+
+  def fill_in_missing_data
+    case @time_range
+    when "daily"
+      fill_in_missing_hours(@revenue_by_day, 24) # 24 hours in a day
+    when "weekly"
+      fill_in_missing_weekdays(@revenue_by_day, 7) # 7 days in a week
+    when "monthly"
+      fill_in_missing_month_days(@revenue_by_day) # Fill missing days in the month
+    when "yearly"
+      fill_in_missing_months(@revenue_by_day, 12) # 12 months in a year
+    end
+  end
+
+
   def complete_revenue_data_if_needed
     if @revenue_by_day.count < expected_data_points(@time_range)
       fill_in_missing_data
     end
   end
 
-  # Helper to fill in missing data points for revenue
-  def fill_in_missing_data
-    case @time_range
-    when "daily"
-      fill_in_missing_hours(24) # 24 hours in a day
-    when "weekly"
-      fill_in_missing_weekdays(7) # 7 days in a week
-    when "monthly"
-      fill_in_missing_month_days
-    when "yearly"
-      fill_in_missing_months(12) # 12 months in a year
-    end
-  end
-
   # Helper to determine the expected number of data points
   def expected_data_points(time_range)
     case time_range
-    when "daily" then 1
-    when "weekly" then 7
-    when "monthly" then 30
-    when "yearly" then 12
+    when "daily" then 24 # 24 hours in a day
+    when "weekly" then 7  # 7 days in a week
+    when "monthly" then 5  # Up to 5 weeks in a month
+    when "yearly" then 12 # 12 months in a year
     else 1
     end
-  end
-
-  # Fills in missing days for weekly/monthly data
-  def fill_in_missing_weekdays(days_count)
-    weekdays = Date::DAYNAMES # ["Sunday", "Monday", ..., "Saturday"]
-    @revenue_by_day = weekdays.map { |day| [day, @revenue_by_day.fetch(day, 0)] }
-  end
-  
-  # Fill in missing days for monthly data
-  def fill_in_missing_month_days
-    days_in_month = (Date.today.beginning_of_month..Date.today.end_of_month).map { |d| d.day }
-    @revenue_by_day = days_in_month.map { |day| [day.to_s, @revenue_by_day.fetch(day.to_s, 0)] }
-  end
-  
-  # Fill in missing hours for daily data
-  def fill_in_missing_hours(hour_count)
-    hours = (0...hour_count).map { |i| format("%02d:00", i) }
-    @revenue_by_day = hours.map { |hour| [hour, @revenue_by_day.fetch(hour, 0)] }
-  end
-  
-  # Fill in missing months for yearly data
-  def fill_in_missing_months(month_count)
-    months = Date::MONTHNAMES[1..12] # ["January", ..., "December"]
-    @revenue_by_day = months.map { |month| [month, @revenue_by_day.fetch(month, 0)] }
   end
 
   # Convert time range string to a range object

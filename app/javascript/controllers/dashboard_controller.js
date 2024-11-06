@@ -32,8 +32,13 @@ export default class extends Controller {
       return;
     }
 
+    // If a chart already exists, destroy it before creating a new one
+    if (ctx.chart) {
+      ctx.chart.destroy();
+    }
+
     // Create a new line chart
-    new Chart(ctx, {
+    ctx.chart = new Chart(ctx, {
       type: "line",
       data: {
         labels: labels,
