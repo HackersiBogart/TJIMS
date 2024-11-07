@@ -1,3 +1,3 @@
-class Admins::SessionsController < Devise::SessionsController
+class Admin::SessionsController < Devise::SessionsController
   layout 'admin'
 end

@@ -16,9 +16,11 @@ Rails.application.configure do
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
 
+  config.hosts << "tjstockoptima.xyz"
   config.action_mailer.delivery_method = :smtp
-  host = 'localhost:3000' #replace with your own url
-  config.action_mailer.default_url_options = { :host => 'localhost:3000', protocol: 'http' }
+  host = 'tjstockoptima.xyz' #replace with your own url
+  config.action_mailer.default_url_options = { host: 'tjstockoptima.xyz', protocol: 'https' }
+
   
   # SMTP settings for gmail
   config.action_mailer.smtp_settings = {
