@@ -1,5 +1,10 @@
 {
   "dependencies": {
     "@nathanvda/cocoon": "^1.2.14"
+  },
+  "engines": {
+    "node": "16.x",
+    "npm": "7.x",
+    "yarn": "1.22.x"
   }
 }
