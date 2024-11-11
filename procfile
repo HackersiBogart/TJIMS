@@ -1,3 +1,2 @@
-
 css: bin/dev tailwindcss:watch
 web: bundle exec puma -C config/puma.rb

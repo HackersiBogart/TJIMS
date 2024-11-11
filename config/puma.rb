@@ -1,44 +1,43 @@
-# This configuration file will be evaluated by Puma. The top-level methods that
-# are invoked here are part of Puma's configuration DSL. For more information
-# about methods provided by the DSL, see https://puma.io/puma/Puma/DSL.html.
+# Puma configuration file for Heroku
 
-# Puma can serve each request in a thread from an internal thread pool.
-# The `threads` method setting takes two numbers: a minimum and maximum.
-# Any libraries that use thread pools should be configured to match
-# the maximum value specified for Puma. Default is set to 5 threads for minimum
-# and maximum; this matches the default thread size of Active Record.
+# Specifies the `threads` configuration.
+# Puma will run a number of threads to handle requests in parallel.
 max_threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
 min_threads_count = ENV.fetch("RAILS_MIN_THREADS") { max_threads_count }
 threads min_threads_count, max_threads_count
 
+# Get the environment setting from the environment variable (defaults to 'development')
 rails_env = ENV.fetch("RAILS_ENV") { "development" }
 
+# Set worker settings for production
 if rails_env == "production"
-  # If you are running more than 1 thread per process, the workers count
-  # should be equal to the number of processors (CPU cores) in production.
-  #
-  # It defaults to 1 because it's impossible to reliably detect how many
-  # CPU cores are available. Make sure to set the `WEB_CONCURRENCY` environment
-  # variable to match the number of processors.
-  worker_count = Integer(ENV.fetch("WEB_CONCURRENCY") { 1 })
+  # Set the number of worker processes (one per CPU core) based on the `WEB_CONCURRENCY` environment variable.
+  worker_count = Integer(ENV.fetch("WEB_CONCURRENCY") { 2 })  # Adjust this as needed (typically 2-4 for Heroku)
+  
   if worker_count > 1
+    # Enable multiple workers
     workers worker_count
   else
+    # Preload the application to save memory (recommended in production with single worker)
     preload_app!
   end
 end
-# Specifies the `worker_timeout` threshold that Puma will use to wait before
-# terminating a worker in development environments.
+
+# Set worker timeout (needed for longer requests in development)
 worker_timeout 3600 if ENV.fetch("RAILS_ENV", "development") == "development"
 
-# Specifies the `port` that Puma will listen on to receive requests; default is 3000.
+# Specify the port for Puma to listen on
+# Heroku assigns a port dynamically, and this setting ensures that Puma uses it.
 port ENV.fetch("PORT") { 3000 }
 
-# Specifies the `environment` that Puma will run in.
+# Set the environment for Puma to run in (development, production, etc.)
 environment rails_env
 
-# Specifies the `pidfile` that Puma will use.
+# Set the path for the PID file (can be customized or left default)
 pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 
-# Allow puma to be restarted by `bin/rails restart` command.
+# Allow Puma to be restarted by the `bin/rails restart` command
 plugin :tmp_restart
+
+# Explicitly bind Puma to the dynamic port set by Heroku
+bind "tcp://0.0.0.0:#{ENV.fetch("PORT") { 3000 }}"
