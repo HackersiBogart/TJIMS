@@ -1,0 +1,2 @@
+web: bundle exec bin/dev -p $PORT
+css: bin/dev tailwindcss:watch

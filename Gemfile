@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "3.3.3"
+ruby "3.2.4"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.4"
@@ -10,7 +10,7 @@ gem "sprockets-rails"
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', group: :development
-gem 'pg', '0.18.1', group: :production
+gem 'pg', '1.1', group: :production
 gem 'rails_12factor', group: :production
 
 # Use the Puma web server [https://github.com/puma/puma]
@@ -89,3 +89,5 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
 gem 'prawn'
+
+
