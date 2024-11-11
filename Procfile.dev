@@ -1,3 +1,0 @@
-
-css: bin/dev tailwindcss:watch
-web: bundle exec rails server
