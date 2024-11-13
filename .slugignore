@@ -1,6 +1,11 @@
 # Ignore bundler config.
 .bundle
 
+# Ignore gem-related directories
+.vendor/
+.bundle/
+vendor/bundle/
+
 # Ignore all environment files (except templates).
 /.env*
 !/.env*.erb
@@ -49,5 +54,30 @@ node_modules/
 
 # Ignore logs
 log/
-/env
+.env
 tmp/
+
+# Ignore unnecessary bin scripts
+bin/dev
+
+# Ignore editor-specific files/folders
+.vscode/
+.idea/
+
+# Ignore test coverage reports and temporary files
+coverage/
+test-results/
+
+# Ignore development log files or debug logs
+development.log
+debug.log
+
+# Ignore npm, eslint, and other build-tool configuration files
+.npmrc
+.eslintcache
+
+# Ignore large files not required in production
+*.mp4
+*.jpg
+*.png
+*.pdf
