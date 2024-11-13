@@ -82,4 +82,7 @@ debug.log
 *.png
 *.pdf
 
+/db_backup_sql
+
+/.ruby-lsp
 
