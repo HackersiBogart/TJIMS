@@ -1,6 +1,0 @@
-<%= form_with url: admin_mixes_create_path, method: :post do |f| %>
-  <%= select_tag "primary_colors[][primary_color_id]", options_for_select(@primary_colors.pluck(:color_name, :id)) %>
-  <%= text_field_tag "primary_colors[][amount]" %>
-  <%= f.hidden_field :order_id, value: @order.id %>
-  <%= f.submit "Create Mix" %>
-<% end %>
