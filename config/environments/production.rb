@@ -1,8 +1,9 @@
 require "active_support/core_ext/integer/time"
 
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
+  config.hosts << "0.0.0.0"
   # Code is not reloaded between requests.
   config.enable_reloading = false
 
@@ -16,10 +17,10 @@ Rails.application.configure do
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
 
-  config.hosts << "tjstockoptima.xyz"
-  config.action_mailer.delivery_method = :smtp
-  host = 'tjstockoptima.xyz' #replace with your own url
-  config.action_mailer.default_url_options = { host: 'tjstockoptima.xyz', protocol: 'https' }
+  # config.hosts << "tjstockoptima.xyz"
+  # config.action_mailer.delivery_method = :smtp
+  # host = 'tjstockoptima.xyz' #replace with your own url
+  # config.action_mailer.default_url_options = { host: 'tjstockoptima.xyz', protocol: 'https' }
 
   
   # SMTP settings for gmail
