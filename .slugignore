@@ -81,3 +81,5 @@ debug.log
 *.jpg
 *.png
 *.pdf
+
+/db_backup_sql
