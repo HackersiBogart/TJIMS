@@ -75,15 +75,15 @@ gem "devise", "~> 4.9"
 
 gem "font-awesome-sass", "~> 6.5.1"
 
-gem "stripe", "~> 12.5"
+
 
 gem "pagy", "~> 9.0"
 
-gem "cocoon",  "~> 1.2"
+
 
 gem "foreman", github: "ddollar/foreman"
 
-gem "simple_form", "~> 5.2"
+
 
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
