@@ -8,3 +8,5 @@ bundle exec rake assets:precompile
 
 # Run database migrations
 bundle exec rake db:migrate
+
+chmod +x ./bin/dev  
