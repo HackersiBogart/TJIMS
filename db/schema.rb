@@ -56,8 +56,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_05_160203) do
     t.date "date_of_retrieval"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "name"
-    t.integer "order_id"
   end
 
   create_table "colors", force: :cascade do |t|
@@ -67,6 +65,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_05_160203) do
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "product_id", null: false
+    t.index ["product_id"], name: "index_colors_on_product_id"
   end
 
   create_table "customer_orders", force: :cascade do |t|
@@ -78,13 +78,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_05_160203) do
     t.decimal "total"
     t.string "size"
     t.integer "quantity"
-    t.string "item"
+    t.string "items"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "order_total"
-    t.integer "paint_color_id"
-    t.integer "color_id"
-    t.integer "product_id"
   end
 
   create_table "mixes", force: :cascade do |t|
@@ -105,15 +101,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_05_160203) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["mixture_id"], name: "index_mixture_details_on_mixture_id"
-  end
-
-  create_table "mixture_items", force: :cascade do |t|
-    t.integer "mixture_id", null: false
-    t.integer "primary_color_id"
-    t.decimal "amount"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["mixture_id"], name: "index_mixture_items_on_mixture_id"
   end
 
   create_table "mixture_thirds", force: :cascade do |t|
@@ -151,21 +138,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_05_160203) do
     t.string "customer_email"
     t.boolean "fulfilled"
     t.integer "total"
-    t.string "phone_number"
+    t.string "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "name"
-    t.integer "quantity"
-    t.string "size"
     t.string "reference_number"
     t.datetime "date_of_retrieval"
-    t.text "item"
     t.integer "color_id"
     t.integer "product_id"
     t.integer "paint_color_id"
     t.integer "primary_color_id"
-    t.integer "order_total"
-    t.index ["paint_color_id"], name: "index_orders_on_paint_color_id"
   end
 
   create_table "paint_colors", force: :cascade do |t|
@@ -178,11 +159,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_05_160203) do
     t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "unit"
     t.integer "product_id"
     t.integer "previous_stocks"
     t.integer "added_stocks"
     t.index ["color_id"], name: "index_paint_colors_on_color_id"
+    t.index ["product_id"], name: "index_paint_colors_on_product_id"
   end
 
   create_table "primary_color_stocks", force: :cascade do |t|
@@ -194,17 +175,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_05_160203) do
   end
 
   create_table "primary_colors", force: :cascade do |t|
-    t.string "name"
-    t.string "code"
+    t.string "color_name"
+    t.string "color_code"
     t.decimal "price"
     t.decimal "stocks"
     t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "order_id"
-    t.string "size"
-    t.integer "color_id"
-    t.integer "product_id"
     t.integer "previous_stocks"
     t.integer "added_stocks"
   end
@@ -214,39 +191,23 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_05_160203) do
     t.string "size"
     t.decimal "amount"
     t.decimal "price"
+    t.string "unit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_admin_product_stocks_on_product_id"
+    t.index ["product_id"], name: "index_product_stocks_on_product_id"
   end
 
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.boolean "active"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "color_code"
     t.text "color_name"
+    t.text "color_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "color_id"
-    t.integer "order_id"
-    t.index ["color_id"], name: "index_products_on_color_id"
-  end
-
-  create_table "purchase_items", force: :cascade do |t|
-    t.integer "quantity"
-    t.integer "paint_color_id"
-    t.integer "purchase_id"
-    t.decimal "total"
-    t.decimal "unit_price"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "purchases", force: :cascade do |t|
-    t.decimal "subtotal"
-    t.decimal "total"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer "orders_id"
+    t.index ["orders_id"], name: "index_products_on_orders_id"
   end
 
   create_table "sales", force: :cascade do |t|
@@ -258,7 +219,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_05_160203) do
   create_table "selects", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "color_id"
   end
 
   create_table "stock_movements", force: :cascade do |t|
@@ -269,8 +229,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_05_160203) do
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "order_id"
-    t.integer "color_id"
     t.index ["paint_color_id"], name: "index_stock_movements_on_paint_color_id"
     t.index ["primary_color_id"], name: "index_stock_movements_on_primary_color_id"
     t.index ["product_id"], name: "index_stock_movements_on_product_id"
@@ -282,38 +240,30 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_05_160203) do
     t.integer "paint_color_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "unit"
     t.decimal "price"
     t.index ["paint_color_id"], name: "index_stocks_on_paint_color_id"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  end
-
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "customer_orders", "paint_colors"
+  add_foreign_key "colors", "products"
   add_foreign_key "mixes", "orders"
   add_foreign_key "mixes", "paint_colors"
   add_foreign_key "mixes", "primary_colors"
   add_foreign_key "mixture_details", "mixtures"
-  add_foreign_key "mixture_items", "mixtures"
   add_foreign_key "mixture_thirds", "mixtures"
   add_foreign_key "mixtures", "orders"
   add_foreign_key "mixtures", "primary_colors"
   add_foreign_key "order_paint_colors", "orders"
   add_foreign_key "order_paint_colors", "paint_colors"
+  add_foreign_key "orders", "colors"
+  add_foreign_key "orders", "paint_colors"
+  add_foreign_key "orders", "primary_colors"
+  add_foreign_key "orders", "products"
   add_foreign_key "paint_colors", "colors"
+  add_foreign_key "paint_colors", "products"
   add_foreign_key "product_stocks", "products"
+  add_foreign_key "products", "orders", column: "orders_id"
   add_foreign_key "stock_movements", "paint_colors"
   add_foreign_key "stock_movements", "primary_colors"
   add_foreign_key "stock_movements", "products"
