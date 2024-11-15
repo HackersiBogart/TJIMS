@@ -13,8 +13,6 @@ test:
 
 production:
   adapter: postgresql
-  database: tjstockoptima_production
-  username: <%= ENV['PG_USERNAME'] %> # or hardcode your PostgreSQL username
-  password: <%= ENV['PG_PASSWORD'] %> # or hardcode your password if needed
-  host: localhost
-  port: 5432
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  url: <%= ENV['DATABASE_URL'] %>
