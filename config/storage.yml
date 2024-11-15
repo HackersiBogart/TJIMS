@@ -10,8 +10,9 @@ local:
 # Use bin/rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 production:
   backblaze:
-    service: Backblaze
-    bucket: <%= ENV["BACKBLAZE_BUCKET_NAME"] %>
-    key_id: <%= ENV["BACKBLAZE_ACCESS_KEY_ID"] %>
-    application_key: <%= ENV["BACKBLAZE_SECRET_ACCESS_KEY"] %>
+    service: S3
+    access_key_id: <%= ENV['BACKBLAZE_ACCESS_KEY_ID'] %>
+    secret_access_key: <%= ENV['BACKBLAZE_SECRET_ACCESS_KEY'] %>
+    bucket: <%= ENV['BACKBLAZE_BUCKET_NAME'] %>
+    endpoint: <%= ENV['BACKBLAZE_ENDPOINT'] %>
 

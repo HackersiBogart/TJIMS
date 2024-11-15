@@ -21,7 +21,8 @@ Rails.application.configure do
     authentication: 'plain',
     enable_starttls_auto: true
   }
-  
+
+
   # Show full error reports.
   config.consider_all_requests_local = true
 
@@ -46,7 +47,8 @@ Rails.application.configure do
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
+
+  config.active_storage.service = :backblaze
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
