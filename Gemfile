@@ -44,3 +44,4 @@ group :test do
 end
 
 gem 'groupdate'
+gem 'aws-sdk-s3', '~> 1'
