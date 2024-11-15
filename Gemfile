@@ -16,7 +16,7 @@ gem "image_processing", "~> 1.2"
 gem "devise", "~> 4.9"
 gem "font-awesome-sass", "~> 6.5.1"
 gem "pagy", "~> 9.0"
-gem "foreman", github: "ddollar/foreman"
+
 gem "wicked_pdf"
 gem "wkhtmltopdf-binary"
 gem "prawn"
@@ -25,6 +25,7 @@ gem "prawn"
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
   gem 'sqlite3', '~> 1.4'
+  gem "foreman", github: "ddollar/foreman"
 end
 
 group :production do
