@@ -19,13 +19,9 @@ end
 worker_timeout 3600 if rails_env == "development"
 
 # Render dynamically assigns a port, set it here.
-port ENV.fetch("PORT") { 10000 }
-
 environment rails_env
 pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 plugin :tmp_restart
 
 # Bind to Render's 0.0.0.0 host with the assigned port
-bind "tcp://0.0.0.0:#{ENV.fetch('PORT', 10000)}"
-
-
+bind "tcp://0.0.0.0:#{ENV.fetch('PORT', 3000)}"
