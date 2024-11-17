@@ -15,7 +15,7 @@
     secret_access_key: <%= ENV['BACKBLAZE_SECRET_ACCESS_KEY'] %>
     bucket: <%= ENV['BACKBLAZE_BUCKET_NAME'] %>
     endpoint: <%= ENV['BACKBLAZE_ENDPOINT'] %>
-
+    region: <%= ENV['BACKBLAZE_REGION'] || 'us-east-005' %>  # Set to your region
 
 
 
