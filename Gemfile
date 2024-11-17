@@ -24,7 +24,7 @@ gem "prawn"
 # Use sqlite3 for development and production
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
-  gem 'sqlite3', '~> 1.4'
+
   gem "foreman", github: "ddollar/foreman"
 end
 
@@ -44,4 +44,4 @@ group :test do
 end
 
 gem 'groupdate'
-gem 'aws-sdk-s3', '~> 1'
+
