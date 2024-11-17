@@ -25,7 +25,7 @@ plugin :tmp_restart
 
 # Bind to Render's 0.0.0.0 host with the assigned port
 # bind "tcp://0.0.0.0:#{ENV.fetch('PORT')}"
-port ENV.fetch("PORT") { 3001 }
+port ENV.fetch("PORT") { 3000 }
 
 
 
