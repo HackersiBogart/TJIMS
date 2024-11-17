@@ -24,7 +24,7 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 plugin :tmp_restart
 
 # Bind to Render's 0.0.0.0 host with the assigned port
-bind "tcp://0.0.0.0:#{ENV['PORT']}"
+bind "tcp://0.0.0.0:3000"
 
 
 
