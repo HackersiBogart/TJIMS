@@ -103,5 +103,7 @@ Rails.application.routes.draw do
   post 'send_mail', to: 'order_mail#send_mail'
   get 'order_mail', to: 'order_mail#new', as: 'order_mail'
 
+  get "/test", to: "application#test"
+
 
 end

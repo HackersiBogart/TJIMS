@@ -7,4 +7,8 @@ class ApplicationController < ActionController::Base
   end
 
   include Pagy::Backend
+
+  def test
+    render plain: "Public Access Test Page"
+  end
 end
