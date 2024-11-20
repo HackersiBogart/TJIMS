@@ -72,11 +72,9 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "home#index"
 
-  # authenticated :admin_user do
-  #   root to: "admin#index", as: :admin_root
-  # end
-
-  root "admin#index", as: :admin_root
+  authenticated :admin_user do
+    root to: "admin#index", as: :admin_root
+  end
 
   # Define routes for the checkouts controller outside the admin namespace
   resources :checkouts, only: [:new, :create]

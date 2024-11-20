@@ -1,7 +1,7 @@
 class AdminController < ApplicationController
   layout 'admin'
 
-  # before_action :authenticate_admin!
+  before_action :authenticate_admin!
 
   def index
     @time_range = params[:time_range] || "daily"
