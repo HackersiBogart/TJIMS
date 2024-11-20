@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
 
-set -o errexit  # Exit on error
-
-# Install dependencies
+# Install Ruby dependencies
 bundle install
 
-# Precompile assets
-bundle exec rake assets:precompile
+# Precompile Rails assets (for CSS and other static assets)
+RAILS_ENV=production bundle exec rake assets:precompile
 
 # Run database migrations
-bundle exec rake db:migrate
+RAILS_ENV=production bundle exec rake db:migrate
