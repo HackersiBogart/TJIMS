@@ -9,6 +9,8 @@ class Admin::StocksController < AdminController
 
   # GET /admin/stocks/1 or /admin/stocks/1.json
   def show
+    @admin_stock = Stock.find_by(id: params[:id], paint_color_id: params[:paint_color_id])
+
   end
 
   # GET /admin/stocks/new
