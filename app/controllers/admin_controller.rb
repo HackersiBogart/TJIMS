@@ -1,7 +1,7 @@
 class AdminController < ApplicationController
   layout 'admin'
 
-  skip_before_action :authenticate_admin!, only: [:index] # or the specific action
+  #before_action :authenticate_admin!
 
   def index
     @time_range = params[:time_range] || "daily"
