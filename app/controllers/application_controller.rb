@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
   #   admin_path
   # end
 
+  def
+    admin_path
+  end
+
   include Pagy::Backend
 
   def test
