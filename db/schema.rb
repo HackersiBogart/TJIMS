@@ -147,6 +147,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_05_160203) do
     t.integer "product_id"
     t.integer "paint_color_id"
     t.integer "primary_color_id"
+    t.integer "order_total"
   end
 
   create_table "paint_colors", force: :cascade do |t|
