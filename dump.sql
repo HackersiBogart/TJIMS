@@ -1,4 +1,4 @@
-BEGIN TRANSACTION;
+BEGIN;
 
 -- Schema migrations
 CREATE TABLE IF NOT EXISTS "schema_migrations" (
@@ -6,7 +6,6 @@ CREATE TABLE IF NOT EXISTS "schema_migrations" (
 );
 INSERT INTO schema_migrations VALUES ('20240827071105');
 INSERT INTO schema_migrations VALUES ('20240827074014');
--- Add all other migration values...
 
 -- Metadata table
 CREATE TABLE IF NOT EXISTS "ar_internal_metadata" (
@@ -31,6 +30,80 @@ CREATE TABLE IF NOT EXISTS "admins" (
 INSERT INTO admins (id, email, encrypted_password, created_at, updated_at)
 VALUES (1, 'admin123@gmail.com', '$2a$12$.uS4d7qoMIgmGGiUcack6uY/xB6VMHUVkkIKOph7wq5tT7V7tD6na', '2024-11-18 17:15:07.733343', '2024-11-18 17:15:07.733343');
 
+-- Colors table
+CREATE TABLE IF NOT EXISTS "colors" (
+    "id" SERIAL PRIMARY KEY,
+    "name" varchar NOT NULL,
+    "created_at" timestamp NOT NULL,
+    "updated_at" timestamp NOT NULL
+);
+
+-- Products table
+CREATE TABLE IF NOT EXISTS "products" (
+    "id" SERIAL PRIMARY KEY,
+    "name" varchar NOT NULL,
+    "price" decimal NOT NULL,
+    "created_at" timestamp NOT NULL,
+    "updated_at" timestamp NOT NULL
+);
+
+-- Paint colors table
+CREATE TABLE IF NOT EXISTS "paint_colors" (
+    "id" SERIAL PRIMARY KEY,
+    "name" varchar NOT NULL,
+    "hex_code" varchar NOT NULL,
+    "created_at" timestamp NOT NULL,
+    "updated_at" timestamp NOT NULL
+);
+
+-- Primary colors table
+CREATE TABLE IF NOT EXISTS "primary_colors" (
+    "id" SERIAL PRIMARY KEY,
+    "name" varchar NOT NULL,
+    "hex_code" varchar NOT NULL,
+    "created_at" timestamp NOT NULL,
+    "updated_at" timestamp NOT NULL
+);
+
+-- Orders table
+CREATE TABLE IF NOT EXISTS "orders" (
+    "id" SERIAL PRIMARY KEY,
+    "customer_email" varchar,
+    "fulfilled" boolean,
+    "total" integer,
+    "address" varchar,
+    "created_at" timestamp NOT NULL,
+    "updated_at" timestamp NOT NULL,
+    "reference_number" varchar,
+    "date_of_retrieval" timestamp,
+    "color_id" integer REFERENCES "colors" ("id"),
+    "product_id" integer REFERENCES "products" ("id"),
+    "paint_color_id" integer REFERENCES "paint_colors" ("id"),
+    "primary_color_id" integer REFERENCES "primary_colors" ("id")
+);
+
+-- Stocks table
+CREATE TABLE IF NOT EXISTS "stocks" (
+    "id" SERIAL PRIMARY KEY,
+    "size" varchar,
+    "amount" integer,
+    "paint_color_id" integer NOT NULL REFERENCES "paint_colors" ("id"),
+    "created_at" timestamp NOT NULL,
+    "updated_at" timestamp NOT NULL,
+    "price" decimal
+);
+
+-- Order Paint Colors table
+CREATE TABLE IF NOT EXISTS "order_paint_colors" (
+    "id" SERIAL PRIMARY KEY,
+    "paint_color_id" integer NOT NULL REFERENCES "paint_colors" ("id"),
+    "order_id" integer NOT NULL REFERENCES "orders" ("id"),
+    "size" varchar,
+    "quantity" integer,
+    "created_at" timestamp NOT NULL,
+    "updated_at" timestamp NOT NULL
+);
+
 -- Active storage blobs
 CREATE TABLE IF NOT EXISTS "active_storage_blobs" (
     "id" SERIAL PRIMARY KEY,
@@ -53,46 +126,5 @@ CREATE TABLE IF NOT EXISTS "active_storage_attachments" (
     "blob_id" bigint NOT NULL REFERENCES "active_storage_blobs" ("id"),
     "created_at" timestamp NOT NULL
 );
-
--- Stocks table
-CREATE TABLE IF NOT EXISTS "stocks" (
-    "id" SERIAL PRIMARY KEY,
-    "size" varchar,
-    "amount" integer,
-    "paint_color_id" integer NOT NULL REFERENCES "paint_colors" ("id"),
-    "created_at" timestamp NOT NULL,
-    "updated_at" timestamp NOT NULL,
-    "price" decimal
-);
-
--- Foreign keys and related tables
-CREATE TABLE IF NOT EXISTS "order_paint_colors" (
-    "id" SERIAL PRIMARY KEY,
-    "paint_color_id" integer NOT NULL REFERENCES "paint_colors" ("id"),
-    "order_id" integer NOT NULL REFERENCES "orders" ("id"),
-    "size" varchar,
-    "quantity" integer,
-    "created_at" timestamp NOT NULL,
-    "updated_at" timestamp NOT NULL
-);
-
--- Orders table
-CREATE TABLE IF NOT EXISTS "orders" (
-    "id" SERIAL PRIMARY KEY,
-    "customer_email" varchar,
-    "fulfilled" boolean,
-    "total" integer,
-    "address" varchar,
-    "created_at" timestamp NOT NULL,
-    "updated_at" timestamp NOT NULL,
-    "reference_number" varchar,
-    "date_of_retrieval" timestamp,
-    "color_id" integer REFERENCES "colors" ("id"),
-    "product_id" integer REFERENCES "products" ("id"),
-    "paint_color_id" integer REFERENCES "paint_colors" ("id"),
-    "primary_color_id" integer REFERENCES "primary_colors" ("id")
-);
-
--- Adjust other tables similarly...
 
 COMMIT;
