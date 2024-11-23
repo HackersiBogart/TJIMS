@@ -78,7 +78,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_05_160203) do
     t.decimal "total"
     t.string "size"
     t.integer "quantity"
-    t.string "items"
+    t.string "item"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -148,6 +148,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_05_160203) do
     t.integer "paint_color_id"
     t.integer "primary_color_id"
     t.integer "order_total"
+    t.integer "item"
   end
 
   create_table "paint_colors", force: :cascade do |t|
