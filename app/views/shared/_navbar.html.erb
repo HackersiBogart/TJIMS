@@ -7,49 +7,14 @@
             <%= image_tag 'TJlogo.png', class: 'h-16 w-auto' %>
           <% end %>
         </div>
-        <div class="hidden sm:flex items-center space-x-8">
+
+        <!-- Directly show cart icon in both desktop and mobile -->
+        <div class="flex items-center space-x-8">
           <%= link_to cart_path, class: "text-white hover:text-orange-500 transition duration-300 py-2 rounded-md text-md font-semibold" do %>
             <%= icon 'fa-solid', 'shopping-cart' %>
           <% end %>
         </div>
-        <div class="flex sm:hidden">
-          <button id="mobile-menu-button" class="text-white hover:text-orange-500 focus:outline-none focus:ring focus:ring-orange-300">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-            </svg>
-          </button>
-        </div>
       </div>
     </div>
   </div>
-
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="sm:hidden hidden bg-gray-800">
-    <div class="px-2 pt-2 pb-3 space-y-1">
-      <%= link_to cart_path, class: "text-white hover:text-orange-500 block py-2 rounded-md text-md font-semibold" do %>
-        <%= icon 'fa-solid', 'shopping-cart' %>
-      <% end %>
-    </div>
-  </div>
 </nav>
-
-<script>
-  document.addEventListener("turbo:load", function() {
-    // Only declare the variables if they aren't already declared
-    if (!window.menuButton) {
-      const menuButton = document.getElementById('mobile-menu-button');
-      const mobileMenu = document.getElementById('mobile-menu');
-
-      menuButton.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-      });
-
-      // Assign to window object to avoid re-declaration on Turbo load
-      window.menuButton = menuButton;
-      window.mobileMenu = mobileMenu;
-    }
-  });
-</script>
-
-
-
