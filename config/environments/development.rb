@@ -11,16 +11,19 @@ Rails.application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
   config.action_controller.raise_on_missing_callback_actions = true
+
+
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    user_name: 'arjaydelafuente87@gmail.com',
-    password: 'arjay2506',
-    address: 'smtp.gmail.com',
-    domain: 'localhost',
-    port: 587,
-    authentication: 'plain',
-    enable_starttls_auto: true
-  }
+config.action_mailer.smtp_settings = {
+  address:              'smtp.gmail.com',
+  port:                 587,
+  domain:               'https://tjims-ckom.onrender.com',
+  user_name:            'stockoptimatj@gmail.com', # Your email
+  password:             'stockoptimatj123',       # Your email password or app-specific password
+  authentication:       'plain',
+  enable_starttls_auto: true
+}
+
 
 
   # Show full error reports.

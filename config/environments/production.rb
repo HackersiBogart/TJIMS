@@ -29,7 +29,16 @@ Rails.application.configure do
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present? || true
 
 
-
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.gmail.com',
+    port:                 587,
+    domain:               'https://tjims-ckom.onrender.com',
+    user_name:            'stockoptimatj@gmail.com', # Your email
+    password:             'stockoptimatj123',       # Your email password or app-specific password
+    authentication:       'plain',
+    enable_starttls_auto: true
+  }
 
 
   # Ensures that a master key has been made available in ENV["RAILS_MASTER_KEY"], config/master.key, or an environment
