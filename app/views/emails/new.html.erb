@@ -1,0 +1,18 @@
+<%= form_with url: emails_path, method: :post, local: true do |form| %>
+  <div class="max-w-sm mx-auto p-6 bg-white border rounded-lg shadow-lg">
+    <h2 class="text-2xl font-semibold text-center mb-4">Send Email</h2>
+    
+    <div class="mb-4">
+      <%= form.label :email, 'Receiver Email', class: 'block text-sm font-medium text-gray-700' %>
+      <%= form.email_field :email, required: true, class: 'mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500' %>
+    </div>
+    
+    <div class="mb-4">
+      <%= form.submit 'Send Email', class: 'w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500' %>
+    </div>
+
+    <div class="text-center mt-4">
+      <%= flash[:notice] %>
+    </div>
+  </div>
+<% end %>

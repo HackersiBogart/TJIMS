@@ -1,0 +1,41 @@
+<div class="mt-32">
+  <h1 class="text-xl font-bold mb-4">Send Emails to Users</h1>
+
+  <table class="table-auto border-collapse border border-gray-300 w-full">
+    <thead>
+      <tr class="bg-gray-100">
+        <th class="border border-gray-300 px-4 py-2 text-left">Name</th>
+        <th class="border border-gray-300 px-4 py-2 text-left">Email</th>
+        <th class="border border-gray-300 px-4 py-2 text-left">Send Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @users.any? %>
+        <% @users.each do |user| %>
+          <tr>
+            <!-- Name input field -->
+            <td class="border border-gray-300 px-4 py-2">
+              <%= form_with model: user, url: send_welcome_email_admin_user_path(user), method: :post, local: true do |f| %>
+                <%= f.text_field :name, value: user.name, class: "name-input border rounded px-2 py-1 w-full" %>
+            </td>
+
+            <!-- Email input field -->
+            <td class="border border-gray-300 px-4 py-2">
+                <%= f.email_field :email, value: user.email, class: "email-input border rounded px-2 py-1 w-full" %>
+            </td>
+
+            <!-- Send Email button -->
+            <td class="border border-gray-300 px-4 py-2">
+                <%= f.submit "Send Email", class: "send-email-btn bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="3" class="text-center py-4">No users found.</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

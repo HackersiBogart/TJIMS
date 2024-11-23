@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'emails/new'
+  get 'emails/create'
   resources :customer_orders
   get 'sales/index'
   get 'reports/index'
@@ -28,6 +30,13 @@ Rails.application.routes.draw do
 
     resources :products do
       resources :product_stocks, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+    end
+
+
+    resources :users do
+      member do
+        post :send_welcome_email
+      end
     end
 
 
@@ -86,6 +95,7 @@ Rails.application.routes.draw do
   resources :premadecolors, only: [:show]
   resources :premadeproducts, only: [:show]
   resources :order_mail, only: [:new]
+  resources :emails, only: [:new, :create]
 
   get 'reports', to: 'reports#index'
   get "admin" => "admin#index"
@@ -102,8 +112,8 @@ Rails.application.routes.draw do
     get 'stock_movements', to: 'stock_movements#show', as: 'stock_movements'
   post 'send_mail', to: 'order_mail#send_mail'
   get 'order_mail', to: 'order_mail#new', as: 'order_mail'
-
+  get 'emails', to: 'emails#new'
   get "/test", to: "application#test"
 
-
+  
 end

@@ -39,7 +39,8 @@ Rails.application.configure do
     authentication:       'plain',
     enable_starttls_auto: true
   }
-
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_deliveries = true 
 
   # Ensures that a master key has been made available in ENV["RAILS_MASTER_KEY"], config/master.key, or an environment
   # key such as config/credentials/production.key. This key is used to decrypt credentials (and other encrypted files).

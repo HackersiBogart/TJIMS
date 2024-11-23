@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_05_160203) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_23_120637) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -78,7 +78,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_05_160203) do
     t.decimal "total"
     t.string "size"
     t.integer "quantity"
-    t.string "item"
+    t.string "items"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -147,8 +147,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_05_160203) do
     t.integer "product_id"
     t.integer "paint_color_id"
     t.integer "primary_color_id"
-    t.integer "order_total"
-    t.integer "item"
   end
 
   create_table "paint_colors", force: :cascade do |t|
@@ -244,6 +242,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_05_160203) do
     t.datetime "updated_at", null: false
     t.decimal "price"
     t.index ["paint_color_id"], name: "index_stocks_on_paint_color_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

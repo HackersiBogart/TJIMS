@@ -1,10 +1,10 @@
 
+
   class UserMailer < ApplicationMailer
-    default from: 'stockoptimatj@gmail.com' # Update with your email
-  
-    def welcome_email(user)
+    def welcome_email(user, email_override = nil)
       @user = user
-      @url  = 'https://tjims-ckom.onrender.com'
-      mail(to: @user.email, subject: 'Your order has been placed!')
+      email = email_override || @user.email
+      mail(to: email, subject: "Welcome to Our Platform!")
     end
   end
+  
