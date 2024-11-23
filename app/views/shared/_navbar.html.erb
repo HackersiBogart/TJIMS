@@ -34,10 +34,22 @@
 </nav>
 
 <script>
-  const menuButton = document.getElementById('mobile-menu-button');
-  const mobileMenu = document.getElementById('mobile-menu');
+  document.addEventListener("turbo:load", function() {
+    // Only declare the variables if they aren't already declared
+    if (!window.menuButton) {
+      const menuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
 
-  menuButton.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
+      menuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+
+      // Assign to window object to avoid re-declaration on Turbo load
+      window.menuButton = menuButton;
+      window.mobileMenu = mobileMenu;
+    }
   });
 </script>
+
+
+
