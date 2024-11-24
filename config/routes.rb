@@ -46,6 +46,7 @@ Rails.application.routes.draw do
         get 'change_fulfilled', to: 'orders#change_fulfilled'
         get :reference_image
       end
+      post 'send_email', on: :member # Adds send_email route for individual orders
     end
  
     resources :mixture_thirds

@@ -30,6 +30,24 @@
     <%= form.collection_select :paint_color_id, PaintColor.all, :id, :name, prompt: "Choose a Paint Color", class: "block mt-2 w-full bg-white border border-gray-300 text-gray-800 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 px-3 py-2" %>
   </div>
 
+
+
+
+  <!-- Email Form -->
+  <div class="send-email">
+    <h3>Send Email to User</h3>
+    <%= form_with url: send_email_order_path(@order), method: :post, local: true do |f| %>
+      <div class="form-group">
+        <%= f.label :email, "Recipient Email" %>
+        <%= f.email_field :email, value: @order.user.email, class: "form-control", placeholder: "Enter email address" %>
+      </div>
+
+      <%= f.submit "Send Email", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+
+
   <div class="text-center mt-8">
     <%= form.submit "Update", class: "w-full py-3 px-5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold shadow-md transition duration-300 ease-in-out" %>
   </div>
