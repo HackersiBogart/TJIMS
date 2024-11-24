@@ -33,7 +33,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address:              'smtp.gmail.com',
     port:                 587,
-    domain:               'https://tjims-ckom.onrender.com',
+    domain:               'gmail.com',
     user_name:            'stockoptimatj@gmail.com', # Your email
     password:             'stockoptimatj123',       # Your email password or app-specific password
     authentication:       'plain',
