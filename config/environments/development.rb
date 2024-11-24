@@ -19,7 +19,7 @@ config.action_mailer.smtp_settings = {
   port:                 587,
   domain:               'gmail.com',
   user_name:            'stockoptimatj@gmail.com', # Your email
-  password:             'stockoptimatj123',       # Your email password or app-specific password
+  password:             'oiar djlv qggf jibl',       # Your email password or app-specific password
   authentication:       'plain',
   enable_starttls_auto: true
 }
