@@ -104,12 +104,12 @@ end
     # Use callbacks to share common setup or constraints between actions.
     def set_admin_order
       @admin_order = Order.find(params[:id])
-      @user = @order.user  # Assuming the order is associated with a user.
+ 
     end
 
     def send_email
       @order = Order.find(params[:order_id]) # Find the order by its ID
-      receiver_email = params[:email]  # Get the email address from the form input
+      receiver_email = params[:customer_email]  # Get the email address from the form input
   
       # Send the email using the EmailMailer
       EmailMailer.send_email(receiver_email).deliver_now
