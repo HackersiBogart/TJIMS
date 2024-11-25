@@ -23,10 +23,10 @@ class AdminController < ApplicationController
   def load_quick_stats(time_range)
     range = time_range_to_range(time_range)
     {
-      sales: Order.where(fulfilled: true, created_at: range).count,
-      revenue: Order.where(fulfilled: true, created_at: range).sum(:order_total).round,
-      avg_sale: Order.where(fulfilled: true, created_at: range).average(:order_total)&.round,
-      per_sale: OrderPaintColor.joins(:order).where(orders: { created_at: range }).average(:quantity)
+      sales: Order.where(fulfilled: true, updated_at: range).count,
+      revenue: Order.where(fulfilled: true, updated_at: range).sum(:order_total).round,
+      avg_sale: Order.where(fulfilled: true, updated_at: range).average(:order_total)&.round,
+      per_sale: OrderPaintColor.joins(:order).where(orders: { updated_at: range }).average(:quantity)
     }
   end
 
