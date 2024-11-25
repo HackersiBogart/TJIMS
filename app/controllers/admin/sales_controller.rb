@@ -12,10 +12,10 @@ class Admin::SalesController < AdminController
 
     # Aggregate the sales data based on filtered orders
     @sales_data = {
-      colors: @colors.map { |color| [color.name, color.orders.sum(:total)] }.to_h,
-      products: @products.map { |product| [product.name, product.orders.sum(:total)] }.to_h,
-      paint_colors: @paint_colors.map { |paint_color| [paint_color.name, paint_color.orders.sum(:total)] }.to_h,
-      primary_colors: @primary_colors.map { |primary_color| [primary_color.name, primary_color.orders.sum(:total)] }.to_h,
+      colors: @colors.map { |color| [color.name, color.orders.sum(:order_total)] }.to_h,
+      products: @products.map { |product| [product.name, product.orders.sum(:order_total)] }.to_h,
+      paint_colors: @paint_colors.map { |paint_color| [paint_color.name, paint_color.orders.sum(:order_total)] }.to_h,
+      primary_colors: @primary_colors.map { |primary_color| [primary_color.name, primary_color.orders.sum(:order_total)] }.to_h,
     }
   end
 
@@ -32,10 +32,10 @@ class Admin::SalesController < AdminController
 
     # Rebuild the sales data hash for the PDF
     @sales_data = {
-      colors: @colors.map { |color| [color.name, color.orders.sum(:total)] }.to_h,
-      products: @products.map { |product| [product.name, product.orders.sum(:total)] }.to_h,
-      paint_colors: @paint_colors.map { |paint_color| [paint_color.name, paint_color.orders.sum(:total)] }.to_h,
-      primary_colors: @primary_colors.map { |primary_color| [primary_color.name, primary_color.orders.sum(:total)] }.to_h,
+      colors: @colors.map { |color| [color.name, color.orders.sum(:order_total)] }.to_h,
+      products: @products.map { |product| [product.name, product.orders.sum(:order_total)] }.to_h,
+      paint_colors: @paint_colors.map { |paint_color| [paint_color.name, paint_color.orders.sum(:order_total)] }.to_h,
+      primary_colors: @primary_colors.map { |primary_color| [primary_color.name, primary_color.orders.sum(:order_total)] }.to_h,
     }
 
     # Create PDF document
