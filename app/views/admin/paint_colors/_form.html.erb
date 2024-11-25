@@ -25,6 +25,12 @@
     <%= form.text_field :quantity, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
   </div>
 
+      <div class="my-5">
+    <%= f.label :price, "Price", class: "text-white font-semibold" %>
+    <%= f.text_field :price, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
+  </div>
+
+
   <div class="my-5">
     <%= form.label :image, class: "text-white font-semibold" %>
     <%= form.file_field :image, rows: 4, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full" %>
