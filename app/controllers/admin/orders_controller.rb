@@ -56,6 +56,7 @@ end
 
   # GET /admin/orders/1/edit
   def edit
+    @order = Order.find_by(id: params[:id])
   end
 
   # POST /admin/orders or /admin/orders.json
