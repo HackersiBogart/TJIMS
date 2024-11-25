@@ -35,35 +35,35 @@ class AdminController < ApplicationController
     case time_range
     when "daily"
       # Group by hour for the current day
-      revenue_data = Order.where(fulfilled: true, created_at: Time.zone.today.all_day)
-                           .group_by_hour(:created_at, format: "%H")
+      revenue_data = Order.where(fulfilled: true, updated_at: Time.zone.today.all_day)
+                           .group_by_hour(:updated_at, format: "%H")
                            .sum(:order_total)
       format_revenue_data(revenue_data, 24, :hour)
   
     when "weekly"
       # Group by day of the current week (Sunday to Saturday)
-      revenue_data = Order.where(fulfilled: true, created_at: 1.week.ago.beginning_of_day..Time.zone.now.end_of_day)
-                           .group_by_day(:created_at, format: "%A")
+      revenue_data = Order.where(fulfilled: true, updated_at: 1.week.ago.beginning_of_day..Time.zone.now.end_of_day)
+                           .group_by_day(:updated_at, format: "%A")
                            .sum(:order_total)
       format_revenue_data(revenue_data, 7, :day)
   
     when "monthly"
       # Group by week of the month
-      revenue_data = Order.where(fulfilled: true, created_at: 1.month.ago.beginning_of_day..Time.zone.now.end_of_day)
-                           .group_by_week(:created_at, format: "%U")  # Group by week number (0-53)
+      revenue_data = Order.where(fulfilled: true, updated_at: 1.month.ago.beginning_of_day..Time.zone.now.end_of_day)
+                           .group_by_week(:updated_at, format: "%U")  # Group by week number (0-53)
                            .sum(:order_total)
       format_revenue_data(revenue_data, 5, :week)  # 5 weeks is typical for a month, can vary
   
     when "yearly"
       # Group by month of the year
-      revenue_data = Order.where(fulfilled: true, created_at: 1.year.ago.beginning_of_day..Time.zone.now.end_of_day)
-                           .group_by_month(:created_at, format: "%B")
+      revenue_data = Order.where(fulfilled: true, updated_at: 1.year.ago.beginning_of_day..Time.zone.now.end_of_day)
+                           .group_by_month(:updated_at, format: "%B")
                            .sum(:order_total)
       format_revenue_data(revenue_data, 12, :month)
   
     else
       # Default to daily grouping
-      Order.group_by_day(:created_at).sum(:order_total)
+      Order.group_by_day(:updated_at).sum(:order_total)
     end
   end
   
