@@ -10,13 +10,7 @@
     </div>
   <% end %>
 
-  <div class="flex justify-center my-5">
-    <% if @paint_color && @paint_color.image.attached? %>
-      <%= image_tag @paint_color.image, size: "100x100", class: "rounded shadow-md w-36 h-36 object-cover", alt: "Reference Image" %>
-    <% else %>
-      <%= image_tag "https://via.placeholder.com/100", size: "100x100", class: "rounded shadow-md w-36 h-36 object-cover", alt: "Reference Image" %>
-    <% end %>
-  </div>
+
 
   <div class="my-5">
     <%= f.label :order_id, "Select Order", class: "text-white font-semibold" %>
