@@ -45,7 +45,7 @@ Rails.application.routes.draw do
       member do
         get 'change_fulfilled', to: 'orders#change_fulfilled'
         get :reference_image
-        post 'send_email', on: :member # Adds send_email route for individual orders
+        post 'send_email' # Adds send_email route for individual orders
       end
       
     end
