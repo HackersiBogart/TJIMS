@@ -11,7 +11,6 @@ class Admin::StocksController < AdminController
   def show
  
     @admin_stock = Stock.find(params[:id])
-
   end
 
   # GET /admin/stocks/new
