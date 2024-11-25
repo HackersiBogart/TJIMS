@@ -100,6 +100,23 @@ end
     end
   end
 
+  
+  def send_email
+ 
+    @order = Order.find(params[:id])
+
+    receiver_email = params[:customer_email]  # Get the email address from the form input
+
+    # Send the email using the EmailMailer
+    EmailMailer.send_email(receiver_email).deliver_now
+
+    # Display a success message
+    flash[:notice] = 'Email has been sent!'
+    
+    # Redirect back to the order page
+    redirect_to order_path(@order)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_admin_order
@@ -107,21 +124,6 @@ end
  
     end
 
-    def send_email
- 
-      @order = Order.find(params[:id])
-
-      receiver_email = params[:customer_email]  # Get the email address from the form input
-  
-      # Send the email using the EmailMailer
-      EmailMailer.send_email(receiver_email).deliver_now
-  
-      # Display a success message
-      flash[:notice] = 'Email has been sent!'
-      
-      # Redirect back to the order page
-      redirect_to order_path(@order)
-    end
 
     # Only allow a list of trusted parameters through.
     def admin_order_params
