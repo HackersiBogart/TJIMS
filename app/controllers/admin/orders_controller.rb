@@ -1,38 +1,32 @@
 class Admin::OrdersController < AdminController
-  before_action :set_admin_order, only: %i[ show edit update destroy ]
+  before_action :set_admin_order, only: %i[show edit update destroy]
 
   # GET /admin/orders or /admin/orders.json
- # GET /admin/orders or /admin/orders.json
-def index
-  # Orders sorted by latest created_at date first
-  @not_fulfilled_pagy, @not_fulfilled_orders = pagy(Order.where(fulfilled: false).order(created_at: :desc))
-  @fulfilled_pagy, @fulfilled_orders = pagy(Order.where(fulfilled: true).order(created_at: :desc), page_param: :page_fulfilled)
-  @query = params[:query]&.downcase
+  def index
+    # Orders sorted by latest created_at date first
+    @not_fulfilled_pagy, @not_fulfilled_orders = pagy(Order.where(fulfilled: false).order(created_at: :desc))
+    @fulfilled_pagy, @fulfilled_orders = pagy(Order.where(fulfilled: true).order(created_at: :desc), page_param: :page_fulfilled)
+    @query = params[:query]&.downcase
 
-  if @query.present?
-    # Use LIKE for case-insensitive matching in SQLite
-    @not_fulfilled_orders = Order.where(fulfilled: false)
-                                 .where("CAST(id AS TEXT) LIKE :search OR LOWER(name) LIKE :search OR CAST(date_of_retrieval AS TEXT) LIKE :search", search: "%#{@query}%")
-                                 .order(created_at: :desc)
+    if @query.present?
+      # Use LIKE for case-insensitive matching in SQLite
+      @not_fulfilled_orders = Order.where(fulfilled: false)
+                                   .where("CAST(id AS TEXT) LIKE :search OR LOWER(name) LIKE :search OR CAST(date_of_retrieval AS TEXT) LIKE :search", search: "%#{@query}%")
+                                   .order(created_at: :desc)
 
-    @fulfilled_orders = Order.where(fulfilled: true)
-                             .where("CAST(id AS TEXT) LIKE :search OR LOWER(name) LIKE :search OR CAST(date_of_retrieval AS TEXT) LIKE :search", search: "%#{@query}%")
-                             .order(created_at: :desc)
-  else
-    # Display all unfulfilled and fulfilled orders if no search query is provided
-    @not_fulfilled_orders = Order.where(fulfilled: false).order(created_at: :desc)
-    @fulfilled_orders = Order.where(fulfilled: true).order(created_at: :desc)
+      @fulfilled_orders = Order.where(fulfilled: true)
+                               .where("CAST(id AS TEXT) LIKE :search OR LOWER(name) LIKE :search OR CAST(date_of_retrieval AS TEXT) LIKE :search", search: "%#{@query}%")
+                               .order(created_at: :desc)
+    else
+      # Display all unfulfilled and fulfilled orders if no search query is provided
+      @not_fulfilled_orders = Order.where(fulfilled: false).order(created_at: :desc)
+      @fulfilled_orders = Order.where(fulfilled: true).order(created_at: :desc)
+    end
+
+    # Paginate the results using Pagy
+    @not_fulfilled_pagy, @not_fulfilled_orders = pagy(@not_fulfilled_orders, items: 10)
+    @fulfilled_pagy, @fulfilled_orders = pagy(@fulfilled_orders, items: 10)
   end
-
-  # Paginate the results using Pagy
-  @not_fulfilled_pagy, @not_fulfilled_orders = pagy(@not_fulfilled_orders, items: 10)
-  @fulfilled_pagy, @fulfilled_orders = pagy(@fulfilled_orders, items: 10)
-
-
-
-end
-
-
 
   # GET /admin/orders/1 or /admin/orders/1.json
   def show
@@ -43,11 +37,8 @@ end
   def reference_image
     order = Order.find(params[:id])
     image_url = order.image.attached? ? url_for(order.image) : nil
-  
     render json: { image_url: image_url }
   end
-
-  
 
   # GET /admin/orders/new
   def new
@@ -65,7 +56,6 @@ end
 
     respond_to do |format|
       if @admin_order.save
-        
         format.html { redirect_to admin_order_url(@admin_order), notice: "Order was successfully created." }
         format.json { render :show, status: :created, location: @admin_order }
       else
@@ -74,12 +64,15 @@ end
       end
     end
   end
-  
-  
+
   # PATCH/PUT /admin/orders/1 or /admin/orders/1.json
   def update
     respond_to do |format|
       if @admin_order.update(admin_order_params)
+        # Automatically send email if the order has been fulfilled
+        if @admin_order.fulfilled
+          send_email(@admin_order)
+        end
         format.html { redirect_to admin_order_url(@admin_order), notice: "Order was successfully updated." }
         format.json { render :show, status: :ok, location: @admin_order }
       else
@@ -88,8 +81,6 @@ end
       end
     end
   end
-
-
 
   # DELETE /admin/orders/1 or /admin/orders/1.json
   def destroy
@@ -101,33 +92,20 @@ end
     end
   end
 
-  
-  def send_email
- 
-    @order = Order.find(params[:id])
-
-    receiver_email = params[:customer_email]  # Get the email address from the form input
-
-    # Send the email using the EmailMailer
-    EmailMailer.send_email(receiver_email).deliver_now
-
-    # Display a success message
+  # Send Email after fulfilling the order
+  def send_email(order)
+    EmailMailer.send_email(order.customer_email).deliver_now
     flash[:notice] = 'Email has been sent!'
-    
-    # Redirect back to the order page
-    redirect_to order_path(@order)
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_admin_order
       @admin_order = Order.find(params[:id])
- 
     end
-
 
     # Only allow a list of trusted parameters through.
     def admin_order_params
-      params.require(:order).permit(:customer_email, :fulfilled,:name, :phone_number, :reference_number, :image, :date_of_retrieval, :total, :size,:quantity, :item, :paint_color_id, :color_id,:product_id, :primary_color_id, :order_total)
+      params.require(:order).permit(:customer_email, :fulfilled, :name, :phone_number, :reference_number, :image, :date_of_retrieval, :total, :size, :quantity, :item, :paint_color_id, :color_id, :product_id, :primary_color_id, :order_total)
     end
 end

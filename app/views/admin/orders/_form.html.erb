@@ -10,41 +10,30 @@
     </div>
   <% end %>
 
-  <div class="mb-6  ">
+  <div class="mb-6">
     <%= form.label :fulfilled, class: "text-gray-700 font-semibold" %>
     <%= form.check_box :fulfilled, class: "mt-1 h-6 w-6 rounded border-gray-800 text-blue-600 focus:ring-blue-500" %>
   </div>
 
-  <div class="mb-6 text-gray-800 ">
+  <div class="mb-6 text-gray-800">
     <%= form.label :color_id, "Select Brand", class: "text-gray-700 font-semibold" %>
     <%= form.collection_select :color_id, Color.all, :id, :name, prompt: "Choose a Color", class: "block mt-2 w-full bg-white border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 px-3 py-2" %>
   </div>
 
-  <div class="mb-6 text-gray-800 ">
+  <div class="mb-6 text-gray-800">
     <%= form.label :product_id, "Select Product", class: "text-gray-700 font-semibold" %>
     <%= form.collection_select :product_id, Product.all, :id, :name, prompt: "Choose a Product", class: "block mt-2 w-full bg-white border border-gray-300 text-gray-800 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 px-3 py-2" %>
   </div>
 
-  <div class="mb-6 text-gray-800 ">
+  <div class="mb-6 text-gray-800">
     <%= form.label :paint_color_id, "Select Paint Color", class: "text-gray-700 font-semibold" %>
     <%= form.collection_select :paint_color_id, PaintColor.all, :id, :name, prompt: "Choose a Paint Color", class: "block mt-2 w-full bg-white border border-gray-300 text-gray-800 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 px-3 py-2" %>
   </div>
-
-
-
-
-
-
-
 
   <div class="text-center mt-8">
     <%= form.submit "Update", class: "w-full py-3 px-5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold shadow-md transition duration-300 ease-in-out" %>
   </div>
 <% end %>
-
-
-
-
 
 <!-- Email Form -->
 <div class="send-email">
@@ -57,6 +46,3 @@
     <%= f.submit "Send Email", class: "btn btn-primary" %>
   <% end %>
 </div>
-
-
-
