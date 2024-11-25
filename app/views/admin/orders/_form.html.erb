@@ -49,7 +49,7 @@
 <!-- Email Form -->
 <div class="send-email">
   <h3>Send Email to User</h3>
-  <%= form_with(model: [:admin, admin_order], method: :post, local: true) do |f| %>
+  <%= form_with(model: [:admin, admin_order], method: :patch, local: true) do |f| %>
     <div class="form-group">
       <%= f.label :customer_email, "Recipient Email" %>
       <%= f.email_field :customer_email, value: @order.customer_email, class: "form-control", placeholder: "Enter email address" %>
