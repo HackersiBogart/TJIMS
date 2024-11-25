@@ -108,7 +108,9 @@ end
     end
 
     def send_email
-      @order = Order.find(params[:order_id]) # Find the order by its ID
+ 
+      @order = Order.find(params[:id])
+
       receiver_email = params[:customer_email]  # Get the email address from the form input
   
       # Send the email using the EmailMailer

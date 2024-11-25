@@ -46,16 +46,17 @@
 
 
 
-  <!-- Email Form -->
-  <div class="send-email">
-    <h3>Send Email to User</h3>
-    <%= form_with url: send_email_order_path(@order), method: :post, local: true do |f| %>
-      <div class="form-group">
-        <%= f.label :customer_email, "Recipient Email" %>
-        <%= f.email_field :customer_email, value: customer_email, class: "form-control", placeholder: "Enter email address" %>
-      </div>
+<!-- Email Form -->
+<div class="send-email">
+  <h3>Send Email to User</h3>
+  <%= form_with url: send_email_order_path(@order), method: :post, local: true do |f| %>
+    <div class="form-group">
+      <%= f.label :customer_email, "Recipient Email" %>
+      <%= f.email_field :customer_email, value: @order.customer_email, class: "form-control", placeholder: "Enter email address" %>
+    </div>
 
-      <%= f.submit "Send Email", class: "btn btn-primary" %>
-    <% end %>
-  </div>
+    <%= f.submit "Send Email", class: "btn btn-primary" %>
+  <% end %>
+</div>
+
 
