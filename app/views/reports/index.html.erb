@@ -1,10 +1,81 @@
-<h1>Sales Report</h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 20px;
+      line-height: 1.6;
+    }
 
-<ul>
-  <li><strong>Daily Sales:</strong> <%= number_to_currency(@daily_sales) %></li>
-  <li><strong>Weekly Sales:</strong> <%= number_to_currency(@weekly_sales) %></li>
-  <li><strong>Monthly Sales:</strong> <%= number_to_currency(@monthly_sales) %></li>
-  <li><strong>Quarterly Sales:</strong> <%= number_to_currency(@quarterly_sales) %></li>
-  <li><strong>Yearly Sales:</strong> <%= number_to_currency(@yearly_sales) %></li>
-</ul>
+    h1 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
 
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    table th {
+      background-color: #f4f4f4;
+      font-weight: bold;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      margin-top: 30px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>Sales Report</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Period</th>
+        <th>Sales</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Daily Sales</td>
+        <td><%= number_to_currency(@daily_sales) %></td>
+      </tr>
+      <tr>
+        <td>Weekly Sales</td>
+        <td><%= number_to_currency(@weekly_sales) %></td>
+      </tr>
+      <tr>
+        <td>Monthly Sales</td>
+        <td><%= number_to_currency(@monthly_sales) %></td>
+      </tr>
+      <tr>
+        <td>Quarterly Sales</td>
+        <td><%= number_to_currency(@quarterly_sales) %></td>
+      </tr>
+      <tr>
+        <td>Yearly Sales</td>
+        <td><%= number_to_currency(@yearly_sales) %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="footer">
+    <p>Generated on <%= Time.current.strftime("%B %d, %Y at %I:%M %p") %></p>
+  </div>
+</body>
+</html>
