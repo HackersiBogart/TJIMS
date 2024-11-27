@@ -65,8 +65,10 @@ export default class extends Controller {
             }
           },
           y: {
-            border: {
-              dash: [5, 5]
+            ticks: {
+              callback: function (value) {
+                return `₱${value.toLocaleString()}`;
+              }
             },
             grid: {
               color: "#d4f3ef"
