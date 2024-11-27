@@ -46,13 +46,13 @@ class Admin::SalesController < AdminController
     pdf.font "DejaVu"
   
     # Title and Date Range
-    pdf.text "Sales Data Report", size: 24, style: :bold, align: :center
+    pdf.text "Sales Data Report", size: 24, style: , align: :center
     pdf.text "From #{start_date.strftime('%B %d, %Y')} to #{end_date.strftime('%B %d, %Y')}", size: 12, align: :center
     pdf.move_down 20
   
     # Helper method for adding sections
     def add_section(pdf, title, data)
-      pdf.text title, size: 16, style: :bold, color: "1E3E62"
+      pdf.text title, size: 16, style:, color: "1E3E62"
       if data.empty?
         pdf.text "No sales data available.", size: 12, style: :italic, align: :center
       else
@@ -61,7 +61,7 @@ class Admin::SalesController < AdminController
                   column_widths: [300, 200],
                   row_colors: ["f9f9f9", "ffffff"],
                   cell_style: { borders: [:bottom], border_color: "dddddd", size: 12 }) do
-          row(0).font_style = :bold
+          row(0).font_style = :normal
           row(0).background_color = "1E3E62"
           row(0).text_color = "ffffff"
         end
