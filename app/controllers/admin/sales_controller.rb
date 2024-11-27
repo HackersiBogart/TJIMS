@@ -52,9 +52,9 @@ class Admin::SalesController < AdminController
   
     # Helper method for adding sections
     def add_section(pdf, title, data)
-      pdf.text title, size: 16, style:, color: "1E3E62"
+      pdf.text title, size: 16, color: "1E3E62"
       if data.empty?
-        pdf.text "No sales data available.", size: 12,  :italic, align: :center
+        pdf.text "No sales data available.", size: 12, align: :center
       else
         pdf.move_down 10
         pdf.table(data.map { |key, value| [key, "₱#{value}"] }, 
