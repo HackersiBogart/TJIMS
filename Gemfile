@@ -20,6 +20,7 @@ gem "pagy", "~> 9.0"
 gem "wicked_pdf"
 gem "wkhtmltopdf-binary"
 gem "prawn"
+gem 'prawn-table'
 
 # Use sqlite3 for development and production
 group :development, :test do
