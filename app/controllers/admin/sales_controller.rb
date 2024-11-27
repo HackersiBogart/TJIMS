@@ -46,7 +46,7 @@ class Admin::SalesController < AdminController
     pdf.font "DejaVu"
   
     # Title and Date Range
-    pdf.text "Sales Data Report", size: 24, style: , align: :center
+    pdf.text "Sales Data Report", size: 24 , align: :center
     pdf.text "From #{start_date.strftime('%B %d, %Y')} to #{end_date.strftime('%B %d, %Y')}", size: 12, align: :center
     pdf.move_down 20
   
@@ -54,7 +54,7 @@ class Admin::SalesController < AdminController
     def add_section(pdf, title, data)
       pdf.text title, size: 16, style:, color: "1E3E62"
       if data.empty?
-        pdf.text "No sales data available.", size: 12, style: :italic, align: :center
+        pdf.text "No sales data available.", size: 12,  :italic, align: :center
       else
         pdf.move_down 10
         pdf.table(data.map { |key, value| [key, "₱#{value}"] }, 
