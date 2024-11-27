@@ -66,9 +66,12 @@ export default class extends Controller {
           },
           y: {
             ticks: {
-              callback: function (value) {
-                return `₱${value.toLocaleString()}`;
+              callback: function(value) {
+                return `₱${value.toLocaleString()}`; // Format with Peso sign and comma separators
               }
+            },
+            border: {
+              dash: [5, 5]
             },
             grid: {
               color: "#d4f3ef"
