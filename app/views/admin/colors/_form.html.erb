@@ -12,20 +12,32 @@
 
   <div class="my-5">
     <%= form.label :name, class: "text-white font-medium" %>
-    <%= form.text_field :name, class: "block shadow rounded-md border border-gray-500 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
+    <% if admin_color.errors[:name].any? %>
+      <div class="text-red-500 text-sm mb-1"><%= admin_color.errors[:name].first %></div>
+    <% end %>
+    <%= form.text_field :name, 
+                        class: "block shadow rounded-md border px-3 py-2 mt-2 w-full text-gray-800 outline-none focus:ring-2 transition duration-200 #{'border-red-500 focus:ring-red-500' if admin_color.errors[:name].any?}" %>
   </div>
 
-    <div class="my-5">
+  <div class="my-5">
     <%= form.label :code, class: "text-white font-medium" %>
-    <%= form.text_field :code, class: "block shadow rounded-md border border-gray-500 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
+    <% if admin_color.errors[:code].any? %>
+      <div class="text-red-500 text-sm mb-1"><%= admin_color.errors[:code].first %></div>
+    <% end %>
+    <%= form.text_field :code, 
+                        class: "block shadow rounded-md border px-3 py-2 mt-2 w-full text-gray-800 outline-none focus:ring-2 transition duration-200 #{'border-red-500 focus:ring-red-500' if admin_color.errors[:code].any?}" %>
   </div>
 
   <div class="my-5">
     <%= form.label :image, class: "text-white font-medium" %>
-    <%= form.file_field :image, class: "block shadow rounded-md border border-gray-500 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
+    <% if admin_color.errors[:image].any? %>
+      <div class="text-red-500 text-sm mb-1"><%= admin_color.errors[:image].first %></div>
+    <% end %>
+    <%= form.file_field :image, 
+                        class: "block shadow rounded-md border px-3 py-2 mt-2 w-full outline-none focus:ring-2 transition duration-200 #{'border-red-500 focus:ring-red-500' if admin_color.errors[:image].any?}" %>
   </div>
 
-
+  <div>
     <%= form.submit "Save", class: "rounded-lg py-3 px-5 bg-[#FF6500] hover:bg-[#E65B00] text-white inline-block font-medium cursor-pointer transition duration-200" %>
   </div>
 <% end %>

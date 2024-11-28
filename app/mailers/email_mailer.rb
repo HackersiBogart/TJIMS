@@ -12,6 +12,8 @@ class EmailMailer < ApplicationMailer
         We are delighted to inform you that your order has been successfully fulfilled and is ready for you! 🎉
 
         Your order is now ready for pickup at our store:
+        Every Monday to Friday
+        from 9:00 a.m. to 5:00 p.m.
         TJ Paint Center
         Vinzons Ave., Daet, Camarines Norte
 
