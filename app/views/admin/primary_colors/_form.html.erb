@@ -2,7 +2,6 @@
   <% if admin_primary_color.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(admin_primary_color.errors.count, "error") %> prohibited this admin_primary_color from being saved:</h2>
-
       <ul>
         <% admin_primary_color.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -11,55 +10,103 @@
     </div>
   <% end %>
 
+  <!-- Name Field -->
   <div class="my-5">
     <%= form.label :name, class: "text-white" %>
     <%= form.text_field :name, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <% if admin_primary_color.errors[:name].any? %>
+      <div class="text-red-500 mt-2">
+        <%= admin_primary_color.errors[:name].join(", ") %>
+      </div>
+    <% end %>
   </div>
 
+  <!-- Code Field -->
   <div class="my-5">
     <%= form.label :code, class: "text-white" %>
     <%= form.text_field :code, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <% if admin_primary_color.errors[:code].any? %>
+      <div class="text-red-500 mt-2">
+        <%= admin_primary_color.errors[:code].join(", ") %>
+      </div>
+    <% end %>
   </div>
 
+  <!-- Image Field -->
   <div class="my-5">
     <%= form.label :image, class: "text-white" %>
     <%= form.file_field :image %>
+    <% if admin_primary_color.errors[:image].any? %>
+      <div class="text-red-500 mt-2">
+        <%= admin_primary_color.errors[:image].join(", ") %>
+      </div>
+    <% end %>
   </div>
 
+  <!-- Price Field -->
   <div class="my-5">
     <%= form.label :price, class: "text-white" %>
     <%= form.text_field :price, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <% if admin_primary_color.errors[:price].any? %>
+      <div class="text-red-500 mt-2">
+        <%= admin_primary_color.errors[:price].join(", ") %>
+      </div>
+    <% end %>
   </div>
 
+  <!-- Stocks Field -->
   <div class="my-5">
     <%= form.label :stocks, class: "text-white" %>
     <%= form.text_field :stocks, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <% if admin_primary_color.errors[:stocks].any? %>
+      <div class="text-red-500 mt-2">
+        <%= admin_primary_color.errors[:stocks].join(", ") %>
+      </div>
+    <% end %>
   </div>
 
-  
+  <!-- Color Select Field -->
   <div class="my-5">
     <%= form.label :color_id, "Select Color", class: "text-white font-semibold" %>
-    <%= form.collection_select :color_id, Color.all, :id, :name, { prompt: "Choose a brand" }, { class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" } %>
+    <%= form.collection_select :color_id, Color.all, :id, :name, { prompt: "Choose a color" }, { class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" } %>
+    <% if admin_primary_color.errors[:color_id].any? %>
+      <div class="text-red-500 mt-2">
+        <%= admin_primary_color.errors[:color_id].join(", ") %>
+      </div>
+    <% end %>
   </div>
 
+  <!-- Product Select Field -->
   <div class="my-5">
     <%= form.label :product_id, "Select Product", class: "text-white font-semibold" %>
     <%= form.collection_select :product_id, Product.all, :id, :name, { prompt: "Choose a product" }, { class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" } %>
+    <% if admin_primary_color.errors[:product_id].any? %>
+      <div class="text-red-500 mt-2">
+        <%= admin_primary_color.errors[:product_id].join(", ") %>
+      </div>
+    <% end %>
   </div>
 
+  <!-- Active Field -->
   <div class="my-5">
     <%= form.label :active, class: "text-white" %>
     <%= form.check_box :active, class: "block mt-2 h-5 w-5" %>
+    <% if admin_primary_color.errors[:active].any? %>
+      <div class="text-red-500 mt-2">
+        <%= admin_primary_color.errors[:active].join(", ") %>
+      </div>
+    <% end %>
   </div>
 
-      <% unless admin_primary_color.new_record? %>
+  <!-- Stocks Link -->
+  <% unless admin_primary_color.new_record? %>
     <div class="my-5">
       <%= link_to "Stocks", admin_primary_color_primary_color_stocks_path(admin_primary_color), class: "ml-2 rounded-lg py-3 px-5 bg-orange-200 text-black inline-block font-medium transition duration-200 hover:bg-orange-300" %>
-    
     </div>
   <% end %>
 
+  <!-- Submit Button -->
   <div class="inline">
-     <%= form.submit "Save", class: "rounded-lg py-3 px-5 bg-[#FF6500] hover:bg-[#E65B00] text-white inline-block font-medium cursor-pointer transition duration-200" %>
+    <%= form.submit "Save", class: "rounded-lg py-3 px-5 bg-[#FF6500] hover:bg-[#E65B00] text-white inline-block font-medium cursor-pointer transition duration-200" %>
   </div>
 <% end %>

@@ -1,4 +1,4 @@
-<%= form_with(model: [:admin, @paint_color, admin_stock], class: "contents") do |form| %>
+<%= form_with(model: [:admin, @paint_color, admin_stock], class: "contents", local: true) do |form| %>
   <% if admin_stock.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(admin_stock.errors.count, "error") %> prohibited this admin_stock from being saved:</h2>
@@ -12,26 +12,39 @@
   <% end %>
 
   <div class="my-5">
-    <%= form.label :unit %>
-    <%= form.select :unit, options_for_select([['Liter', 'liter'], ['Gallon', 'gallon']], @admin_stock.unit), class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :unit, class: "text-white font-medium" %>
+    <%= form.select :unit, options_for_select([['Liter', 'liter'], ['Gallon', 'gallon']], @admin_stock.unit), class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
+    <% if admin_stock.errors[:unit].any? %>
+      <p class="text-red-500 text-xs mt-1"><%= admin_stock.errors[:unit].first %></p>
+    <% end %>
   </div>
 
   <div class="my-5">
-    <%= form.label :size %>
-    <%= form.text_field :size, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :size, class: "text-white font-medium" %>
+    <%= form.text_field :size, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
+    <% if admin_stock.errors[:size].any? %>
+      <p class="text-red-500 text-xs mt-1"><%= admin_stock.errors[:size].first %></p>
+    <% end %>
   </div>
 
   <div class="my-5">
-    <%= form.label :amount,"Quantity" %>
-    <%= form.number_field :amount, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :amount, "Quantity", class: "text-white font-medium" %>
+    <%= form.number_field :amount, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
+    <% if admin_stock.errors[:amount].any? %>
+      <p class="text-red-500 text-xs mt-1"><%= admin_stock.errors[:amount].first %></p>
+    <% end %>
   </div>
 
   <div class="my-5">
-    <%= form.label :price %>
-    <%= form.text_field :price, step: 0.01, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :price, class: "text-white font-medium" %>
+    <%= form.text_field :price, step: 0.01, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
+    <% if admin_stock.errors[:price].any? %>
+      <p class="text-red-500 text-xs mt-1"><%= admin_stock.errors[:price].first %></p>
+    <% end %>
   </div>
 
   <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer transition duration-200 hover:bg-blue-500" %>
   </div>
+
 <% end %>

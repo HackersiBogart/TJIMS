@@ -2,7 +2,6 @@
   <% if admin_primary_color_stock.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(admin_primary_color_stock.errors.count, "error") %> prohibited this admin_primary_color_stock from being saved:</h2>
-
       <ul>
         <% admin_primary_color_stock.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -11,27 +10,41 @@
     </div>
   <% end %>
 
-
   <!-- Size Field -->
   <div class="my-5">
-    <%= form.label :size %>
-    <%= form.text_field :size, class: "block shadow rounded-md border border-gray-400 text-gray-800 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :size, class: "text-white font-semibold" %>
+    <%= form.text_field :size, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
+    <% if admin_primary_color_stock.errors[:size].any? %>
+      <div class="text-red-500 mt-2">
+        <%= admin_primary_color_stock.errors[:size].join(", ") %>
+      </div>
+    <% end %>
   </div>
 
   <!-- Quantity Field -->
   <div class="my-5">
-    <%= form.label :quantity, "Quantity" %>
-    <%= form.number_field :quantity, class: "block shadow rounded-md border border-gray-400 text-gray-800 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :quantity, "Quantity", class: "text-white font-semibold" %>
+    <%= form.number_field :quantity, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
+    <% if admin_primary_color_stock.errors[:quantity].any? %>
+      <div class="text-red-500 mt-2">
+        <%= admin_primary_color_stock.errors[:quantity].join(", ") %>
+      </div>
+    <% end %>
   </div>
 
   <!-- Price Field -->
   <div class="my-5">
-    <%= form.label :price %>
-    <%= form.number_field :price, step: 0.01, class: "block shadow rounded-md border border-gray-400 text-gray-800 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :price, class: "text-white font-semibold" %>
+    <%= form.number_field :price, step: 0.01, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
+    <% if admin_primary_color_stock.errors[:price].any? %>
+      <div class="text-red-500 mt-2">
+        <%= admin_primary_color_stock.errors[:price].join(", ") %>
+      </div>
+    <% end %>
   </div>
 
   <!-- Submit Button -->
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  <div class="my-5">
+    <%= form.submit "Save", class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer transition duration-200" %>
   </div>
 <% end %>

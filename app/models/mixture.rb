@@ -10,7 +10,10 @@ class Mixture < ApplicationRecord
   accepts_nested_attributes_for :mixture_thirds, allow_destroy: true, reject_if: :all_blank
   
 
-  validates :amount, presence: true, numericality: { greater_than: 0 }
+  validates :order_id, presence: true, numericality: { only_integer: true, message: "must be a valid number" }
+  validates :primary_color_id, presence: true, numericality: { only_integer: true, message: "must be a valid number" }
+  validates :amount, presence: true, numericality: { greater_than: 0, message: "must be greater than 0" }
+ 
   
 
 

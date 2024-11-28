@@ -8,5 +8,12 @@ class PaintColor < ApplicationRecord
   belongs_to :product
   has_many :customer_orders
 
+  validates :name, presence: true, uniqueness: true, length: { maximum: 100 }
+  validates :code, presence: true, length: { maximum: 20 }
+  validates :quantity, presence: true, numericality: { greater_than_or_equal_to: 0, message: "must be a positive number or zero" }
+  validates :price, presence: true, numericality: { greater_than_or_equal_to: 0, message: "must be a positive number or zero" }
+  validates :color_id, presence: true
+  validates :product_id, presence: true
+
 
 end

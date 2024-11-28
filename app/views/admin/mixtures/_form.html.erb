@@ -10,13 +10,14 @@
     </div>
   <% end %>
 
-
-
   <div class="my-5">
     <%= f.label :order_id, "Select Order", class: "text-white font-semibold" %>
-    <%= f.collection_select :order_id, Order.all, :id, :name, 
-                            { prompt: "Choose an order" }, 
-                            { class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" } %>
+    <% if @admin_mixture.errors[:order_id].any? %>
+      <div class="text-red-500 text-sm mb-1"><%= @admin_mixture.errors[:order_id].first %></div>
+    <% end %>
+    <%= f.collection_select :order_id, Order.all, :id, :name,
+                            { prompt: "Choose an order" },
+                            { class: "block shadow-md rounded-md border px-3 py-2 mt-2 w-full text-gray-800 outline-none focus:ring-2 transition duration-200 #{'border-red-500 focus:ring-red-500' if @admin_mixture.errors[:order_id].any?}" } %>
   </div>
 
   <div id="mixture_details" class="space-y-4">
@@ -33,31 +34,22 @@
 
   <div class="my-5">
     <%= f.label :primary_color_id, "Select Color", class: "text-white font-semibold" %>
-    <%= f.collection_select :primary_color_id, PrimaryColor.all, :id, :name, 
-                            { prompt: "Choose a color" }, 
-                            {class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" } %>
+    <% if @admin_mixture.errors[:primary_color_id].any? %>
+      <div class="text-red-500 text-sm mb-1"><%= @admin_mixture.errors[:primary_color_id].first %></div>
+    <% end %>
+    <%= f.collection_select :primary_color_id, PrimaryColor.all, :id, :name,
+                            { prompt: "Choose a color" },
+                            { class: "block shadow-md rounded-md border px-3 py-2 mt-2 w-full text-gray-800 outline-none focus:ring-2 transition duration-200 #{'border-red-500 focus:ring-red-500' if @admin_mixture.errors[:primary_color_id].any?}" } %>
   </div>
 
   <div class="my-5">
     <%= f.label :amount, "Quantity", class: "text-white font-semibold" %>
-    <%= f.text_field :amount, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
+    <% if @admin_mixture.errors[:amount].any? %>
+      <div class="text-red-500 text-sm mb-1"><%= @admin_mixture.errors[:amount].first %></div>
+    <% end %>
+    <%= f.text_field :amount,
+                     class: "block shadow-md rounded-md border px-3 py-2 mt-2 w-full text-gray-800 outline-none focus:ring-2 transition duration-200 #{'border-red-500 focus:ring-red-500' if @admin_mixture.errors[:amount].any?}" %>
   </div>
-
-<div class="my-5">
-  <%= f.label :customer_email, "Email", class: "text-white font-semibold" %>
-  <%= f.text_field @order.customer_email, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
-</div>
-
-
-<div class="my-5">
-  <%= button_to "Mark as Fulfilled", 
-                change_fulfilled_admin_mixture_path(@order), 
-                method: :post, 
-                class: "rounded-lg py-2 px-4 bg-[#FF6500] hover:bg-[#E65B00] text-white font-semibold transition duration-200" %>
-</div>
-
-
-
 
   <div class="flex justify-end space-x-2 mt-4">
     <%= f.submit "Submit", class: "rounded-lg py-3 px-5 bg-[#FF6500] hover:bg-[#E65B00] text-white inline-block font-medium cursor-pointer transition duration-200 flex items-center space-x-2" do %>

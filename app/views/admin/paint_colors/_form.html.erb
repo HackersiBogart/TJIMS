@@ -12,38 +12,58 @@
 
   <div class="my-5">
     <%= form.label :name, class: "text-white font-semibold" %>
-    <%= form.text_field :name, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
+    <% if admin_paint_color.errors[:name].any? %>
+      <div class="text-red-500 text-sm mb-1"><%= admin_paint_color.errors[:name].first %></div>
+    <% end %>
+    <%= form.text_field :name, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200 #{'border-red-500 focus:ring-red-500' if admin_paint_color.errors[:name].any?}" %>
   </div>
 
   <div class="my-5">
     <%= form.label :code, class: "text-white font-semibold" %>
-    <%= form.text_field :code, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
+    <% if admin_paint_color.errors[:code].any? %>
+      <div class="text-red-500 text-sm mb-1"><%= admin_paint_color.errors[:code].first %></div>
+    <% end %>
+    <%= form.text_field :code, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200 #{'border-red-500 focus:ring-red-500' if admin_paint_color.errors[:code].any?}" %>
   </div>
 
-    <div class="my-5">
+  <div class="my-5">
     <%= form.label :quantity, class: "text-white font-semibold" %>
-    <%= form.text_field :quantity, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
+    <% if admin_paint_color.errors[:quantity].any? %>
+      <div class="text-red-500 text-sm mb-1"><%= admin_paint_color.errors[:quantity].first %></div>
+    <% end %>
+    <%= form.text_field :quantity, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200 #{'border-red-500 focus:ring-red-500' if admin_paint_color.errors[:quantity].any?}" %>
   </div>
 
-      <div class="my-5">
-    <%= f.label :price, "Price", class: "text-white font-semibold" %>
-    <%= f.text_field :price, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" %>
+  <div class="my-5">
+    <%= form.label :price, "Price", class: "text-white font-semibold" %>
+    <% if admin_paint_color.errors[:price].any? %>
+      <div class="text-red-500 text-sm mb-1"><%= admin_paint_color.errors[:price].first %></div>
+    <% end %>
+    <%= form.text_field :price, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200 #{'border-red-500 focus:ring-red-500' if admin_paint_color.errors[:price].any?}" %>
   </div>
-
 
   <div class="my-5">
     <%= form.label :image, class: "text-white font-semibold" %>
-    <%= form.file_field :image, rows: 4, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full" %>
+    <% if admin_paint_color.errors[:image].any? %>
+      <div class="text-red-500 text-sm mb-1"><%= admin_paint_color.errors[:image].first %></div>
+    <% end %>
+    <%= form.file_field :image, rows: 4, class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full #{'border-red-500 focus:ring-red-500' if admin_paint_color.errors[:image].any?}" %>
   </div>
 
   <div class="my-5">
     <%= form.label :color_id, "Select Color", class: "text-white font-semibold" %>
-    <%= form.collection_select :color_id, Color.all, :id, :name, { prompt: "Choose a brand" }, { class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" } %>
+    <% if admin_paint_color.errors[:color_id].any? %>
+      <div class="text-red-500 text-sm mb-1"><%= admin_paint_color.errors[:color_id].first %></div>
+    <% end %>
+    <%= form.collection_select :color_id, Color.all, :id, :name, { prompt: "Choose a color" }, { class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200 #{'border-red-500 focus:ring-red-500' if admin_paint_color.errors[:color_id].any?}" } %>
   </div>
 
   <div class="my-5">
     <%= form.label :product_id, "Select Product", class: "text-white font-semibold" %>
-    <%= form.collection_select :product_id, Product.all, :id, :name, { prompt: "Choose a product" }, { class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" } %>
+    <% if admin_paint_color.errors[:product_id].any? %>
+      <div class="text-red-500 text-sm mb-1"><%= admin_paint_color.errors[:product_id].first %></div>
+    <% end %>
+    <%= form.collection_select :product_id, Product.all, :id, :name, { prompt: "Choose a product" }, { class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200 #{'border-red-500 focus:ring-red-500' if admin_paint_color.errors[:product_id].any?}" } %>
   </div>
 
   <div class="my-5 flex items-center">
@@ -64,11 +84,6 @@
         <span>Save</span>
       <% end %>
     </div>
-
-<!--<%= link_to [:admin, @admin_paint_color], class: "bg-blue-600 text-white py-3 px-5 rounded-lg shadow hover:bg-blue-700 inline-flex items-center space-x-2" do %>
-      <i class="fas fa-eye"></i>
-      <span>Show</span>
-    <% end %>
-  </div> %>-->
+  </div>
 
 <% end %>
