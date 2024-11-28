@@ -29,7 +29,7 @@
     <div class="my-8">
       <p class="uppercase text-lg font-semibold">Size</p>
       <% @primary_color.primary_color_stocks.each do |stock| %>
-      <% if stock.present? && stock > 0 %>
+      <% if stock.quantity.present? && stock.quantity> 0 %>
         <button data-action="click->primary-colors#selectSize" data-price="<%= stock.price %>"
                 value="<%= stock.size %>"
                 class="bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 transition duration-200">
@@ -41,6 +41,7 @@
                 class="disabled:bg-gray-400 bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
           <%= stock.size %>
         </button>
+      <% end %>
       <% end %>
     </div>
 
