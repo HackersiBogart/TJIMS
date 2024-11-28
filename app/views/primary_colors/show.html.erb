@@ -28,17 +28,17 @@
     <!-- Size Section -->
     <div class="my-8">
       <p class="uppercase text-lg font-semibold">Size</p>
-      <% if @primary_color.stocks.present? && @primary_color.stocks > 0 %>
-        <button data-action="click->primary-colors#selectSize" data-price="<%= @primary_color.price %>"
-                value="<%= @primary_color.size %>"
+      <% if @primary_color.primary_color_stocks.present? && @primary_color.primary_color_stocks > 0 %>
+        <button data-action="click->primary-colors#selectSize" data-price="<%= @primary_color.primary_color_stocks.price %>"
+                value="<%= @primary_color.primary_color_stocks.size %>"
                 class="bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 transition duration-200">
-          <%= @primary_color.size %>
+          <%= @primary_color.primary_color_stocks.size %>
         </button>
       <% else %>
         <button disabled
-                value="<%= @primary_color.size %>"
+                value="<%= @primary_color.primary_color_stocks.size %>"
                 class="disabled:bg-gray-400 bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
-          <%= @primary_color.size %>
+          <%= @primary_color.primary_color_stocks.size %>
         </button>
       <% end %>
     </div>
