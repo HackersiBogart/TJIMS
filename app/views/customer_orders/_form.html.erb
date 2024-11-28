@@ -56,7 +56,7 @@
 
   <div class="my-5">
     <%= form.label :color_id, "Select Color", class: "text-white font-semibold" %>
-   <%= customer_order.paint_color_id.color_id.name %>
+    <%= form.collection_select :color_id, Color.all, :id, :name, { prompt: "Choose a brand" }, { class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" } %>
   </div>
 
   <div class="my-5">
