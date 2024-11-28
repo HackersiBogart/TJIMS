@@ -1,26 +1,28 @@
-import { Controller } from "@hotwired/stimulus";
+import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="cart"
 export default class extends Controller {
   initialize() {
-    console.log("Cart controller initialized");
+    console.log("cart controller initialized");
     this.updateTotal();
   }
 
   updateTotal() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    
     let total = 0;
     let totalQuantity = 0;
+    let totalSize = [];
     let itemNames = [];
 
-    // Clear existing cart display
-    this.element.innerHTML = "";
-
-    cart.forEach(item => {
-      const itemPrice = parseFloat(item.price);
+    // Calculate total, quantity, and collect item names
+    for (let i = 0; i < cart.length; i++) {
+      const item = cart[i];
+      const itemPrice = parseFloat(item.price); // Ensure price is a number
       total += itemPrice * item.quantity;
-      totalQuantity += item.quantity;
-      itemNames.push(`${item.name} (${item.size} ${item.unit})`);
+      totalQuantity += item.quantity; // Accumulate quantity
+      totalSize += item.size; // Accumulate quantity
+      itemNames.push(item.name); // Collect item names
 
       // Create a container div for the cart item
       const itemContainer = document.createElement("div");
@@ -30,47 +32,97 @@ export default class extends Controller {
       const itemDetails = document.createElement("div");
       itemDetails.classList.add("flex", "flex-col", "gap-1");
 
-      // Add item details
+      // Add item name
       const itemName = document.createElement("div");
       itemName.classList.add("font-semibold", "text-lg", "text-[#1E3E62]");
       itemName.innerText = `Item: ${item.name}`;
-      const itemDetailsText = document.createElement("div");
-      itemDetailsText.classList.add("text-sm", "text-gray-700");
-      itemDetailsText.innerText = `Price: ₱${itemPrice.toFixed(2)}, Size: ${item.size}, Unit: ${item.unit}, Quantity: ${item.quantity}`;
 
-      // Append details to the itemDetails div
+      // Add item price
+      const itemPriceText = document.createElement("div");
+      itemPriceText.classList.add("text-sm", "text-gray-700");
+      itemPriceText.innerText = `Price: ₱${itemPrice.toFixed(2)}`;
+
+      // Add item size
+      const itemSize = document.createElement("div");
+      itemSize.classList.add("text-sm", "text-gray-700");
+      itemSize.innerText = `Size: ${item.size}`;
+
+      // Add item quantity
+      const itemQuantity = document.createElement("div");
+      itemQuantity.classList.add("text-sm", "text-gray-700");
+      itemQuantity.innerText = `Quantity: ${item.quantity}`;
+
+      // Append item details to the itemDetails div
       itemDetails.appendChild(itemName);
-      itemDetails.appendChild(itemDetailsText);
+      itemDetails.appendChild(itemPriceText);
+      itemDetails.appendChild(itemSize);
+      itemDetails.appendChild(itemQuantity);
 
-      // Create a delete button
+      // Create a delete button with an icon
       const deleteButton = document.createElement("button");
       deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
-      deleteButton.value = JSON.stringify({ id: item.id, size: item.size, unit: item.unit });
+      deleteButton.value = JSON.stringify({ id: item.id, size: item.size });
       deleteButton.classList.add("bg-red-500", "hover:bg-red-600", "rounded-full", "text-white", "p-2", "ml-4", "transition", "duration-200");
-      deleteButton.addEventListener("click", this.removeFromCart.bind(this));
+      deleteButton.addEventListener("click", this.removeFromCart.bind(this)); // Bind `this` to the method
 
-      // Append item details and delete button to the container
+      // Append item details and delete button to the itemContainer
       itemContainer.appendChild(itemDetails);
       itemContainer.appendChild(deleteButton);
 
-      // Append the itemContainer to the cart display
-      this.element.appendChild(itemContainer);
-    });
+      // Append the itemContainer to the main cart element
+      this.element.prepend(itemContainer);
+    }
 
-    // Update the total
-    this.updateField("total", `₱${total.toFixed(2)}`);
-    this.updateField("order_total", total.toFixed(2));
-    this.updateField("order_quantity", totalQuantity);
-    this.updateField("order_items", itemNames.join(", "));
+    // Update the total in the div
+    const totalDiv = document.getElementById("total");
+    if (totalDiv) {
+      totalDiv.innerText = `Total: ₱${total.toFixed(2)}`; // Format the total to 2 decimal places
+    } else {
+      console.error("Total div not found");
+    }
+
+    // Update the total in the text field
+    const totalField = document.getElementById("order_total");
+    if (totalField) {
+      totalField.value = `₱${total.toFixed(2)}`; // Format the total to 2 decimal places
+    } else {
+      console.error("Total field not found");
+    }
+
+    // Update the size field after the cart is processed
+    this.updateSizeField(totalSize); // Replace 1/2 with actual size logic if necessary
+
+    // Update the quantity field after the cart is processed
+    this.updateQuantityField(totalQuantity); // Update quantity based on cart items
+
+    // Update the item field after the cart is processed
+    this.updateItemField(itemNames); // Update item names based on cart items
   }
 
-  updateField(fieldId, value) {
-    const field = document.getElementById(fieldId);
-    if (field) {
-      field.innerText = value; // Use `innerText` for display-only fields
-      if (field.tagName === "INPUT") field.value = value; // Update input fields
+  updateSizeField(size) {
+    const sizeField = document.getElementById("order_size");
+    if (sizeField) {
+      sizeField.value = `${size}`; // Update size field value
     } else {
-      console.error(`${fieldId} field not found`);
+      console.error("Size field not found");
+    }
+  }
+
+  updateQuantityField(quantity) {
+    const quantityField = document.getElementById("order_quantity");
+    if (quantityField) {
+      quantityField.value = quantity; // Update quantity field value
+    } else {
+      console.error("Quantity field not found");
+    }
+  }
+
+  updateItemField(items) {
+    const itemField = document.getElementById("order_items");
+    if (itemField) {
+      itemField.value = items.join(", "); // Join item names into a single string
+    } else {
+      console.error("Item field not found");
     }
   }
 
@@ -81,13 +133,13 @@ export default class extends Controller {
 
   removeFromCart(event) {
     const cart = JSON.parse(localStorage.getItem("cart"));
-    const { id, size, unit } = JSON.parse(event.target.value);
-
-    const index = cart.findIndex(item => item.id === id && item.size === size && item.unit === unit);
+    const values = JSON.parse(event.target.value);
+    const { id, size } = values;
+    const index = cart.findIndex(item => item.id === id && item.size === size);
     if (index >= 0) {
       cart.splice(index, 1);
       localStorage.setItem("cart", JSON.stringify(cart));
-      this.updateTotal(); // Update the cart without reloading
+      window.location.reload();
     }
   }
 
