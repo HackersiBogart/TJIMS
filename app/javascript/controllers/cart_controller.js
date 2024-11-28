@@ -1,97 +1,94 @@
 import { Controller } from "@hotwired/stimulus";
 
+// Connects to data-controller="cart"
 export default class extends Controller {
   initialize() {
     console.log("Cart controller initialized");
-    this.renderCart();
     this.updateTotal();
-  }
-
-  renderCart() {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const cartContainer = document.getElementById("cartItems");
-
-    if (cartContainer) {
-      cartContainer.innerHTML = ""; // Clear container before rendering
-
-      cart.forEach((item) => {
-        const itemContainer = document.createElement("div");
-        itemContainer.classList.add(
-          "flex",
-          "justify-between",
-          "items-center",
-          "bg-gray-100",
-          "rounded-lg",
-          "p-4",
-          "mt-2",
-          "shadow-md"
-        );
-
-        const itemDetails = document.createElement("div");
-        itemDetails.classList.add("flex", "flex-col", "gap-1");
-
-        itemDetails.innerHTML = `
-          <div class="font-semibold text-lg text-[#1E3E62]">Item: ${item.name}</div>
-          <div class="text-sm text-gray-700">Price: ₱${parseFloat(item.price).toFixed(2)}</div>
-          <div class="text-sm text-gray-700">Size: ${item.size}</div>
-          <div class="text-sm text-gray-700">Quantity: ${item.quantity}</div>
-        `;
-
-        const deleteButton = document.createElement("button");
-        deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
-        deleteButton.classList.add(
-          "bg-red-500",
-          "hover:bg-red-600",
-          "rounded-full",
-          "text-white",
-          "p-2",
-          "ml-4",
-          "transition",
-          "duration-200"
-        );
-
-        deleteButton.addEventListener("click", () =>
-          this.removeFromCart(item.id, item.size)
-        );
-
-        itemContainer.appendChild(itemDetails);
-        itemContainer.appendChild(deleteButton);
-        cartContainer.appendChild(itemContainer);
-      });
-    } else {
-      console.error("Cart container not found");
-    }
   }
 
   updateTotal() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     let total = 0;
     let totalQuantity = 0;
+    let itemNames = [];
 
-    cart.forEach((item) => {
-      total += parseFloat(item.price) * item.quantity;
+    // Clear existing cart display
+    this.element.innerHTML = "";
+
+    cart.forEach(item => {
+      const itemPrice = parseFloat(item.price);
+      total += itemPrice * item.quantity;
       totalQuantity += item.quantity;
+      itemNames.push(`${item.name} (${item.size} ${item.unit})`);
+
+      // Create a container div for the cart item
+      const itemContainer = document.createElement("div");
+      itemContainer.classList.add("flex", "justify-between", "items-center", "bg-gray-100", "rounded-lg", "p-4", "mt-2", "shadow-md");
+
+      // Create a div for the item details
+      const itemDetails = document.createElement("div");
+      itemDetails.classList.add("flex", "flex-col", "gap-1");
+
+      // Add item details
+      const itemName = document.createElement("div");
+      itemName.classList.add("font-semibold", "text-lg", "text-[#1E3E62]");
+      itemName.innerText = `Item: ${item.name}`;
+      const itemDetailsText = document.createElement("div");
+      itemDetailsText.classList.add("text-sm", "text-gray-700");
+      itemDetailsText.innerText = `Price: ₱${itemPrice.toFixed(2)}, Size: ${item.size}, Unit: ${item.unit}, Quantity: ${item.quantity}`;
+
+      // Append details to the itemDetails div
+      itemDetails.appendChild(itemName);
+      itemDetails.appendChild(itemDetailsText);
+
+      // Create a delete button
+      const deleteButton = document.createElement("button");
+      deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
+      deleteButton.value = JSON.stringify({ id: item.id, size: item.size, unit: item.unit });
+      deleteButton.classList.add("bg-red-500", "hover:bg-red-600", "rounded-full", "text-white", "p-2", "ml-4", "transition", "duration-200");
+      deleteButton.addEventListener("click", this.removeFromCart.bind(this));
+
+      // Append item details and delete button to the container
+      itemContainer.appendChild(itemDetails);
+      itemContainer.appendChild(deleteButton);
+
+      // Append the itemContainer to the cart display
+      this.element.appendChild(itemContainer);
     });
 
-    const totalDiv = document.getElementById("total");
-    if (totalDiv) totalDiv.innerText = `Total: ₱${total.toFixed(2)}`;
-
-    const totalField = document.getElementById("order_total");
-    if (totalField) totalField.value = total.toFixed(2);
+    // Update the total
+    this.updateField("total", `₱${total.toFixed(2)}`);
+    this.updateField("order_total", total.toFixed(2));
+    this.updateField("order_quantity", totalQuantity);
+    this.updateField("order_items", itemNames.join(", "));
   }
 
-  removeFromCart(id, size) {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart = cart.filter((item) => !(item.id === id && item.size === size));
-    localStorage.setItem("cart", JSON.stringify(cart));
-    this.renderCart();
-    this.updateTotal();
+  updateField(fieldId, value) {
+    const field = document.getElementById(fieldId);
+    if (field) {
+      field.innerText = value; // Use `innerText` for display-only fields
+      if (field.tagName === "INPUT") field.value = value; // Update input fields
+    } else {
+      console.error(`${fieldId} field not found`);
+    }
   }
 
   clear() {
     localStorage.removeItem("cart");
-    this.renderCart();
-    this.updateTotal();
+    window.location.reload();
+  }
+
+  removeFromCart(event) {
+    const cart = JSON.parse(localStorage.getItem("cart"));
+    const { id, size, unit } = JSON.parse(event.target.value);
+
+    const index = cart.findIndex(item => item.id === id && item.size === size && item.unit === unit);
+    if (index >= 0) {
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      this.updateTotal(); // Update the cart without reloading
+    }
   }
 
   checkout(event) {
