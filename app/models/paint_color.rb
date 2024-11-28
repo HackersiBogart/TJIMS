@@ -6,8 +6,7 @@ class PaintColor < ApplicationRecord
   # This creates a medium-sized variant with dimensions of 250x250 pixels
   belongs_to :color
   belongs_to :product
-  has_many :orders
-  has_many :products
-  has_many :colors
+  has_many :customer_orders
+
 
 end
