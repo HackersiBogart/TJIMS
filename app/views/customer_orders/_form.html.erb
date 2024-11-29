@@ -3,8 +3,8 @@
     <div id="error_explanation" class="bg-red-50 text-red-500 px-4 py-3 rounded-lg mb-5">
       <h2 class="font-semibold mb-2"><%= pluralize(@customer_order.errors.count, "error") %> prohibited this order from being saved:</h2>
       <ul class="list-disc pl-5">
-        <% @customer_order.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% @customer_order.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
@@ -17,16 +17,25 @@
     <div>
       <%= form.label :customer_email, "Email", class: "block font-medium text-gray-700" %>
       <%= form.text_field :customer_email, class: "form-input mt-1 block w-full text-gray-800 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" %>
+      <% if @customer_order.errors[:customer_email].any? %>
+        <span class="text-red-500 text-sm"><%= @customer_order.errors[:customer_email].first %></span>
+      <% end %>
     </div>
 
     <div>
       <%= form.label :name, class: "block font-medium text-gray-700" %>
       <%= form.text_field :name, class: "form-input mt-1 block w-full text-gray-800 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" %>
+      <% if @customer_order.errors[:name].any? %>
+        <span class="text-red-500 text-sm"><%= @customer_order.errors[:name].first %></span>
+      <% end %>
     </div>
 
     <div>
       <%= form.label :phone_number, class: "block font-medium text-gray-700" %>
       <%= form.text_field :phone_number, class: "form-input mt-1 block w-full text-gray-800 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" %>
+      <% if @customer_order.errors[:phone_number].any? %>
+        <span class="text-red-500 text-sm"><%= @customer_order.errors[:phone_number].first %></span>
+      <% end %>
     </div>
   </div>
 
@@ -35,34 +44,49 @@
     <h3 class="text-xl font-semibold text-gray-800">Order Information</h3>
     
     <div>
-      <h4 class = "text-gray-800" >QR Code:</h4>
+      <h4 class="text-gray-800">QR Code:</h4>
       <%= image_tag "qrcode.jpg", alt: "QR Code", class: "mt-2 rounded-lg w-48" %>
     </div>
 
     <div>
       <%= form.label :reference_number, "Reference Number", class: "block font-medium text-gray-700" %>
       <%= form.text_field :reference_number, class: "form-input mt-1 block w-full text-gray-800 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" %>
+      <% if @customer_order.errors[:reference_number].any? %>
+        <span class="text-red-500 text-sm"><%= @customer_order.errors[:reference_number].first %></span>
+      <% end %>
     </div>
 
     <div>
       <%= form.label :image, "Receipt Image", class: "block font-medium text-gray-700" %>
-      <%= form.file_field :image, class: "form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 text-gray-800 " %>
+      <%= form.file_field :image, class: "form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 text-gray-800" %>
+      <% if @customer_order.errors[:image].any? %>
+        <span class="text-red-500 text-sm"><%= @customer_order.errors[:image].first %></span>
+      <% end %>
     </div>
 
     <div>
       <%= form.label :date_of_retrieval, "Date of Retrieval", class: "block font-medium text-gray-700" %>
       <%= form.date_field :date_of_retrieval, class: "form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 text-gray-800" %>
+      <% if @customer_order.errors[:date_of_retrieval].any? %>
+        <span class="text-red-500 text-sm"><%= @customer_order.errors[:date_of_retrieval].first %></span>
+      <% end %>
     </div>
 
-  <div class="my-5">
-    <%= form.label :color_id, "Select Color", class: "text-white font-semibold" %>
-    <%= form.collection_select :color_id, Color.all, :id, :name, { prompt: "Choose a brand" }, { class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" } %>
-  </div>
+    <div class="my-5">
+      <%= form.label :color_id, "Select Color", class: "text-gray-700 font-semibold" %>
+      <%= form.collection_select :color_id, Color.all, :id, :name, { prompt: "Choose a color" }, { class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" } %>
+      <% if @customer_order.errors[:color_id].any? %>
+        <span class="text-red-500 text-sm"><%= @customer_order.errors[:color_id].first %></span>
+      <% end %>
+    </div>
 
-  <div class="my-5">
-    <%= form.label :product_id, "Select Product", class: "text-white font-semibold" %>
-    <%= form.collection_select :product_id, Product.all, :id, :name, { prompt: "Choose a product" }, { class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" } %>
-  </div>
+    <div class="my-5">
+      <%= form.label :product_id, "Select Product", class: "text-gray-700 font-semibold" %>
+      <%= form.collection_select :product_id, Product.all, :id, :name, { prompt: "Choose a product" }, { class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200" } %>
+      <% if @customer_order.errors[:product_id].any? %>
+        <span class="text-red-500 text-sm"><%= @customer_order.errors[:product_id].first %></span>
+      <% end %>
+    </div>
   </div>
 
   <!-- Cart Summary Section -->
@@ -96,11 +120,14 @@
     <div class="mt-2">
       <%= form.label :order_total, "Input the total cost", class: "block font-medium text-gray-700" %>
       <%= form.text_field :order_total, class: "form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 text-gray-800" %>
+      <% if @customer_order.errors[:order_total].any? %>
+        <span class="text-red-500 text-sm"><%= @customer_order.errors[:order_total].first %></span>
+      <% end %>
     </div>
   </div>
 
   <!-- Submit Button -->
   <div class="mt-8 text-center">
-    <%= form.submit "Place Order", class: "px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-md transition duration-200" %>
+    <%= form.submit "Place Order", class: "px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-md transition duration-200 ease-in-out" %>
   </div>
 <% end %>
