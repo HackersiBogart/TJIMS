@@ -32,6 +32,21 @@ export default class extends Controller {
       const itemDetails = document.createElement("div");
       itemDetails.classList.add("flex", "flex-col", "gap-1");
 
+      // Add product name
+      const productName = document.createElement("div");
+      productName.classList.add("text-sm", "text-gray-700");
+      productName.innerText = `Product: ${item.product.name}`;
+
+      // Add color name
+      const colorName = document.createElement("div");
+      colorName.classList.add("text-sm", "text-gray-700");
+      colorName.innerText = `Color: ${item.color.name}`;
+
+      // Add paint color name
+      const paintColorName = document.createElement("div");
+      paintColorName.classList.add("font-semibold", "text-lg", "text-[#1E3E62]");
+      paintColorName.innerText = `Paint Color: ${item.name}`;
+
       // Add item name
       const itemName = document.createElement("div");
       itemName.classList.add("font-semibold", "text-lg", "text-[#1E3E62]");
@@ -53,6 +68,9 @@ export default class extends Controller {
       itemQuantity.innerText = `Quantity: ${item.quantity}`;
 
       // Append item details to the itemDetails div
+      itemDetails.appendChild(productName);
+      itemDetails.appendChild(colorName);
+      itemDetails.appendChild(paintColorName);
       itemDetails.appendChild(itemName);
       itemDetails.appendChild(itemPriceText);
       itemDetails.appendChild(itemSize);
@@ -125,7 +143,7 @@ export default class extends Controller {
       console.error("Item field not found");
     }
   }
-
+ 
   clear() {
     localStorage.removeItem("cart");
     window.location.reload();

@@ -2,7 +2,18 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="paint-colors"
 export default class extends Controller {
-  static values = { id: Number, name: String, code: String, price: Number, size: String, unit: String, color_id: Number, product_id: Number }
+  static values = { 
+    id: Number, 
+    name: String, 
+    code: String, 
+    price: Number, 
+    size: String, 
+    unit: String, 
+    colorId: Number, 
+    colorName: String, 
+    productId: Number, 
+    productName: String 
+  }
 
   connect() {
     this.selectedSize = null
@@ -35,14 +46,14 @@ export default class extends Controller {
       // Add new item to the cart
       cartArray.push({
         id: this.idValue,
-        name: this.nameValue,
-        code: this.codeValue,
-        size: this.sizeValue,
-        price: this.priceValue,  // Store the selected size's price
-        unit: this.unitValue,    // Store the selected unit
-        quantity: 1,
-        color_id: this.color_idValue,
-        product_id: this.product_idValue
+      name: this.nameValue,
+      code: this.codeValue,
+      size: this.sizeValue,
+      price: this.priceValue,
+      unit: this.unitValue,
+      quantity: 1,
+      color: { id: this.colorIdValue, name: this.colorNameValue },
+      product: { id: this.productIdValue, name: this.productNameValue }
 
       })
     }
