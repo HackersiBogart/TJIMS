@@ -9,10 +9,8 @@ export default class extends Controller {
     price: Number, 
     size: String, 
     unit: String, 
-    colorId: Number, 
-    colorName: String, 
-    productId: Number, 
-    productName: String 
+    color_id: Number, 
+    product_id: Number, 
   }
 
   connect() {
@@ -52,8 +50,8 @@ export default class extends Controller {
       price: this.priceValue,
       unit: this.unitValue,
       quantity: 1,
-      color: { id: this.colorIdValue, name: this.colorNameValue },
-      product: { id: this.productIdValue, name: this.productNameValue }
+      color_id:  this.color_idValue,
+      product_id: this.product_idValue
 
       })
     }
