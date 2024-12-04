@@ -105,53 +105,46 @@ export default class extends Controller {
     }
 
     // Update the total in the div
-    const totalDiv = document.getElementById("total");
+    const totalDiv = document.querySelector("#total, [data-total-display]");
     if (totalDiv) {
-      totalDiv.innerText = `Total: ₱${total.toFixed(2)}`; 
+      totalDiv.textContent = `Total: ₱${total.toFixed(2)}`; 
     } else {
-      console.error("Total div not found");
+      console.warn("Total display element not found");
     }
 
     // Update the total in the text field
-    const totalField = document.getElementById("order_total");
+    const totalField = document.querySelector("#order_total, [data-total-input]");
     if (totalField) {
       totalField.value = `₱${total.toFixed(2)}`; 
     } else {
-      console.error("Total field not found");
+      console.warn("Total input element not found");
     }
 
     // Update fields with fallback to empty array if needed
-    this.updateSizeField(totalSize.join(', ')); 
-    this.updateQuantityField(totalQuantity);
-    this.updateItemField(itemNames, "order_items");
-    this.updateItemField(itemColors, "order_colors");
-    this.updateItemField(itemProducts, "order_products");
+    this.safeUpdateField("order_size", totalSize.join(', ')); 
+    this.safeUpdateField("order_quantity", totalQuantity);
+    this.safeUpdateField("order_items", itemNames.join(", "));
+    this.safeUpdateField("order_colors", itemColors.join(", "));
+    this.safeUpdateField("order_products", itemProducts.join(", "));
   }
 
-  updateSizeField(size) {
-    const sizeField = document.getElementById("order_size");
-    if (sizeField) {
-      sizeField.value = size || ''; 
+  // Flexible method to update any field safely
+  safeUpdateField(fieldId, value) {
+    // Try to find the field by ID or data attribute
+    const field = document.querySelector(`#${fieldId}, [data-field="${fieldId}"]`);
+    
+    if (field) {
+      // If it's an input or textarea, set value
+      if (field.tagName === 'INPUT' || field.tagName === 'TEXTAREA') {
+        field.value = value;
+      } 
+      // If it's any other element, set textContent
+      else {
+        field.textContent = value;
+      }
     } else {
-      console.error("Size field not found");
-    }
-  }
-
-  updateQuantityField(quantity) {
-    const quantityField = document.getElementById("order_quantity");
-    if (quantityField) {
-      quantityField.value = quantity || 0; 
-    } else {
-      console.error("Quantity field not found");
-    }
-  }
-
-  updateItemField(items, fieldId) {
-    const itemField = document.getElementById(fieldId);
-    if (itemField) {
-      itemField.value = items.join(", "); 
-    } else {
-      console.error(`${fieldId} field not found`);
+      // Only log if the field is completely missing
+      console.warn(`Field with ID or data-field "${fieldId}" not found`);
     }
   }
  
