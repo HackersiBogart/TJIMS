@@ -1,60 +1,14 @@
 import { Controller } from "@hotwired/stimulus"
 
+// Connects to data-controller="cart"
 export default class extends Controller {
   initialize() {
-    console.log("Cart controller initializing...");
-    this.verifyLocalStorageSupport();
+    console.log("cart controller initialized");
     this.updateTotal();
   }
 
-  // Check localStorage support
-  verifyLocalStorageSupport() {
-    try {
-      localStorage.setItem('test', 'test');
-      localStorage.removeItem('test');
-    } catch (e) {
-      console.error("LocalStorage is not available:", e);
-      this.showError("Browser storage is disabled. Cart functionality may be limited.");
-    }
-  }
-
-  // Display error messages
-  showError(message) {
-    const errorContainer = document.getElementById('errorContainer');
-    if (errorContainer) {
-      errorContainer.textContent = message;
-      errorContainer.style.display = 'block';
-    }
-  }
-
   updateTotal() {
-    console.log("Updating cart total...");
-    
-    // Get cart items container
-    const cartItemsContainer = this.element.querySelector("#cartItems");
-    if (!cartItemsContainer) {
-      console.error("Cart items container not found");
-      this.showError("Unable to display cart items");
-      return;
-    }
-
-    // Clear previous cart items
-    cartItemsContainer.innerHTML = '';
-
-    // Retrieve cart from localStorage
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    console.log("Cart items:", cart);
-
-    // Handle empty cart
-    if (cart.length === 0) {
-      cartItemsContainer.innerHTML = `
-        <div class="text-center text-gray-500 py-4">
-          Your cart is empty. Start shopping to add items!
-        </div>
-      `;
-      this.resetTotalDisplay();
-      return;
-    }
 
     let total = 0;
     let totalQuantity = 0;
@@ -63,145 +17,157 @@ export default class extends Controller {
     let itemColors = [];
     let itemProducts = [];
 
-    // Process each cart item
-    cart.forEach((item, index) => {
-      // Ensure all required properties exist with fallback values
-      const itemName = item.name || 'Unnamed Item';
-      const itemPrice = parseFloat(item.price) || 0; 
-      const itemQuantity = item.quantity || 1;
-      const itemSize = item.size || 'N/A';
-      const itemColorId = item.color_id || 'No Color';
-      const itemProductId = item.product_id || 'No Product ID';
+  
 
-      // Calculations
-      total += itemPrice * itemQuantity;
-      totalQuantity += itemQuantity;
-      totalSize.push(itemSize);
-      itemNames.push(itemName);
-      itemColors.push(itemColorId);
-      itemProducts.push(itemProductId);
+    // Calculate total, quantity, and collect item names
+    for (let i = 0; i < cart.length; i++) {
+      const item = cart[i];
+      const itemPrice = parseFloat(item.price); // Ensure price is a number
+      total += itemPrice * item.quantity;
+      totalQuantity += item.quantity; // Accumulate quantity
+      totalSize += item.size; // Accumulate quantity
+      itemNames.push(item.name); // Collect item names
+      itemColors.push(item.color_id);
+      itemProducts.push(item.product_id);
 
-      // Create cart item element
-      const itemContainer = this.createCartItemElement(item, {
-        name: itemName,
-        price: itemPrice,
-        quantity: itemQuantity,
-        size: itemSize,
-        colorId: itemColorId,
-        productId: itemProductId
-      });
+      // Create a container div for the cart item
+      const itemContainer = document.createElement("div");
+      itemContainer.classList.add("flex", "justify-between", "items-center", "bg-gray-100", "rounded-lg", "p-4", "mt-2", "shadow-md");
 
-      // Append to cart items container
-      cartItemsContainer.appendChild(itemContainer);
-    });
+      // Create a div for the item details
+      const itemDetails = document.createElement("div");
+      itemDetails.classList.add("flex", "flex-col", "gap-1");
 
-    // Update total and other order fields
-    this.updateOrderFields(total, totalQuantity, totalSize, itemNames, itemColors, itemProducts);
-  }
+      // Add product name
+      const productName = document.createElement("div");
+      productName.classList.add("text-sm", "text-gray-700");
+      productName.innerText = `Product: ${item.product_id}`;
 
-  createCartItemElement(item, details) {
-    const itemContainer = document.createElement("div");
-    itemContainer.classList.add("flex", "justify-between", "items-center", "bg-gray-100", "rounded-lg", "p-4", "mt-2", "shadow-md");
+      // Add color name
+      const colorName = document.createElement("div");
+      colorName.classList.add("text-sm", "text-gray-700");
+      colorName.innerText = `Color: ${item.color_id}`;
 
-    const itemDetails = document.createElement("div");
-    itemDetails.classList.add("flex", "flex-col", "gap-1");
 
-    // Populate item details
-    const detailsToShow = [
-      { label: "Product ID", value: details.productId },
-      { label: "Color", value: details.colorId },
-      { label: "Item", value: details.name, className: "font-semibold text-lg text-[#1E3E62]" },
-      { label: "Price", value: `₱${details.price.toFixed(2)}` },
-      { label: "Size", value: details.size },
-      { label: "Quantity", value: details.quantity }
-    ];
+      // Add item name
+      const itemName = document.createElement("div");
+      itemName.classList.add("font-semibold", "text-lg", "text-[#1E3E62]");
+      itemName.innerText = `Item: ${item.name}`;
 
-    detailsToShow.forEach(detail => {
-      const detailElement = document.createElement("div");
-      detailElement.classList.add("text-sm", "text-gray-700");
-      if (detail.className) {
-        detailElement.classList.add(...detail.className.split(" "));
-      }
-      detailElement.innerText = `${detail.label}: ${detail.value}`;
-      itemDetails.appendChild(detailElement);
-    });
+      // Add item price
+      const itemPriceText = document.createElement("div");
+      itemPriceText.classList.add("text-sm", "text-gray-700");
+      itemPriceText.innerText = `Price: ₱${itemPrice.toFixed(2)}`;
 
-    // Create delete button
-    const deleteButton = document.createElement("button");
-    deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
-    deleteButton.value = JSON.stringify({ id: item.id, size: item.size });
-    deleteButton.classList.add("bg-red-500", "hover:bg-red-600", "rounded-full", "text-white", "p-2", "ml-4", "transition", "duration-200");
-    deleteButton.addEventListener("click", this.removeFromCart.bind(this));
+      // Add item size
+      const itemSize = document.createElement("div");
+      itemSize.classList.add("text-sm", "text-gray-700");
+      itemSize.innerText = `Size: ${item.size}`;
 
-    // Assemble item container
-    itemContainer.appendChild(itemDetails);
-    itemContainer.appendChild(deleteButton);
+      // Add item quantity
+      const itemQuantity = document.createElement("div");
+      itemQuantity.classList.add("text-sm", "text-gray-700");
+      itemQuantity.innerText = `Quantity: ${item.quantity}`;
 
-    return itemContainer;
-  }
+      // Append item details to the itemDetails div
+      itemDetails.appendChild(productName);
+      itemDetails.appendChild(colorName);
+      itemDetails.appendChild(itemName);
+      itemDetails.appendChild(itemPriceText);
+      itemDetails.appendChild(itemSize);
+      itemDetails.appendChild(itemQuantity);
 
-  updateOrderFields(total, totalQuantity, totalSize, itemNames, itemColors, itemProducts) {
-    // Update total display
-    this.safeUpdateField("total", `Total: ₱${total.toFixed(2)}`);
-    
-    // Update hidden input fields for order submission
-    this.safeUpdateField("order_total", `₱${total.toFixed(2)}`);
-    this.safeUpdateField("order_size", totalSize.join(', ')); 
-    this.safeUpdateField("order_quantity", totalQuantity);
-    this.safeUpdateField("order_items", itemNames.join(", "));
-    this.safeUpdateField("order_colors", itemColors.join(", "));
-    this.safeUpdateField("order_products", itemProducts.join(", "));
-  }
+      // Create a delete button with an icon
+      const deleteButton = document.createElement("button");
+      deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
+      deleteButton.value = JSON.stringify({ id: item.id, size: item.size });
+      deleteButton.classList.add("bg-red-500", "hover:bg-red-600", "rounded-full", "text-white", "p-2", "ml-4", "transition", "duration-200");
+      deleteButton.addEventListener("click", this.removeFromCart.bind(this)); // Bind `this` to the method
 
-  // Flexible method to update any field safely
-  safeUpdateField(fieldId, value) {
-    const field = document.querySelector(`#${fieldId}, [data-field="${fieldId}"]`);
-    
-    if (field) {
-      if (field.tagName === 'INPUT' || field.tagName === 'TEXTAREA') {
-        field.value = value;
-      } else {
-        field.textContent = value;
-      }
+      // Append item details and delete button to the itemContainer
+      itemContainer.appendChild(itemDetails);
+      itemContainer.appendChild(deleteButton);
+
+      // Append the itemContainer to the main cart element
+      this.element.prepend(itemContainer);
+    }
+
+    // Update the total in the div
+    const totalDiv = document.getElementById("total");
+    if (totalDiv) {
+      totalDiv.innerText = `Total: ₱${total.toFixed(2)}`; // Format the total to 2 decimal places
     } else {
-      console.warn(`Field with ID or data-field "${fieldId}" not found`);
+      console.error("Total div not found");
+    }
+
+    // Update the total in the text field
+    const totalField = document.getElementById("order_total");
+    if (totalField) {
+      totalField.value = `₱${total.toFixed(2)}`; // Format the total to 2 decimal places
+    } else {
+      console.error("Total field not found");
+    }
+
+    // Update the size field after the cart is processed
+    this.updateSizeField(totalSize); // Replace 1/2 with actual size logic if necessary
+
+    // Update the quantity field after the cart is processed
+    this.updateQuantityField(totalQuantity); // Update quantity based on cart items
+
+    // Update the item field after the cart is processed
+    this.updateItemField(itemNames); // Update item names based on cart items
+
+    this.updateItemField(itemProducts);
+
+    this.updateItemField(itemColors);
+  }
+
+  updateSizeField(size) {
+    const sizeField = document.getElementById("order_size");
+    if (sizeField) {
+      sizeField.value = `${size}`; // Update size field value
+    } else {
+      console.error("Size field not found");
     }
   }
 
-  // Reset total display when cart is empty
-  resetTotalDisplay() {
-    this.safeUpdateField("total", "Total: ₱0.00");
-    this.safeUpdateField("order_total", "₱0.00");
+  updateQuantityField(quantity) {
+    const quantityField = document.getElementById("order_quantity");
+    if (quantityField) {
+      quantityField.value = quantity; // Update quantity field value
+    } else {
+      console.error("Quantity field not found");
+    }
   }
 
-  // Clear entire cart
+  updateItemField(items) {
+    const itemField = document.getElementById("order_items");
+    if (itemField) {
+      itemField.value = items.join(", "); // Join item names into a single string
+    } else {
+      console.error("Item field not found");
+    }
+  }
+ 
   clear() {
     localStorage.removeItem("cart");
-    this.updateTotal(); // Refresh the view
+    window.location.reload();
   }
 
-  // Remove single item from cart
   removeFromCart(event) {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cart = JSON.parse(localStorage.getItem("cart"));
     const values = JSON.parse(event.target.value);
     const { id, size } = values;
-    
-    const updatedCart = cart.filter(item => !(item.id === id && item.size === size));
-    
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-    this.updateTotal(); // Refresh the view
+    const index = cart.findIndex(item => item.id === id && item.size === size);
+    if (index >= 0) {
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      window.location.reload();
+    }
   }
 
-  // Navigate to checkout
   checkout(event) {
     event.preventDefault();
-    
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    if (cart.length === 0) {
-      alert("Your cart is empty. Please add items before checkout.");
-      return;
-    }
-    
     window.location.href = "/customer_orders/new";
   }
 }
