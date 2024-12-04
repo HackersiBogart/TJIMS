@@ -85,13 +85,7 @@ Rails.application.routes.draw do
   authenticated :admin_user do
     root to: "admin#index", as: :admin_root
   end
-  resources :baskets, only: :show do
-    post 'add_item', to: 'baskets#add_item'
-    delete 'remove_item/:id', to: 'baskets#remove_item', as: 'remove_item'
-  end
-  
-  resources :sales_transact, only: [:new, :create, :show]
-  
+
   # Define routes for the checkouts controller outside the admin namespace
   resources :checkouts, only: [:new, :create]
   
