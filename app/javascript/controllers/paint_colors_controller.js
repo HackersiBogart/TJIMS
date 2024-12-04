@@ -6,41 +6,57 @@ export default class extends Controller {
     name: String, 
     code: String, 
     price: Number, 
+    size: String, 
+    unit: String, 
     colorId: Number, 
     colorName: String, 
     productId: Number, 
     productName: String 
   }
 
-  static targets = ["selectedSize", "priceDisplay"]
+  static targets = ["selectedSize", "unitDisplay", "priceDisplay"]
+
+  connect() {
+    this.selectedSize = null
+    this.selectedUnit = null
+    
+    // Safely check and update price display
+    if (this.hasPriceDisplayTarget) {
+      this.updatePrice(this.priceValue)
+    }
+    
+    // Safely check and update unit display
+    if (this.hasUnitDisplayTarget) {
+      this.updateUnit(this.unitValue)
+    }
+  }
 
   addToCart() {
-    // Validate size selection
-    if (!this.hasSelectedSize) {
-      alert("Please select a size before adding to cart")
+    // Ensure size and unit are selected before adding to cart
+    if (!this.sizeValue || !this.unitValue) {
+      alert("Please select a size and unit before adding to cart.")
       return
     }
 
-    // Retrieve existing cart or initialize
-    const cart = JSON.parse(localStorage.getItem("cart") || "[]")
+    const cart = localStorage.getItem("cart")
+    let cartArray = cart ? JSON.parse(cart) : []
 
-    // Check if item already exists in cart
-    const existingItemIndex = cart.findIndex(
+    const foundIndex = cartArray.findIndex(
       item => item.id === this.idValue && 
-              item.size === this.selectedSize
+             item.size === this.sizeValue && 
+             item.unit === this.unitValue
     )
 
-    if (existingItemIndex > -1) {
-      // Increment quantity if item exists
-      cart[existingItemIndex].quantity += 1
+    if (foundIndex >= 0) {
+      cartArray[foundIndex].quantity += 1
     } else {
-      // Add new item to cart
-      cart.push({
+      cartArray.push({
         id: this.idValue,
         name: this.nameValue,
         code: this.codeValue,
-        size: this.selectedSize,
+        size: this.sizeValue,
         price: this.priceValue,
+        unit: this.unitValue,
         quantity: 1,
         color: { 
           id: this.colorIdValue, 
@@ -53,18 +69,31 @@ export default class extends Controller {
       })
     }
 
-    // Save updated cart
-    localStorage.setItem("cart", JSON.stringify(cart))
-    
-    // Notify user
-    alert(`${this.nameValue} added to cart!`)
+    localStorage.setItem("cart", JSON.stringify(cartArray))
+    alert(`${this.nameValue} has been added to the cart!`)
   }
 
-  selectSize(event) {
-    // Store selected size
-    this.selectedSize = event.target.value
-    
-    // Update selected size display
-    this.selectedSizeTarget.textContent = `Selected Size: ${this.selectedSize}`
+  selectSize(e) {
+    this.sizeValue = e.target.value
+    const selectedPrice = e.target.dataset.price
+
+    if (this.hasSelectedSizeTarget) {
+      this.selectedSizeTarget.innerText = `Selected Size: ${this.sizeValue}`
+    }
+
+    this.updatePrice(selectedPrice)
+  }
+
+  updatePrice(price) {
+    if (this.hasPriceDisplayTarget) {
+      this.priceDisplayTarget.innerHTML = `₱${parseFloat(price).toFixed(2)}`
+      this.priceValue = parseFloat(price)
+    }
+  }
+
+  updateUnit(unit) {
+    if (this.hasUnitDisplayTarget) {
+      this.unitDisplayTarget.innerHTML = `Unit: ${unit}`
+    }
   }
 }
