@@ -1,13 +1,4 @@
 
-<div class="flex flex-col md:flex-row justify-center py-10 mt-20"> <!-- Use flex-col for mobile and flex-row for larger screens -->
-  <!-- Paint Color Image Display Section -->
-  <div class="flex flex-col items-center max-w-lg mb-6 md:mb-0 md:mr-6"> <!-- Add margin bottom for mobile -->
-    <% if @paint_color.image.attached? %>
-      <%= image_tag @paint_color.image, class: "w-auto h-64 rounded shadow-md" %> <!-- Use w-full for responsive image -->
-    <% else %>
-      <p class="text-gray-600">No image available.</p>
-    <% end %>
-  </div>
 
   <!-- Paint Color Details Section -->
 <div data-controller="paint-colors"
