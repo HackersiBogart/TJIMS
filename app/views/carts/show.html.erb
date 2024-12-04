@@ -1,12 +1,25 @@
-<div class="min-h-screen bg-gray-50 py-8 px-4">
-  <div id="errorContainer" class="text-red-500 text-center mb-6"></div>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="min-h-screen bg-gray-50 py-8 px-4">
   <div class="flex flex-col items-center justify-center gap-10 py-10">
     <div data-controller="cart" class="bg-white p-10 rounded-lg shadow-lg max-w-4xl w-full">
-      <div class="text-2xl font-semibold mb-6 text-gray-800" id="total">Total: ₱0.00</div>
+      <div id="errorContainer" class="text-red-500 text-center mb-6"></div>
+
+      <div id="total" class="text-2xl font-semibold mb-6 text-gray-800">
+        Total: ₱0.00
+      </div>
 
       <!-- Cart items container -->
-      <div id="cartItems" class="flex flex-col gap-4"></div>
+      <div id="cartItems" class="flex flex-col gap-4">
+        <!-- Cart items will be dynamically populated here -->
+      </div>
 
       <div class="flex flex-col gap-6 mt-6">
         <button
@@ -22,6 +35,15 @@
           Clear Cart
         </button>
       </div>
+
+      <!-- Hidden input fields for order submission -->
+      <input type="hidden" id="order_total" name="order[total]" value="₱0.00">
+      <input type="hidden" id="order_size" name="order[size]" value="">
+      <input type="hidden" id="order_quantity" name="order[quantity]" value="0">
+      <input type="hidden" id="order_items" name="order[items]" value="">
+      <input type="hidden" id="order_colors" name="order[colors]" value="">
+      <input type="hidden" id="order_products" name="order[products]" value="">
     </div>
   </div>
-</div>
+</body>
+</html>
