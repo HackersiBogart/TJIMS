@@ -8,25 +8,32 @@ export default class extends Controller {
   }
 
   updateTotal() {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let cart = [];
+    try {
+      cart = JSON.parse(localStorage.getItem("cart") || '[]');
+    } catch (error) {
+      console.error("Invalid cart data", error);
+      localStorage.removeItem("cart");
+    }
 
     let total = 0;
     let totalQuantity = 0;
-    let totalSize = [];
-    let itemNames = [];
-    let itemColors = [];
-    let itemProducts = [];
+    let totalSize = 0;
+    const itemNames = [];
+    const itemColors = [];
+    const itemProducts = [];
 
-  
+    // Create a document fragment for better performance
+    const fragment = document.createDocumentFragment();
 
-    // Calculate total, quantity, and collect item names
-    for (let i = 0; i < cart.length; i++) {
-      const item = cart[i];
-      const itemPrice = parseFloat(item.price); // Ensure price is a number
-      total += itemPrice * item.quantity;
-      totalQuantity += item.quantity; // Accumulate quantity
-      totalSize += item.size; // Accumulate quantity
-      itemNames.push(item.name); // Collect item names
+    // Calculate total, quantity, and collect item details
+    for (const item of cart) {
+      const itemPrice = parseFloat(item.price) || 0; // Ensure price is a number
+      total += itemPrice * (item.quantity || 1);
+      totalQuantity += parseInt(item.quantity) || 1;
+      totalSize += parseInt(item.size) || 0;
+      
+      itemNames.push(item.name);
       itemColors.push(item.color_id);
       itemProducts.push(item.product_id);
 
@@ -38,115 +45,106 @@ export default class extends Controller {
       const itemDetails = document.createElement("div");
       itemDetails.classList.add("flex", "flex-col", "gap-1");
 
-      // Add product name
-      const productName = document.createElement("div");
-      productName.classList.add("text-sm", "text-gray-700");
-      productName.innerText = `Product: ${item.product_id}`;
+      // Create detail elements with error handling
+      const createDetailElement = (text, className = "text-sm text-gray-700") => {
+        const element = document.createElement("div");
+        element.classList.add(...className.split(" "));
+        element.innerText = text;
+        return element;
+      };
 
-      // Add color name
-      const colorName = document.createElement("div");
-      colorName.classList.add("text-sm", "text-gray-700");
-      colorName.innerText = `Color: ${item.color_id}`;
-
-
-      // Add item name
-      const itemName = document.createElement("div");
-      itemName.classList.add("font-semibold", "text-lg", "text-[#1E3E62]");
-      itemName.innerText = `Item: ${item.name}`;
-
-      // Add item price
-      const itemPriceText = document.createElement("div");
-      itemPriceText.classList.add("text-sm", "text-gray-700");
-      itemPriceText.innerText = `Price: ₱${itemPrice.toFixed(2)}`;
-
-      // Add item size
-      const itemSize = document.createElement("div");
-      itemSize.classList.add("text-sm", "text-gray-700");
-      itemSize.innerText = `Size: ${item.size}`;
-
-      // Add item quantity
-      const itemQuantity = document.createElement("div");
-      itemQuantity.classList.add("text-sm", "text-gray-700");
-      itemQuantity.innerText = `Quantity: ${item.quantity}`;
-
-      // Append item details to the itemDetails div
-      itemDetails.appendChild(productName);
-      itemDetails.appendChild(colorName);
-      itemDetails.appendChild(itemName);
-      itemDetails.appendChild(itemPriceText);
-      itemDetails.appendChild(itemSize);
-      itemDetails.appendChild(itemQuantity);
+      // Append detail elements
+      [
+        `Product: ${item.product_id}`,
+        `Color: ${item.color_id}`,
+        {text: `Item: ${item.name}`, className: "font-semibold text-lg text-[#1E3E62]"},
+        `Price: ₱${itemPrice.toFixed(2)}`,
+        `Size: ${item.size}`,
+        `Quantity: ${item.quantity}`
+      ].forEach(detail => {
+        const element = typeof detail === 'string' 
+          ? createDetailElement(detail)
+          : createDetailElement(detail.text, detail.className);
+        itemDetails.appendChild(element);
+      });
 
       // Create a delete button with an icon
       const deleteButton = document.createElement("button");
       deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
       deleteButton.value = JSON.stringify({ id: item.id, size: item.size });
       deleteButton.classList.add("bg-red-500", "hover:bg-red-600", "rounded-full", "text-white", "p-2", "ml-4", "transition", "duration-200");
-      deleteButton.addEventListener("click", this.removeFromCart.bind(this)); // Bind `this` to the method
+      deleteButton.addEventListener("click", (event) => this.removeFromCart(event)); 
 
       // Append item details and delete button to the itemContainer
       itemContainer.appendChild(itemDetails);
       itemContainer.appendChild(deleteButton);
 
-      // Append the itemContainer to the main cart element
-      this.element.prepend(itemContainer);
+      // Add to fragment instead of directly to element
+      fragment.appendChild(itemContainer);
     }
 
-    // Update the total in the div
-    const totalDiv = document.getElementById("total");
-    if (totalDiv) {
-      totalDiv.innerText = `Total: ₱${total.toFixed(2)}`; // Format the total to 2 decimal places
-    } else {
-      console.error("Total div not found");
-    }
+    // Clear existing content and prepend fragment
+    this.element.innerHTML = '';
+    this.element.appendChild(fragment);
 
-    // Update the total in the text field
-    const totalField = document.getElementById("order_total");
-    if (totalField) {
-      totalField.value = `₱${total.toFixed(2)}`; // Format the total to 2 decimal places
-    } else {
-      console.error("Total field not found");
-    }
+    // Update total display
+    this.updateTotalDisplay(total);
 
-    // Update the size field after the cart is processed
-    this.updateSizeField(totalSize); // Replace 1/2 with actual size logic if necessary
-
-    // Update the quantity field after the cart is processed
-    this.updateQuantityField(totalQuantity); // Update quantity based on cart items
-
-    // Update the item field after the cart is processed
-    this.updateItemField(itemNames); // Update item names based on cart items
-
-    this.updateItemField(itemProducts);
-
-    this.updateItemField(itemColors);
+    // Update form fields
+    this.updateFormFields({
+      total, 
+      size: totalSize, 
+      quantity: totalQuantity, 
+      names: itemNames, 
+      products: itemProducts, 
+      colors: itemColors
+    });
   }
 
-  updateSizeField(size) {
-    const sizeField = document.getElementById("order_size");
-    if (sizeField) {
-      sizeField.value = `${size}`; // Update size field value
-    } else {
-      console.error("Size field not found");
-    }
+  updateTotalDisplay(total) {
+    const totalElements = [
+      document.getElementById("total"), 
+      document.getElementById("order_total")
+    ];
+
+    totalElements.forEach(element => {
+      if (element) {
+        element.value = `₱${total.toFixed(2)}`;
+        element.innerText = `Total: ₱${total.toFixed(2)}`;
+      } else {
+        console.warn("Total display element not found");
+      }
+    });
   }
 
-  updateQuantityField(quantity) {
-    const quantityField = document.getElementById("order_quantity");
-    if (quantityField) {
-      quantityField.value = quantity; // Update quantity field value
-    } else {
-      console.error("Quantity field not found");
-    }
-  }
+  updateFormFields({ total, size, quantity, names, products, colors }) {
+    const fields = [
+      { 
+        id: "order_size", 
+        value: size 
+      },
+      { 
+        id: "order_quantity", 
+        value: quantity 
+      },
+      { 
+        id: "order_items", 
+        value: [
+          `Names: ${names.join(", ")}`,
+          `Products: ${products.join(", ")}`,
+          `Colors: ${colors.join(", ")}`
+        ].join(" | ")
+      }
+    ];
 
-  updateItemField(items) {
-    const itemField = document.getElementById("order_items");
-    if (itemField) {
-      itemField.value = items.join(", "); // Join item names into a single string
-    } else {
-      console.error("Item field not found");
-    }
+    fields.forEach(field => {
+      const element = document.getElementById(field.id);
+      if (element) {
+        element.value = field.value;
+      } else {
+        console.warn(`Field not found: ${field.id}`);
+      }
+    });
   }
  
   clear() {
@@ -155,14 +153,18 @@ export default class extends Controller {
   }
 
   removeFromCart(event) {
-    const cart = JSON.parse(localStorage.getItem("cart"));
-    const values = JSON.parse(event.target.value);
-    const { id, size } = values;
-    const index = cart.findIndex(item => item.id === id && item.size === size);
-    if (index >= 0) {
-      cart.splice(index, 1);
-      localStorage.setItem("cart", JSON.stringify(cart));
+    try {
+      const cart = JSON.parse(localStorage.getItem("cart") || '[]');
+      const { id, size } = JSON.parse(event.target.value);
+      
+      const filteredCart = cart.filter(item => 
+        !(item.id === id && item.size === size)
+      );
+
+      localStorage.setItem("cart", JSON.stringify(filteredCart));
       window.location.reload();
+    } catch (error) {
+      console.error("Error removing item from cart", error);
     }
   }
 
