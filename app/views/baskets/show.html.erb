@@ -1,0 +1,21 @@
+<h1>Your Cart</h1>
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Quantity</th>
+    <th>Price</th>
+    <th>Actions</th>
+  </tr>
+  <% @basket_items.each do |item| %>
+    <tr>
+      <td><%= item.thing.name %></td>
+      <td><%= item.quantity %></td>
+      <td><%= number_to_currency(item.quantity * item.thing.price) %></td>
+      <td>
+        <%= button_to 'Remove', cart_remove_item_path(item), method: :delete %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<h2>Total: <%= number_to_currency(@basket_items.sum { |item| item.quantity * item.thing.price }) %></h2>
+<%= link_to 'Checkout', new_sales_transact_path, class: 'btn' %>

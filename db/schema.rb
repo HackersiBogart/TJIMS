@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_23_120637) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_04_224527) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -49,6 +49,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_23_120637) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
+
+  create_table "basket_items", force: :cascade do |t|
+    t.integer "basket_id", null: false
+    t.integer "thing_id", null: false
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["basket_id"], name: "index_basket_items_on_basket_id"
+    t.index ["thing_id"], name: "index_basket_items_on_thing_id"
+  end
+
+  create_table "baskets", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "checkouts", force: :cascade do |t|
@@ -216,6 +231,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_23_120637) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "sales_transacts", force: :cascade do |t|
+    t.string "customer_name"
+    t.string "customer_email"
+    t.string "phone_number"
+    t.decimal "total"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "selects", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -244,6 +268,34 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_23_120637) do
     t.index ["paint_color_id"], name: "index_stocks_on_paint_color_id"
   end
 
+  create_table "things", force: :cascade do |t|
+    t.string "name"
+    t.decimal "price"
+    t.integer "stock"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "transaction_items", force: :cascade do |t|
+    t.integer "sales_transact_id", null: false
+    t.integer "thing_id", null: false
+    t.string "quantity"
+    t.decimal "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sales_transact_id"], name: "index_transaction_items_on_sales_transact_id"
+    t.index ["thing_id"], name: "index_transaction_items_on_thing_id"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.string "customer_name"
+    t.string "customer_email"
+    t.string "phone_number"
+    t.decimal "total"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -254,6 +306,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_23_120637) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "basket_items", "baskets"
+  add_foreign_key "basket_items", "things"
   add_foreign_key "colors", "products"
   add_foreign_key "mixes", "orders"
   add_foreign_key "mixes", "paint_colors"
@@ -276,4 +330,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_23_120637) do
   add_foreign_key "stock_movements", "primary_colors"
   add_foreign_key "stock_movements", "products"
   add_foreign_key "stocks", "paint_colors"
+  add_foreign_key "transaction_items", "sales_transacts"
+  add_foreign_key "transaction_items", "things"
 end
