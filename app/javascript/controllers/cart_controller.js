@@ -140,10 +140,10 @@ export default class extends Controller {
     }
   }
 
-  updateItemField(items) {
-    const itemField = document.getElementById("order_items");
+  updateNameField(name) {
+    const nameField = document.getElementById("order_items");
     if (itemField) {
-      itemField.value = items.join(", "); // Join item names into a single string
+      nameField.value = name.join(", "); // Join item names into a single string
     } else {
       console.error("Item field not found");
     }
