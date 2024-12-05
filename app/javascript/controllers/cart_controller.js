@@ -25,8 +25,9 @@ export default class extends Controller {
       totalQuantity += item.quantity; // Accumulate quantity
       totalSize += item.size; // Accumulate quantity
       itemNames.push(item.name); // Collect item names
-      itemColors.push(item.color.name); // Collect item names
-      itemProducts.push(item.product.name)
+      itemColors.push(item.color?.name || "N/A");
+      itemProducts.push(item.product?.name || "N/A");
+
 
       // Create a container div for the cart item
       const itemContainer = document.createElement("div");
