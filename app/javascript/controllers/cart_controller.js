@@ -9,15 +9,11 @@ export default class extends Controller {
 
   updateTotal() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
+    
     let total = 0;
     let totalQuantity = 0;
     let totalSize = [];
     let itemNames = [];
-    let itemColors = [];
-    let itemProducts = [];
-
-  
 
     // Calculate total, quantity, and collect item names
     for (let i = 0; i < cart.length; i++) {
@@ -27,8 +23,6 @@ export default class extends Controller {
       totalQuantity += item.quantity; // Accumulate quantity
       totalSize += item.size; // Accumulate quantity
       itemNames.push(item.name); // Collect item names
-      itemColors.push(item.color_id);
-      itemProducts.push(item.product_id);
 
       // Create a container div for the cart item
       const itemContainer = document.createElement("div");
@@ -37,17 +31,6 @@ export default class extends Controller {
       // Create a div for the item details
       const itemDetails = document.createElement("div");
       itemDetails.classList.add("flex", "flex-col", "gap-1");
-
-      // Add product name
-      const productName = document.createElement("div");
-      productName.classList.add("text-sm", "text-gray-700");
-      productName.innerText = `Product: ${item.product_id}`;
-
-      // Add color name
-      const colorName = document.createElement("div");
-      colorName.classList.add("text-sm", "text-gray-700");
-      colorName.innerText = `Color: ${item.color_id}`;
-
 
       // Add item name
       const itemName = document.createElement("div");
@@ -70,8 +53,6 @@ export default class extends Controller {
       itemQuantity.innerText = `Quantity: ${item.quantity}`;
 
       // Append item details to the itemDetails div
-      itemDetails.appendChild(productName);
-      itemDetails.appendChild(colorName);
       itemDetails.appendChild(itemName);
       itemDetails.appendChild(itemPriceText);
       itemDetails.appendChild(itemSize);
@@ -116,10 +97,6 @@ export default class extends Controller {
 
     // Update the item field after the cart is processed
     this.updateItemField(itemNames); // Update item names based on cart items
-
-    this.updateItemField(itemProducts);
-
-    this.updateItemField(itemColors);
   }
 
   updateSizeField(size) {
@@ -140,15 +117,15 @@ export default class extends Controller {
     }
   }
 
-  updateNameField(name) {
-    const nameField = document.getElementById("order_items");
+  updateItemField(items) {
+    const itemField = document.getElementById("order_items");
     if (itemField) {
-      nameField.value = name.join(", "); // Join item names into a single string
+      itemField.value = items.join(", "); // Join item names into a single string
     } else {
       console.error("Item field not found");
     }
   }
- 
+
   clear() {
     localStorage.removeItem("cart");
     window.location.reload();
