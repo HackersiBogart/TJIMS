@@ -149,19 +149,19 @@ export default class extends Controller {
     }
   }
 
-  updateColorField(color_id) {
+  updateColorField(color_ids) {
     const colorField = document.getElementById("order_colors");
     if (colorField) {
-      colorField.value = color_id.join(", "); // Join item names into a single string
+      colorField.value = color_ids.join(", "); // Join item names into a single string
     } else {
       console.error("Brand field not found");
     }
   }
 
-  updateProductField(product_id) {
+  updateProductField(product_ids) {
     const productField = document.getElementById("order_products");
     if (productField) {
-      productField.value = product_id.join(", "); // Join item names into a single string
+      productField.value = product_ids.join(", "); // Join item names into a single string
     } else {
       console.error("Product field not found");
     }

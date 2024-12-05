@@ -8,8 +8,8 @@ export default class extends Controller {
     price: Number,
     size: String,
     unit: String,
-    color_id: Number,
-    product_id: Number,
+    colorId: Number,
+    productId: Number,
   };
 
   connect() {
@@ -29,8 +29,8 @@ export default class extends Controller {
       price: this.priceValue,
       size: this.sizeValue,
       unit: this.unitValue,
-      color_id: this.color_idValue,
-      product_id: this.product_idValue,
+      color_id: this.colorIdValue,
+      product_id: this.productIdValue,
     };
 
     // Check if the item already exists in the cart
