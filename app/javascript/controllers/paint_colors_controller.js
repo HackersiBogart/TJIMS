@@ -13,13 +13,16 @@ export default class extends Controller {
   };
 
   connect() {
-    // Initialize cart in localStorage if it doesn't exist
-    if (!localStorage.getItem("cart")) {
-      localStorage.setItem("cart", JSON.stringify([]));
-    }
+    this.selectedSize = null
+    this.selectedUnit = null
+    this.priceDisplay = document.getElementById("price-display") // Reference to the price display element
+    this.unitDisplay = document.getElementById("unit-display")   // Reference to the unit display element
+    this.updatePrice(this.priceValue) // Set the default price
+    this.updateUnit(this.unitValue)   // Set the default unit
   }
 
   addToCart() {
+
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     
     const item = {
