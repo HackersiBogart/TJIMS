@@ -23,53 +23,43 @@ export default class extends Controller {
   }
 
   addToCart() {
-    console.log("Paint Color ID:", this.idValue);
-    console.log("Paint Color Name:", this.nameValue);
-    console.log("Paint Color Code:", this.codeValue);
-    console.log("Paint Color Price:", this.priceValue);
-    console.log("Color ID:", this.color_idValue);
-    console.log("Color Name:", this.colorNameValue); // Include color name
-    console.log("Product ID:", this.product_idValue);
-    console.log("Product Name:", this.productNameValue); // Include product name
-  
-    const cart = localStorage.getItem("cart");
-    let cartArray = cart ? JSON.parse(cart) : [];
-  
-    const foundIndex = cartArray.findIndex(
-      (item) =>
-        item.id === this.idValue &&
-        item.size === this.sizeValue &&
-        item.unit === this.unitValue &&
-        item.color_id === this.color_idValue &&
-        item.product_id === this.product_idValue
-    );
-  
+    console.log("Paint Color ID:", this.idValue)
+    console.log("Paint Color Name:", this.nameValue)
+    console.log("Paint Color Code:", this.codeValue)
+    console.log("Paint Color Price:", this.priceValue)
+    console.log("Color ID:", this.color_idValue); // Should not be undefined
+    console.log("Product ID:", this.product_idValue); // Should not be undefined
+
+
+    const cart = localStorage.getItem("cart")
+    let cartArray = cart ? JSON.parse(cart) : []
+
+    const foundIndex = cartArray.findIndex(item => item.id === this.idValue && item.size === this.sizeValue && item.unit === this.unitValue
+      && item.color_id === this.color_idValue && item.product_id === this.product_idValue
+     )
     if (foundIndex >= 0) {
       // Update the quantity if the item already exists in the cart
-      cartArray[foundIndex].quantity += 1;
+      cartArray[foundIndex].quantity += 1
     } else {
       // Add new item to the cart
       cartArray.push({
         id: this.idValue,
-        name: this.nameValue,
-        code: this.codeValue,
-        size: this.sizeValue,
-        price: this.priceValue,
-        unit: this.unitValue,
-        quantity: 1,
-        color_id: this.color_idValue,
-        color_name: this.colorNameValue, // Add color name
-        product_id: this.product_idValue,
-        product_name: this.productNameValue, // Add product name
-      });
+      name: this.nameValue,
+      code: this.codeValue,
+      size: this.sizeValue,
+      price: this.priceValue,
+      unit: this.unitValue,
+      quantity: 1,
+      color_id:  this.color_idValue,
+      product_id: this.product_idValue
+
+      })
     }
-  
+
     // Save the updated cart to localStorage
-    localStorage.setItem("cart", JSON.stringify(cartArray));
-  
-    alert(
-      `${this.productNameValue} - ${this.colorNameValue} (${this.nameValue}) has been added to the cart!`
-    );
+    localStorage.setItem("cart", JSON.stringify(cartArray))
+
+    alert(`${this.nameValue} has been added to the cart!`)
   }
 
   selectSize(e) {

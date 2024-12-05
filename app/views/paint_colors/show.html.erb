@@ -1,28 +1,67 @@
-<div 
-  data-controller="paint-colors" 
-  data-paint-colors-paint-color-id="<%= paint_color.id %>" 
-  data-paint-colors-paint-color-name="<%= paint_color.name %>"
-  data-paint-colors-product-name="<%= paint_color.product.name %>"
-  data-paint-colors-color-name="<%= paint_color.color.name %>"
-  data-paint-colors-paint-color-price="<%= paint_color.price %>"
->
-  <select data-paint-colors-target="unit" data-action="change->paint-colors#updateSizeOptions">
-    <option value="" disabled selected>Select Unit</option>
-    <option value="liters">Liters</option>
-    <option value="gallons">Gallons</option>
-  </select>
 
-  <select data-paint-colors-target="size">
-    <option value="" disabled selected>Select Size</option>
-    <option data-unit="liters" value="1">1L</option>
-    <option data-unit="liters" value="2">2L</option>
-    <option data-unit="gallons" value="1">1 Gallon</option>
-    <option data-unit="gallons" value="2">2 Gallons</option>
-  </select>
 
-  <input id="quantity-input-<%= paint_color.id %>" type="number" min="1" value="1">
+  <!-- Paint Color Details Section -->
+<div data-controller="paint-colors"
+     data-paint-colors-id-value="<%= @paint_color.id %>"
+     data-paint-colors-name-value="<%= @paint_color.name %>"
+     data-paint-colors-code-value="<%= @paint_color.code %>"
+     data-paint-colors-price-value="<%= @paint_color.price %>"
+     data-paint-colors-color-id-value="<%= @paint_color.color.id %>"
+     data-paint-colors-color-name-value="<%= @paint_color.color.name %>"
+     data-paint-colors-product-id-value="<%= @paint_color.product.id %>"
+     data-paint-colors-product-name-value="<%= @paint_color.product.name %>">
+  
+  <div class="flex flex-col md:flex-row justify-center py-10 mt-20">
+    <!-- Image Section -->
+    <div class="flex flex-col items-center max-w-lg mb-6 md:mb-0 md:mr-6">
+      <% if @paint_color.image.attached? %>
+        <%= image_tag @paint_color.image, class: "w-auto h-64 rounded shadow-md" %>
+      <% else %>
+        <p class="text-gray-600">No image available.</p>
+      <% end %>
+    </div>
 
-  <button data-action="click->paint-colors#addToCart">Add to Cart</button>
+    <!-- Details Section -->
+    <div class="flex flex-col items-start max-w-sm mt-6 md:mt-0">
+      <!-- Color and Product Information -->
+      <h3 class="text-2xl uppercase text-white">Brand: <%= @paint_color.color.name %></h3>
+      <h3 class="text-2xl uppercase text-white">Product: <%= @paint_color.product.name %></h3>
+      <h1 class="font-bold text-4xl uppercase text-white">Color: <%= @paint_color.name %></h1>
 
-  <div id="total-display"></div>
+      <!-- Price Display -->
+      <p id="price-display" 
+         data-paint-colors-target="priceDisplay" 
+         class="text-2xl mt-4 text-white">
+        ₱<%= @paint_color.price.to_s %>
+      </p>
+
+      <!-- Size Selection -->
+      <div class="my-8">
+        <p class="uppercase text-lg font-semibold">Size</p>
+        <% @paint_color.stocks.each do |stock| %>
+          <% if stock.amount.present? && stock.amount > 0 %>
+            <button 
+              data-action="click->paint-colors#selectSize" 
+              data-price="<%= stock.price %>" 
+              data-unit="<%= stock.unit %>" 
+              value="<%= stock.size %>" 
+              class="bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded hover:bg-gray-300">
+              <%= stock.size %>
+            </button>
+          <% end %>
+        <% end %>
+      </div>
+
+      <!-- Selected Size and Add to Cart -->
+      <div id="selected-size" 
+           data-paint-colors-target="selectedSize" 
+           class="text-lg text-white mb-4"></div>
+      
+      <button 
+        data-action="click->paint-colors#addToCart" 
+        class="bg-orange-600 text-white px-5 py-3 rounded-md hover:bg-orange-700">
+        Add To Cart
+      </button>
+    </div>
+  </div>
 </div>
