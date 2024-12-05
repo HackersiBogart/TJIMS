@@ -1,100 +1,117 @@
-import { Controller } from "@hotwired/stimulus";
+import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="paint-colors"
 export default class extends Controller {
-  static targets = ["size", "unit"];
-
-  initialize() {
-    console.log("PaintColor controller initialized");
-    this.updateSizeOptions();
+  static values = { 
+    id: Number, 
+    name: String, 
+    code: String, 
+    price: Number, 
+    size: String, 
+    unit: String, 
+    color_id: Number, 
+    product_id: Number, 
   }
 
-  addToCart(event) {
-    event.preventDefault();
+  connect() {
+    this.selectedSize = null
+    this.selectedUnit = null
+    this.priceDisplay = document.getElementById("price-display") // Reference to the price display element
+    this.unitDisplay = document.getElementById("unit-display")   // Reference to the unit display element
+    this.updatePrice(this.priceValue) // Set the default price
+    this.updateUnit(this.unitValue)   // Set the default unit
+  }
 
-    const selectedSize = this.sizeTarget.value;
-    const selectedUnit = this.unitTarget.value;
-    const paintColorId = this.element.dataset.paintColorId;
-    const paintColorName = this.element.dataset.paintColorName;
-    const paintColorPrice = parseFloat(this.element.dataset.paintColorPrice);
-    const productName = this.element.dataset.productName;
-    const colorName = this.element.dataset.colorName;
-
-    const quantityInput = document.querySelector(
-      `#quantity-input-${paintColorId}`
-    );
-    const quantity = parseInt(quantityInput.value, 10) || 1;
-
-    if (!selectedSize || !selectedUnit) {
-      alert("Please select a size and unit before adding to the cart.");
-      return;
-    }
-
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const existingItemIndex = cart.findIndex(
+  addToCart() {
+    console.log("Paint Color ID:", this.idValue);
+    console.log("Paint Color Name:", this.nameValue);
+    console.log("Paint Color Code:", this.codeValue);
+    console.log("Paint Color Price:", this.priceValue);
+    console.log("Color ID:", this.color_idValue);
+    console.log("Color Name:", this.colorNameValue); // Include color name
+    console.log("Product ID:", this.product_idValue);
+    console.log("Product Name:", this.productNameValue); // Include product name
+  
+    const cart = localStorage.getItem("cart");
+    let cartArray = cart ? JSON.parse(cart) : [];
+  
+    const foundIndex = cartArray.findIndex(
       (item) =>
-        item.id === paintColorId &&
-        item.size === selectedSize &&
-        item.unit === selectedUnit
+        item.id === this.idValue &&
+        item.size === this.sizeValue &&
+        item.unit === this.unitValue &&
+        item.color_id === this.color_idValue &&
+        item.product_id === this.product_idValue
     );
-
-    if (existingItemIndex !== -1) {
-      // Update the quantity of the existing item
-      cart[existingItemIndex].quantity += quantity;
+  
+    if (foundIndex >= 0) {
+      // Update the quantity if the item already exists in the cart
+      cartArray[foundIndex].quantity += 1;
     } else {
-      // Add a new item to the cart
-      cart.push({
-        id: paintColorId,
-        name: paintColorName,
-        size: selectedSize,
-        unit: selectedUnit,
-        price: paintColorPrice,
-        quantity: quantity,
-        product_name: productName,
-        color_name: colorName,
+      // Add new item to the cart
+      cartArray.push({
+        id: this.idValue,
+        name: this.nameValue,
+        code: this.codeValue,
+        size: this.sizeValue,
+        price: this.priceValue,
+        unit: this.unitValue,
+        quantity: 1,
+        color_id: this.color_idValue,
+        color_name: this.colorNameValue, // Add color name
+        product_id: this.product_idValue,
+        product_name: this.productNameValue, // Add product name
       });
     }
-
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert(`${paintColorName} has been added to the cart!`);
-  }
-
-  updateSizeOptions() {
-    const selectedUnit = this.unitTarget.value;
-    const sizeOptions = this.sizeTarget.querySelectorAll("option");
-
-    sizeOptions.forEach((option) => {
-      if (option.dataset.unit === selectedUnit || option.value === "") {
-        option.hidden = false;
-      } else {
-        option.hidden = true;
-      }
-    });
-
-    // Reset the size dropdown to default
-    this.sizeTarget.value = "";
-  }
-
-  calculateTotal() {
-    const selectedSize = this.sizeTarget.value;
-    const paintColorPrice = parseFloat(this.element.dataset.paintColorPrice);
-    const quantityInput = document.querySelector(
-      `#quantity-input-${this.element.dataset.paintColorId}`
+  
+    // Save the updated cart to localStorage
+    localStorage.setItem("cart", JSON.stringify(cartArray));
+  
+    alert(
+      `${this.productNameValue} - ${this.colorNameValue} (${this.nameValue}) has been added to the cart!`
     );
-    const quantity = parseInt(quantityInput.value, 10) || 1;
+  }
 
-    if (!selectedSize || isNaN(paintColorPrice)) {
-      alert("Please select a size before calculating the total.");
-      return;
-    }
+  selectSize(e) {
+    this.sizeValue = e.target.value
+    const selectedPrice = e.target.dataset.price // Get the price from the selected size option
 
-    const total = paintColorPrice * quantity;
-    const totalDisplay = document.getElementById("total-display");
+    const selectedSizeEl = document.getElementById("selected-size")
+    selectedSizeEl.innerText = `Selected Size: ${this.sizeValue}`
 
-    if (totalDisplay) {
-      totalDisplay.innerText = `₱${total.toFixed(2)}`;
-    } else {
-      console.error("Total display element not found.");
-    }
+    this.updatePrice(selectedPrice) // Update the price when a new size is selected
+  }
+
+  selectUnit(e) {
+    this.unitValue = e.target.value
+    const selectedUnitEl = document.getElementById("selected-unit")
+    selectedUnitEl.innerText = `Selected Unit: ${this.unitValue}`
+
+    // Filter the size options based on the selected unit
+    const sizeSelect = document.getElementById("size-select")
+    const sizeOptions = sizeSelect.querySelectorAll("option")
+
+    sizeOptions.forEach(option => {
+      if (option.dataset.unit === this.unitValue || option.value === "") {
+        option.style.display = "block" // Show matching sizes
+      } else {
+        option.style.display = "none" // Hide sizes that don't match the selected unit
+      }
+    })
+
+    this.updateUnit(this.unitValue) // Update the unit when a new unit is selected
+  }
+
+  updatePrice(price) {
+    // Update the price displayed on the page
+    this.priceDisplay.innerHTML = `₱${parseFloat(price).toFixed(2)}`
+    this.priceValue = parseFloat(price) // Ensure the priceValue is updated
+  }
+
+  updateUnit(unit) {
+    // Update the unit displayed on the page
+    this.unitDisplay.innerHTML = `Unit: ${unit}`
   }
 }
+
+
