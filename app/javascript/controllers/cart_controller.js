@@ -25,8 +25,8 @@ export default class extends Controller {
       totalQuantity += item.quantity; // Accumulate quantity
       totalSize += item.size; // Accumulate quantity
       itemNames.push(item.name); // Collect item names
-      itemColors.push(item.color); // Collect item names
-      itemProducts.push(item.product)
+      itemColors.push(item.color.name); // Collect item names
+      itemProducts.push(item.product.name)
 
       // Create a container div for the cart item
       const itemContainer = document.createElement("div");
@@ -39,12 +39,12 @@ export default class extends Controller {
       // Add item Color
       const itemColor = document.createElement("div");
       itemColor.classList.add("text-sm", "text-gray-700");
-      itemColor.innerText = `Brand: ${item.color}`;
+      itemColor.innerText = `Brand: ${item.color.name}`;
 
       // Add item Color
       const itemProduct = document.createElement("div");
       itemProduct.classList.add("text-sm", "text-gray-700");
-      itemProduct.innerText = `Product: ${item.product}`;
+      itemProduct.innerText = `Product: ${item.product.name}`;
 
       // Add item name
       const itemName = document.createElement("div");

@@ -9,8 +9,8 @@ export default class extends Controller {
     price: Number, 
     size: String, 
     unit: String, 
-    color_id: Number, 
-    product_id: Number, 
+    colorName: String, 
+    productName: String, 
   }
 
   connect() {
@@ -27,15 +27,15 @@ export default class extends Controller {
     console.log("Paint Color Name:", this.nameValue)
     console.log("Paint Color Code:", this.codeValue)
     console.log("Paint Color Price:", this.priceValue)
-    console.log("Color ID:", this.color_idValue); // Should not be undefined
-    console.log("Product ID:", this.product_idValue); // Should not be undefined
+    console.log("Brand:", this.colorNameValue); // Should not be undefined
+    console.log("Product:", this.productNameValue); // Should not be undefined
 
 
     const cart = localStorage.getItem("cart")
     let cartArray = cart ? JSON.parse(cart) : []
 
     const foundIndex = cartArray.findIndex(item => item.id === this.idValue && item.size === this.sizeValue && item.unit === this.unitValue
-      && item.color_id === this.color_idValue && item.product_id === this.product_idValue
+      && item.color.name=== this.colorNameValue && item.product.name === this.productNameValue
      )
     if (foundIndex >= 0) {
       // Update the quantity if the item already exists in the cart
@@ -50,8 +50,8 @@ export default class extends Controller {
       price: this.priceValue,
       unit: this.unitValue,
       quantity: 1,
-      color_id:  this.color_idValue,
-      product_id: this.product_idValue
+      colorName:  this.colorNameValue,
+      productName: this.productNameValue
 
       })
     }
