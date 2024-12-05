@@ -9,6 +9,9 @@ export default class extends Controller {
 
   updateTotal() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    if (!localStorage.getItem("cart")) {
+      localStorage.setItem("cart", JSON.stringify([])); // Initialize an empty cart
+    }
     
     let total = 0;
     let totalQuantity = 0;
@@ -25,8 +28,8 @@ export default class extends Controller {
       totalQuantity += item.quantity; // Accumulate quantity
       totalSize += item.size; // Accumulate quantity
       itemNames.push(item.name); // Collect item names
-      itemColors.push(item.color?.name || "N/A");
-      itemProducts.push(item.product?.name || "N/A");
+      itemColors.push(item.color_id);
+      itemProducts.push(item.product_id);
 
 
       // Create a container div for the cart item
@@ -40,12 +43,12 @@ export default class extends Controller {
       // Add item Color
       const itemColor = document.createElement("div");
       itemColor.classList.add("text-sm", "text-gray-700");
-      itemColor.innerText = `Brand: ${item.color?.name || "N/A"}`;
+      itemColor.innerText = `Brand: ${item.color_id}`;
       
       // Add item Color
       const itemProduct = document.createElement("div");
       itemProduct.classList.add("text-sm", "text-gray-700");
-      itemProduct.innerText = `Product: ${item.product?.name || "N/A"}`;
+      itemProduct.innerText = `Product: ${item.product_id}`;
 
       // Add item name
       const itemName = document.createElement("div");
