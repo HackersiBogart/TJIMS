@@ -24,6 +24,8 @@ export default class extends Controller {
   addToCart() {
 
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    console.log("Color ID:", this.colorIdValue); // Debug Color ID
+    console.log("Product ID:", this.productIdValue); // Debug Product ID
     
     const item = {
       id: this.idValue,
