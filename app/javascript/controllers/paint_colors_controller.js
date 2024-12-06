@@ -1,16 +1,18 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static values = {
-    id: Number,
-    name: String,
-    code: String,
-    price: Number,
-    size: String,
-    unit: String,
-    colorId: Number,
-    productId: Number,
-  };
+  // static values = {
+  //   id: Number,
+  //   name: String,
+  //   code: String,
+  //   price: Number,
+  //   size: String,
+  //   unit: String,
+  //   colorId: Number,
+  //   productId: Number,
+  // };
+
+  static targets = ['colorId', 'productId','Id','Name','Code','Price','Size','Unit']
 
   connect() {
     this.selectedSize = null
@@ -28,14 +30,22 @@ export default class extends Controller {
     console.log("Product ID:", this.productIdValue); // Debug Product ID
     
     const item = {
-      id: this.idValue,
-      name: this.nameValue,
-      code: this.codeValue,
-      price: this.priceValue,
-      size: this.sizeValue,
-      unit: this.unitValue,
-      color_id: this.colorIdValue,
-      product_id: this.productIdValue,
+      color_id: this.colorIdTarget.value,
+      product_id: this.productIdTarget.value,
+      id: this.IdTarget.value,
+      name: this.NameTarget.value,
+      code: this.CodeTarget.value,
+      price: this.PriceTarget.value,
+      size: this.SizeTarget.value,
+      unit: this.UnitTarget.value,
+      // id: this.idValue,
+      // name: this.nameValue,
+      // code: this.codeValue,
+      // price: this.priceValue,
+      // size: this.sizeValue,
+      // unit: this.unitValue,
+      // color_id: this.colorIdValue,
+      // product_id: this.productIdValue,
     };
 
     // Check if the item already exists in the cart
