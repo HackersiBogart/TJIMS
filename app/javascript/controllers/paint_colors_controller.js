@@ -8,8 +8,8 @@ export default class extends Controller {
     price: Number,
     size: String,
     unit: String,
-    colorId: Number,
-    productId: Number,
+    color_id: Number,
+    product_id: Number,
   };
 
   connect() {
@@ -24,8 +24,8 @@ export default class extends Controller {
   addToCart() {
 
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    console.log("Color ID:", this.colorIdValue); // Debug Color ID
-    console.log("Product ID:", this.productIdValue); // Debug Product ID
+    console.log("Color ID:", this.color_idValue); // Debug Color ID
+    console.log("Product ID:", this.product_idValue); // Debug Product ID
     
     const item = {
       id: this.idValue,
@@ -34,8 +34,8 @@ export default class extends Controller {
       price: this.priceValue,
       size: this.sizeValue,
       unit: this.unitValue,
-      color_id: this.colorIdValue,
-      product_id: this.productIdValue,
+      color_id: this.color_idValue,
+      product_id: this.product_idValue,
     };
 
     // Check if the item already exists in the cart
