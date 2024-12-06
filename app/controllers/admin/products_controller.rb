@@ -16,6 +16,12 @@ class Admin::ProductsController < AdminController
     end
   end
 
+  def paint_colors
+    product = Product.find(params[:id])
+    paint_colors = product.paint_colors.select(:id, :name)
+    render json: { paint_colors: paint_colors }
+  end
+
 
 
   # GET /admin/products/1 or /admin/products/1.json

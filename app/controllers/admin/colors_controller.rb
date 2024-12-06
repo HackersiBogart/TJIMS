@@ -1,6 +1,12 @@
 class Admin::ColorsController < AdminController
   before_action :set_admin_color, only: %i[ show edit update destroy ]
 
+  def products
+    color = Color.find(params[:id])
+    products = color.products.select(:id, :name) # Optimize by selecting only necessary fields
+    render json: { products: products }
+  end
+  
   # GET /admin/colors or /admin/colors.json
   def index
     @admin_colors = Color.all

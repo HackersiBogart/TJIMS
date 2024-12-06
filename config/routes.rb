@@ -18,7 +18,17 @@ Rails.application.routes.draw do
   post 'mix/deduct_stock', to: 'mix#deduct_stock', as: 'mix_deduct_stock'
 
 
-
+  resources :colors, only: [] do
+    member do
+      get :products
+    end
+  end
+  
+  resources :products, only: [] do
+    member do
+      get :paint_colors
+    end
+  end
 
   resources :select, only: [:show]
 
