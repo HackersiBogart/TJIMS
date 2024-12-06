@@ -1,40 +1,14 @@
 
 
   <!-- Paint Color Details Section -->
-<div data-controller="paint-colors">
-  <input type="hidden" 
-    id="color-id-input" 
-    value="<%= @paint_color.color_id%>"
-    data-paint-colors-target="colorId">
-  <input type="hidden" 
-         id="product-id-input" 
-         value="<%= @paint_color.product_id %>"
-         data-paint-colors-target="productId">
-  <input type="hidden" 
-         id="paint-color-id-input" 
-         value="<%= @paint_color.id %>"
-         data-paint-id-target="Id">
-
-  <input type="hidden" 
-         id="paint-color-name-input" 
-         value="<%= @paint_color.name %>"
-         data-paint-name-target="Name">
-  <input type="hidden" 
-         id="paint-color-code-input" 
-         value="<%= @paint_color.code %>"
-         data-paint-code-target="Code">
-  <input type="hidden" 
-         id="paint-color-size-input" 
-         value="<%= @paint_color.size %>"
-         data-paint-size-target="Size">
-  <input type="hidden" 
-         id="paint-color-price-input" 
-         value="<%= @paint_color.price %>"
-         data-paint-price-target="Price">
-  <input type="hidden" 
-         id="paint-color-unit-input" 
-         value="<%= @paint_color.unit %>"
-         data-paint-unit-target="Unit">
+<div data-controller="paint-colors"
+     data-paint-colors-id-value="<%= @paint_color.id %>"
+     data-paint-colors-name-value="<%= @paint_color.name %>"
+     data-paint-colors-code-value="<%= @paint_color.code %>"
+     data-paint-colors-price-value="<%= @paint_color.price %>"
+     data-paint-colors-color-id-value="<%= @paint_color.color.id%>"
+     data-paint-colors-product-id-value="<%= @paint_color.product.id%>">
+  
   <div class="flex flex-col md:flex-row justify-center py-10 mt-20">
     <!-- Image Section -->
     <div class="flex flex-col items-center max-w-lg mb-6 md:mb-0 md:mr-6">
