@@ -6,4 +6,9 @@ class ProductsController < ApplicationController
 
 
   end
+  def paint_colors
+    product = Product.find(params[:id])
+    paint_colors = product.paint_colors.select(:id, :name)
+    render json: { paint_colors: paint_colors }
+  end
 end

@@ -125,6 +125,8 @@ Rails.application.routes.draw do
   get 'order_mail', to: 'order_mail#new', as: 'order_mail'
   get 'emails', to: 'emails#new'
   get "/test", to: "application#test"
+  get '/colors/:id/products', to: 'colors#products'
+get '/products/:id/paint_colors', to: 'products#paint_colors'
 
   
 end
