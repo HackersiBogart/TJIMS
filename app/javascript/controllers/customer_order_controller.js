@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = ["product", "paintColor"];
 
   connect() {
-    console.log("Dropdown controller connected");
+    console.log("Customer Order controller connected");
   }
 
   updateProducts(event) {
