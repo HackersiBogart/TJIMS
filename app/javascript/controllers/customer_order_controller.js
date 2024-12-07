@@ -3,9 +3,16 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ["product", "paintColor"];
 
+  initialize() {
+    console.log("Customer Order controller initialized");
+
+  }
+
   connect() {
     console.log("Customer Order controller connected");
   }
+
+
 
   updateProducts(event) {
     const colorId = event.target.value;
