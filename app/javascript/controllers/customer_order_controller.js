@@ -19,16 +19,19 @@ export default class extends Controller {
     if (!colorId) return;
 
     fetch(`/colors/${colorId}/products`)
-      .then((response) => response.json())
-      .then((data) => {
-        this.productTarget.innerHTML = '<option value="">Choose a product</option>';
-        data.products.forEach((product) => {
-          const option = document.createElement("option");
-          option.value = product.id;
-          option.textContent = product.name;
-          this.productTarget.appendChild(option);
-        });
-      });
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data); // Log the data received
+    this.productTarget.innerHTML = '<option value="">Choose a product</option>';
+    data.products.forEach((product) => {
+      console.log(product); // Log each product
+      const option = document.createElement("option");
+      option.value = product.id;
+      option.textContent = product.name;
+      this.productTarget.appendChild(option);
+    });
+  });
+
   }
 
   updatePaintColors(event) {
