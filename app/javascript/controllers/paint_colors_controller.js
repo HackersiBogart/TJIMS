@@ -44,10 +44,12 @@ export default class extends Controller {
   }
 
   addToCart() {
+    console.log("Adding to cart...");
+    console.log("Color ID:", this.getColorId());
+    console.log("Product ID:", this.getProductId());
+  
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    console.log("Color ID:", this.getColorId()); // Debug Color ID
-    console.log("Product ID:", this.getProductId()); // Debug Product ID
-
+  
     const item = {
       id: this.idValue,
       name: this.nameValue,
@@ -58,28 +60,22 @@ export default class extends Controller {
       color_id: this.getColorId(),
       product_id: this.getProductId(),
     };
-
-    // Check if the item already exists in the cart
-    const existingItemIndex = cart.findIndex(
-      (cartItem) =>
-        cartItem.id === item.id &&
-        cartItem.size === item.size &&
-        cartItem.unit === item.unit
+  
+    console.log("Item to be added:", item);
+  
+    // Add item to cart
+    const existingItemIndex = cart.findIndex(cartItem => 
+      cartItem.id === item.id && cartItem.size === item.size && cartItem.unit === item.unit
     );
-
+  
     if (existingItemIndex !== -1) {
-      // If item exists, update quantity
       cart[existingItemIndex].quantity += 1;
     } else {
-      // Otherwise, add as a new item
       item.quantity = 1;
       cart.push(item);
     }
-
-    // Save updated cart back to localStorage
+  
     localStorage.setItem("cart", JSON.stringify(cart));
-
-    // Provide feedback to the user
     alert(`${item.name} (${item.size} ${item.unit}) added to cart!`);
   }
 
