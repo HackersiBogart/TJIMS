@@ -7,104 +7,90 @@ export default class extends Controller {
     this.updateTotal();
   }
 
+  connect() {
+    console.log("Cart controller connected");
+    this.renderCart(); // Render the cart whenever the controller is connected
+    this.updateTotal(); // Update the total as well
+  }
+
+  static targets = ["cartContainer", "cartItems", "total", "size", "quantity", "items", "colors", "products"];
+
+  // Helper function to create elements with text
+  createElement(tag, text) {
+    const element = document.createElement(tag);
+    element.classList.add("text-sm", "text-gray-700");
+    element.innerText = text;
+    return element;
+  }
+
+  renderCart() {
+    const colors = JSON.parse(localStorage.getItem("colors")) || {};
+    const products = JSON.parse(localStorage.getItem("products")) || {};
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    this.cartContainerTarget.innerHTML = ""; // Clear existing content
+
+    cart.forEach(item => {
+      const colorName = colors[item.color_id] || "Unknown";
+      const productName = products[item.product_id] || "Unknown";
+
+      const cartItem = document.createElement("div");
+      cartItem.textContent = `${item.name} (${item.size} ${item.unit}) - Color: ${colorName}, Product: ${productName}, Quantity: ${item.quantity}`;
+      this.cartContainerTarget.appendChild(cartItem);
+    });
+  }
+
   updateTotal() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const colors = JSON.parse(localStorage.getItem("colors")) || {}; // Store { id: name }
-    const products = JSON.parse(localStorage.getItem("products")) || {}; // Store { id: name }
-    console.log("Colors from localStorage:", colors);
-    console.log("Products from localStorage:", products);
-    console.log("Cart from localStorage:", cart);
-
-
+    const colors = JSON.parse(localStorage.getItem("colors")) || {};
+    const products = JSON.parse(localStorage.getItem("products")) || {};
     
     let total = 0;
     
-    // Clear only the cart items container
-    const cartItemsContainer = document.getElementById("cartItems");
-    if (cartItemsContainer) {
-      cartItemsContainer.innerHTML = "";
-    }
-  
-    for (let i = 0; i < cart.length; i++) {
-      const item = cart[i];
+    this.cartItemsTarget.innerHTML = ""; // Clear existing cart items
+
+    cart.forEach(item => {
       const itemPrice = parseFloat(item.price);
       total += itemPrice * item.quantity;
-    
+
       const colorName = colors[item.color_id] || "Unknown";
       const productName = products[item.product_id] || "Unknown";
-    
-      // Create the cart item UI
+
+      // Create the cart item UI as before
       const itemContainer = document.createElement("div");
       itemContainer.classList.add(
-        "flex",
-        "justify-between",
-        "items-center",
-        "bg-gray-100",
-        "rounded-lg",
-        "p-4",
-        "mt-2",
-        "shadow-md"
+        "flex", "justify-between", "items-center", "bg-gray-100", 
+        "rounded-lg", "p-4", "mt-2", "shadow-md"
       );
-    
+
       const itemDetails = document.createElement("div");
       itemDetails.classList.add("flex", "flex-col", "gap-1");
-    
-      const itemColor = document.createElement("div");
-      itemColor.classList.add("text-sm", "text-gray-700");
-      itemColor.innerText = `Brand: ${colorName}`;
-    
-      const itemProduct = document.createElement("div");
-      itemProduct.classList.add("text-sm", "text-gray-700");
-      itemProduct.innerText = `Product: ${productName}`;
-    
-      const itemName = document.createElement("div");
-      itemName.classList.add("font-semibold", "text-lg", "text-[#1E3E62]");
-      itemName.innerText = `Item: ${item.name}`;
-    
-      const itemPriceText = document.createElement("div");
-      itemPriceText.classList.add("text-sm", "text-gray-700");
-      itemPriceText.innerText = `Price: ₱${itemPrice.toFixed(2)}`;
-    
-      const itemQuantity = document.createElement("div");
-      itemQuantity.classList.add("text-sm", "text-gray-700");
-      itemQuantity.innerText = `Quantity: ${item.quantity}`;
-    
-      itemDetails.appendChild(itemColor);
-      itemDetails.appendChild(itemProduct);
-      itemDetails.appendChild(itemName);
-      itemDetails.appendChild(itemPriceText);
-      itemDetails.appendChild(itemQuantity);
-    
+
+      // Append details using the helper function
+      itemDetails.appendChild(this.createElement("div", `Brand: ${colorName}`));
+      itemDetails.appendChild(this.createElement("div", `Product: ${productName}`));
+      itemDetails.appendChild(this.createElement("div", `Item: ${item.name}`));
+      itemDetails.appendChild(this.createElement("div", `Price: ₱${itemPrice.toFixed(2)}`));
+      itemDetails.appendChild(this.createElement("div", `Quantity: ${item.quantity}`));
+
+      // Create delete button
       const deleteButton = document.createElement("button");
       deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
       deleteButton.value = JSON.stringify({ id: item.id, size: item.size });
       deleteButton.classList.add(
-        "bg-red-500",
-        "hover:bg-red-600",
-        "rounded-full",
-        "text-white",
-        "p-2",
-        "ml-4",
-        "transition",
-        "duration-200"
+        "bg-red-500", "hover:bg-red-600", "rounded-full", 
+        "text-white", "p-2", "ml-4", "transition", "duration-200"
       );
       deleteButton.addEventListener("click", this.removeFromCart.bind(this));
-    
+
       itemContainer.appendChild(itemDetails);
       itemContainer.appendChild(deleteButton);
-    
-      if (cartItemsContainer) {
-        cartItemsContainer.prepend(itemContainer);
-      }
-    }
-    
-    const totalDiv = document.getElementById("total");
-    if (totalDiv) {
-      totalDiv.innerText = `Total: ₱${total.toFixed(2)}`;
-    }
+
+      this.cartItemsTarget.prepend(itemContainer);
+    });
+
+    this.totalTarget.innerText = `Total: ₱${total.toFixed(2)}`;
   }
-  
-  
 
   updateSizeField(size) {
     const sizeField = document.getElementById("order_size");
@@ -164,7 +150,9 @@ export default class extends Controller {
     if (index >= 0) {
       cart.splice(index, 1);
       localStorage.setItem("cart", JSON.stringify(cart));
-      window.location.reload();
+
+      this.renderCart(); // Update cart UI without reloading
+      this.updateTotal(); // Update the total after removing the item
     }
   }
 

@@ -44,11 +44,8 @@ export default class extends Controller {
   }
 
   addToCart() {
-    console.log("Adding to cart...");
-    console.log("Color ID:", this.getColorId());
-    console.log("Product ID:", this.getProductId());
-  
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const colors = JSON.parse(localStorage.getItem("colors")) || {};
+    const products = JSON.parse(localStorage.getItem("products")) || {};
   
     const item = {
       id: this.idValue,
@@ -59,12 +56,14 @@ export default class extends Controller {
       unit: this.unitValue,
       color_id: this.getColorId(),
       product_id: this.getProductId(),
+      color_name: colors[this.getColorId()] || "Unknown", // Adding color name
+      product_name: products[this.getProductId()] || "Unknown", // Adding product name
     };
   
     console.log("Item to be added:", item);
   
-    // Add item to cart
-    const existingItemIndex = cart.findIndex(cartItem => 
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const existingItemIndex = cart.findIndex(cartItem =>
       cartItem.id === item.id && cartItem.size === item.size && cartItem.unit === item.unit
     );
   
@@ -78,6 +77,7 @@ export default class extends Controller {
     localStorage.setItem("cart", JSON.stringify(cart));
     alert(`${item.name} (${item.size} ${item.unit}) added to cart!`);
   }
+  
 
   removeFromCart(event) {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
