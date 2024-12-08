@@ -50,6 +50,8 @@ export default class extends Controller {
       unit: this.unitValue,
       color_id: this.colorIdValue,
       product_id: this.productIdValue,
+      color_name: colors[this.getColorId()] || "Unknown", // Adding color name
+      product_name: products[this.getProductId()] || "Unknown", // Adding product name
     };
   
     console.log("Item to be added:", item);
