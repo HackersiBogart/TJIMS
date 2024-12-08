@@ -35,7 +35,13 @@ export default class extends Controller {
     }
   }
 
+  getColorId() {
+    return this.colorIdValue;
+  }
 
+  getProductId() {
+    return this.productIdValue;
+  }
 
   addToCart() {
     const colors = JSON.parse(localStorage.getItem("colors")) || {};
@@ -48,8 +54,8 @@ export default class extends Controller {
       price: this.priceValue,
       size: this.sizeValue,
       unit: this.unitValue,
-      color_id: this.colorIdValue,
-      product_id: this.productIdValue,
+      color_id: this.getColorId(),
+      product_id: this.getProductId(),
       color_name: colors[this.getColorId()] || "Unknown", // Adding color name
       product_name: products[this.getProductId()] || "Unknown", // Adding product name
     };
