@@ -13,20 +13,41 @@ export default class extends Controller {
   };
 
   connect() {
-    this.selectedSize = null
-    this.selectedUnit = null
-    this.priceDisplay = document.getElementById("price-display") // Reference to the price display element
-    this.unitDisplay = document.getElementById("unit-display")   // Reference to the unit display element
-    this.updatePrice(this.priceValue) // Set the default price
-    this.updateUnit(this.unitValue)   // Set the default unit
+    this.selectedSize = null;
+    this.selectedUnit = null;
+    this.priceDisplay = document.getElementById("price-display"); // Reference to the price display element
+    this.unitDisplay = document.getElementById("unit-display"); // Reference to the unit display element
+    this.updatePrice(this.priceValue); // Set the default price
+    this.updateUnit(this.unitValue); // Set the default unit
+
+    // Initialize color and product IDs
+    this.initializeIds();
+  }
+
+  initializeIds() {
+    // Ensure color_idValue and product_idValue are defined
+    if (this.color_idValue == null || this.product_idValue == null) {
+      console.error("Color ID or Product ID is missing");
+      alert("An error occurred while initializing data. Please refresh the page.");
+    } else {
+      console.log("Color ID initialized:", this.color_idValue);
+      console.log("Product ID initialized:", this.product_idValue);
+    }
+  }
+
+  getColorId() {
+    return this.color_idValue;
+  }
+
+  getProductId() {
+    return this.product_idValue;
   }
 
   addToCart() {
-
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    console.log("Color ID:", this.color_idValue); // Debug Color ID
-    console.log("Product ID:", this.product_idValue); // Debug Product ID
-    
+    console.log("Color ID:", this.getColorId()); // Debug Color ID
+    console.log("Product ID:", this.getProductId()); // Debug Product ID
+
     const item = {
       id: this.idValue,
       name: this.nameValue,
@@ -34,8 +55,8 @@ export default class extends Controller {
       price: this.priceValue,
       size: this.sizeValue,
       unit: this.unitValue,
-      color_id: this.color_idValue,
-      product_id: this.product_idValue,
+      color_id: this.getColorId(),
+      product_id: this.getProductId(),
     };
 
     // Check if the item already exists in the cart
@@ -93,44 +114,43 @@ export default class extends Controller {
   }
 
   selectSize(e) {
-    this.sizeValue = e.target.value
-    const selectedPrice = e.target.dataset.price // Get the price from the selected size option
+    this.sizeValue = e.target.value;
+    const selectedPrice = e.target.dataset.price; // Get the price from the selected size option
 
-    const selectedSizeEl = document.getElementById("selected-size")
-    selectedSizeEl.innerText = `Selected Size: ${this.sizeValue}`
+    const selectedSizeEl = document.getElementById("selected-size");
+    selectedSizeEl.innerText = `Selected Size: ${this.sizeValue}`;
 
-    this.updatePrice(selectedPrice) // Update the price when a new size is selected
+    this.updatePrice(selectedPrice); // Update the price when a new size is selected
   }
 
   selectUnit(e) {
-    this.unitValue = e.target.value
-    const selectedUnitEl = document.getElementById("selected-unit")
-    selectedUnitEl.innerText = `Selected Unit: ${this.unitValue}`
+    this.unitValue = e.target.value;
+    const selectedUnitEl = document.getElementById("selected-unit");
+    selectedUnitEl.innerText = `Selected Unit: ${this.unitValue}`;
 
     // Filter the size options based on the selected unit
-    const sizeSelect = document.getElementById("size-select")
-    const sizeOptions = sizeSelect.querySelectorAll("option")
+    const sizeSelect = document.getElementById("size-select");
+    const sizeOptions = sizeSelect.querySelectorAll("option");
 
-    sizeOptions.forEach(option => {
+    sizeOptions.forEach((option) => {
       if (option.dataset.unit === this.unitValue || option.value === "") {
-        option.style.display = "block" // Show matching sizes
+        option.style.display = "block"; // Show matching sizes
       } else {
-        option.style.display = "none" // Hide sizes that don't match the selected unit
+        option.style.display = "none"; // Hide sizes that don't match the selected unit
       }
-    })
+    });
 
-    this.updateUnit(this.unitValue) // Update the unit when a new unit is selected
+    this.updateUnit(this.unitValue); // Update the unit when a new unit is selected
   }
 
   updatePrice(price) {
     // Update the price displayed on the page
-    this.priceDisplay.innerHTML = `₱${parseFloat(price).toFixed(2)}`
-    this.priceValue = parseFloat(price) // Ensure the priceValue is updated
+    this.priceDisplay.innerHTML = `₱${parseFloat(price).toFixed(2)}`;
+    this.priceValue = parseFloat(price); // Ensure the priceValue is updated
   }
 
   updateUnit(unit) {
     // Update the unit displayed on the page
-    this.unitDisplay.innerHTML = `Unit: ${unit}`
+    this.unitDisplay.innerHTML = `Unit: ${unit}`;
   }
 }
-
