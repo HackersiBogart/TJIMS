@@ -1,14 +1,15 @@
 class PaintColorsController < ApplicationController
-def show
-
-  @paint_color = PaintColor.find(params[:id])
-  # Ensure these associations exist
-  @paint_color.color_id ||= @paint_color.color&.id
-  @paint_color.product_id ||= @paint_color.product&.id
-
-  logger.debug "Color ID: #{@paint_color.color_id}"
-  logger.debug "Product ID: #{@paint_color.product_id}"
-
-end
+  def show
+    @paint_color = PaintColor.includes(:color, :product).find(params[:id]) # Eager load associations
+  
+    # Ensure associated IDs are set
+    if @paint_color.color_id.nil? && @paint_color.color.present?
+      @paint_color.color_id = @paint_color.color.id
+    end
+  
+    if @paint_color.product_id.nil? && @paint_color.product.present?
+      @paint_color.product_id = @paint_color.product.id
+    end
+  end
 
 end
