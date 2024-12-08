@@ -26,27 +26,27 @@ export default class extends Controller {
 
   initializeIds() {
     // Ensure color_idValue and product_idValue are defined
-    if (this.color_idValue == null || this.product_idValue == null) {
+    if (this.colorIdValue == null || this.productIdValue == null) {
       console.error("Color ID or Product ID is missing");
       alert("An error occurred while initializing data. Please refresh the page.");
     } else {
-      console.log("Color ID initialized:", this.color_idValue);
-      console.log("Product ID initialized:", this.product_idValue);
+      console.log("Color ID initialized:", this.colorIdValue);
+      console.log("Product ID initialized:", this.productIdValue);
     }
   }
 
-  getColor_id() {
-    return this.color_idValue;
+  getColorId() {
+    return this.colorIdValue;
   }
 
-  getProduct_id() {
-    return this.product_idValue;
+  getProductId() {
+    return this.productIdValue;
   }
 
   addToCart() {
     console.log("Adding to cart...");
-    console.log("Color ID:", this.getColor_id());
-    console.log("Product ID:", this.getProduct_id());
+    console.log("Color ID:", this.getColorId());
+    console.log("Product ID:", this.getProductId());
   
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
   
@@ -57,8 +57,8 @@ export default class extends Controller {
       price: this.priceValue,
       size: this.sizeValue,
       unit: this.unitValue,
-      color_id: this.getColor_id(),
-      product_id: this.getProduct_id(),
+      color_id: this.getColorId(),
+      product_id: this.getProductId(),
     };
   
     console.log("Item to be added:", item);
