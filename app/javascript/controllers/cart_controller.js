@@ -13,6 +13,8 @@ export default class extends Controller {
     const products = JSON.parse(localStorage.getItem("products")) || {}; // Store { id: name }
     console.log("Colors from localStorage:", colors);
     console.log("Products from localStorage:", products);
+    console.log("Cart from localStorage:", cart);
+
 
     
     let total = 0;
