@@ -1,9 +1,9 @@
-import { Controller } from "@hotwired/stimulus";
+import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="cart"
 export default class extends Controller {
   initialize() {
-    console.log("Cart controller initialized");
+    console.log("cart controller initialized");
     this.updateTotal();
   }
 
@@ -12,7 +12,7 @@ export default class extends Controller {
     if (!localStorage.getItem("cart")) {
       localStorage.setItem("cart", JSON.stringify([])); // Initialize an empty cart
     }
-
+    
     let total = 0;
     let totalQuantity = 0;
     let totalSize = [];
@@ -20,100 +20,150 @@ export default class extends Controller {
     let itemColors = [];
     let itemProducts = [];
 
-    // Clear previous cart display
-    this.element.innerHTML = "";
-
-    // Calculate total, quantity, and collect item details
-    cart.forEach(item => {
+    // Calculate total, quantity, and collect item names
+    for (let i = 0; i < cart.length; i++) {
+      const item = cart[i];
       const itemPrice = parseFloat(item.price); // Ensure price is a number
       total += itemPrice * item.quantity;
-      totalQuantity += item.quantity;
-      totalSize.push(item.size);
-      itemNames.push(item.name);
+      totalQuantity += item.quantity; // Accumulate quantity
+      totalSize += item.size; // Accumulate quantity
+      itemNames.push(item.name); // Collect item names
       itemColors.push(item.color_id);
       itemProducts.push(item.product_id);
 
-      // Create and append cart item display
-      const itemContainer = this.createCartItemElement(item);
+
+      // Create a container div for the cart item
+      const itemContainer = document.createElement("div");
+      itemContainer.classList.add("flex", "justify-between", "items-center", "bg-gray-100", "rounded-lg", "p-4", "mt-2", "shadow-md");
+
+      // Create a div for the item details
+      const itemDetails = document.createElement("div");
+      itemDetails.classList.add("flex", "flex-col", "gap-1");
+
+      // Add item Color
+      const itemColor = document.createElement("div");
+      itemColor.classList.add("text-sm", "text-gray-700");
+      itemColor.innerText = `Brand: ${item.color_id}`;
+      
+      // Add item Color
+      const itemProduct = document.createElement("div");
+      itemProduct.classList.add("text-sm", "text-gray-700");
+      itemProduct.innerText = `Product: ${item.product_id}`;
+
+      // Add item name
+      const itemName = document.createElement("div");
+      itemName.classList.add("font-semibold", "text-lg", "text-[#1E3E62]");
+      itemName.innerText = `Item: ${item.name}`;
+
+      // Add item price
+      const itemPriceText = document.createElement("div");
+      itemPriceText.classList.add("text-sm", "text-gray-700");
+      itemPriceText.innerText = `Price: ₱${itemPrice.toFixed(2)}`;
+
+      // Add item size
+      const itemSize = document.createElement("div");
+      itemSize.classList.add("text-sm", "text-gray-700");
+      itemSize.innerText = `Size: ${item.size}`;
+
+      // Add item quantity
+      const itemQuantity = document.createElement("div");
+      itemQuantity.classList.add("text-sm", "text-gray-700");
+      itemQuantity.innerText = `Quantity: ${item.quantity}`;
+
+      // Append item details to the itemDetails div
+      itemDetails.appendChild(itemColor);
+      itemDetails.appendChild(itemProduct);
+      itemDetails.appendChild(itemName);
+      itemDetails.appendChild(itemPriceText);
+      itemDetails.appendChild(itemSize);
+      itemDetails.appendChild(itemQuantity);
+
+      // Create a delete button with an icon
+      const deleteButton = document.createElement("button");
+      deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
+      deleteButton.value = JSON.stringify({ id: item.id, size: item.size });
+      deleteButton.classList.add("bg-red-500", "hover:bg-red-600", "rounded-full", "text-white", "p-2", "ml-4", "transition", "duration-200");
+      deleteButton.addEventListener("click", this.removeFromCart.bind(this)); // Bind `this` to the method
+
+      // Append item details and delete button to the itemContainer
+      itemContainer.appendChild(itemDetails);
+      itemContainer.appendChild(deleteButton);
+
+      // Append the itemContainer to the main cart element
       this.element.prepend(itemContainer);
-    });
+    }
 
-    // Update display fields
-    this.updateDisplay("total", `Total: ₱${total.toFixed(2)}`);
-    this.updateDisplay("order_total", `₱${total.toFixed(2)}`, true);
-    this.updateDisplay("order_size", totalSize.join(", "));
-    this.updateDisplay("order_quantity", totalQuantity);
-    this.updateDisplay("order_items", itemNames.join(", "));
-    this.updateDisplay("order_colors", itemColors.join(", "));
-    this.updateDisplay("order_products", itemProducts.join(", "));
-  }
-
-  createCartItemElement(item) {
-    // Create container for the cart item
-    const itemContainer = document.createElement("div");
-    itemContainer.classList.add(
-      "flex",
-      "justify-between",
-      "items-center",
-      "bg-gray-100",
-      "rounded-lg",
-      "p-4",
-      "mt-2",
-      "shadow-md"
-    );
-
-    // Create details section
-    const itemDetails = document.createElement("div");
-    itemDetails.classList.add("flex", "flex-col", "gap-1");
-
-    // Add item details
-    this.appendDetail(itemDetails, "Brand", item.color_id, "text-sm", "text-gray-700");
-    this.appendDetail(itemDetails, "Product", item.product_id, "text-sm", "text-gray-700");
-    this.appendDetail(itemDetails, "Item", item.name, "font-semibold", "text-lg", "text-[#1E3E62]");
-    this.appendDetail(itemDetails, "Price", `₱${item.price.toFixed(2)}`, "text-sm", "text-gray-700");
-    this.appendDetail(itemDetails, "Size", item.size, "text-sm", "text-gray-700");
-    this.appendDetail(itemDetails, "Quantity", item.quantity, "text-sm", "text-gray-700");
-
-    // Add delete button
-    const deleteButton = document.createElement("button");
-    deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
-    deleteButton.value = JSON.stringify({ id: item.id, size: item.size });
-    deleteButton.classList.add(
-      "bg-red-500",
-      "hover:bg-red-600",
-      "rounded-full",
-      "text-white",
-      "p-2",
-      "ml-4",
-      "transition",
-      "duration-200"
-    );
-    deleteButton.addEventListener("click", this.removeFromCart.bind(this));
-
-    // Append details and button to the container
-    itemContainer.appendChild(itemDetails);
-    itemContainer.appendChild(deleteButton);
-
-    return itemContainer;
-  }
-
-  appendDetail(container, label, value, ...classes) {
-    const detail = document.createElement("div");
-    detail.classList.add(...classes);
-    detail.innerText = `${label}: ${value}`;
-    container.appendChild(detail);
-  }
-
-  updateDisplay(id, value, isField = false) {
-    const element = document.getElementById(id);
-    if (element) {
-      if (isField) {
-        element.value = value;
-      } else {
-        element.innerText = value;
-      }
+    // Update the total in the div
+    const totalDiv = document.getElementById("total");
+    if (totalDiv) {
+      totalDiv.innerText = `Total: ₱${total.toFixed(2)}`; // Format the total to 2 decimal places
     } else {
-      console.error(`${id} element not found`);
+      console.error("Total div not found");
+    }
+
+    // Update the total in the text field
+    const totalField = document.getElementById("order_total");
+    if (totalField) {
+      totalField.value = `₱${total.toFixed(2)}`; // Format the total to 2 decimal places
+    } else {
+      console.error("Total field not found");
+    }
+
+    // Update the size field after the cart is processed
+    this.updateSizeField(totalSize); // Replace 1/2 with actual size logic if necessary
+
+    // Update the quantity field after the cart is processed
+    this.updateQuantityField(totalQuantity); // Update quantity based on cart items
+
+    // Update the item field after the cart is processed
+    this.updateItemField(itemNames); // Update item names based on cart items
+
+    this.updateColorField(itemColors);
+    this.updateProductField(itemProducts);
+  }
+
+  updateSizeField(size) {
+    const sizeField = document.getElementById("order_size");
+    if (sizeField) {
+      sizeField.value = `${size}`; // Update size field value
+    } else {
+      console.error("Size field not found");
+    }
+  }
+
+  updateQuantityField(quantity) {
+    const quantityField = document.getElementById("order_quantity");
+    if (quantityField) {
+      quantityField.value = quantity; // Update quantity field value
+    } else {
+      console.error("Quantity field not found");
+    }
+  }
+
+  updateItemField(items) {
+    const itemField = document.getElementById("order_items");
+    if (itemField) {
+      itemField.value = items.join(", "); // Join item names into a single string
+    } else {
+      console.error("Item field not found");
+    }
+  }
+
+  updateColorField(color_ids) {
+    const colorField = document.getElementById("order_colors");
+    if (colorField) {
+      colorField.value = color_ids.join(", "); // Join item names into a single string
+    } else {
+      console.error("Brand field not found");
+    }
+  }
+
+  updateProductField(product_ids) {
+    const productField = document.getElementById("order_products");
+    if (productField) {
+      productField.value = product_ids.join(", "); // Join item names into a single string
+    } else {
+      console.error("Product field not found");
     }
   }
 
@@ -124,12 +174,13 @@ export default class extends Controller {
 
   removeFromCart(event) {
     const cart = JSON.parse(localStorage.getItem("cart"));
-    const { id, size } = JSON.parse(event.target.value);
+    const values = JSON.parse(event.target.value);
+    const { id, size } = values;
     const index = cart.findIndex(item => item.id === id && item.size === size);
     if (index >= 0) {
       cart.splice(index, 1);
       localStorage.setItem("cart", JSON.stringify(cart));
-      this.updateTotal(); // Recalculate the cart
+      window.location.reload();
     }
   }
 
