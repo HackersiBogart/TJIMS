@@ -21,19 +21,22 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </body>
 <script>
-document.addEventListener("turbo:load", () => {
-  const colors = <%= Color.all.to_json(only: [:id, :name]).html_safe %>;
-  const products = <%= Product.all.to_json(only: [:id, :name]).html_safe %>;
+document.addEventListener("DOMContentLoaded", () => {
+  const colors = <%= raw Color.all.to_json(only: [:id, :name]) %>;
+  const products = <%= raw Product.all.to_json(only: [:id, :name]) %>;
 
-  localStorage.setItem("tjstockoptima:colors", JSON.stringify(colors.reduce((map, obj) => {
+  const colorMap = colors.reduce((map, obj) => {
     map[obj.id] = obj.name;
     return map;
-  }, {})));
-
-  localStorage.setItem("tjstockoptima:products", JSON.stringify(products.reduce((map, obj) => {
+  }, {});
+  const productMap = products.reduce((map, obj) => {
     map[obj.id] = obj.name;
     return map;
-  }, {})));
+  }, {});
+
+  localStorage.setItem("colors", JSON.stringify(colorMap));
+  localStorage.setItem("products", JSON.stringify(productMap));
 });
 </script>
+
 </html>
