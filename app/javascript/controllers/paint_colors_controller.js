@@ -43,50 +43,41 @@ export default class extends Controller {
     return this.productIdValue;
   }
 
-  addToCart(event) {
-    event.preventDefault(); // Prevent the default button behavior
-
-    // Retrieve the data from the controller's data attributes
-    const paintColorId = this.data.get("id");
-    const colorId = this.data.get("colorId");
-    const productId = this.data.get("productId");
-    const name = this.data.get("name");
-    const code = this.data.get("code");
-    const price = this.data.get("price");
-    const size = this.selectedSizeTarget.dataset.size; // Get the selected size
-    const unit = this.selectedSizeTarget.dataset.unit; // Get the selected size's unit
-
-    if (!size) {
-      alert("Please select a size before adding to the cart.");
-      return;
-    }
-
-    // Create a cart item
-    const cartItem = {
-      id: paintColorId,
-      name: name,
-      code: code,
-      price: price,
-      color_id: colorId,
-      product_id: productId,
-      size: size,
-      unit: unit,
-      quantity: 1 // Default to 1 for now, you can add a quantity field later
+  addToCart() {
+    console.log("Adding to cart...");
+    console.log("Color ID:", this.getColorId());
+    console.log("Product ID:", this.getProductId());
+  
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  
+    const item = {
+      id: this.idValue,
+      name: this.nameValue,
+      code: this.codeValue,
+      price: this.priceValue,
+      size: this.sizeValue,
+      unit: this.unitValue,
+      color_id: this.getColorId(),
+      product_id: this.getProductId(),
     };
-
-    // Get the existing cart from localStorage
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    // Add the new item to the cart
-    cart.push(cartItem);
-
-    // Save the updated cart back to localStorage
+  
+    console.log("Item to be added:", item);
+  
+    // Add item to cart
+    const existingItemIndex = cart.findIndex(cartItem => 
+      cartItem.id === item.id && cartItem.size === item.size && cartItem.unit === item.unit
+    );
+  
+    if (existingItemIndex !== -1) {
+      cart[existingItemIndex].quantity += 1;
+    } else {
+      item.quantity = 1;
+      cart.push(item);
+    }
+  
     localStorage.setItem("cart", JSON.stringify(cart));
-
-    // Optionally, show a confirmation or update the cart UI
-    alert(`${name} has been added to your cart.`);
+    alert(`${item.name} (${item.size} ${item.unit}) added to cart!`);
   }
-
 
   removeFromCart(event) {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -118,21 +109,14 @@ export default class extends Controller {
     alert("Item removed from cart.");
   }
 
-  selectSize(event) {
-    const size = event.target.value; // Get the selected size
-    const price = event.target.getAttribute("data-price"); // Get the price
-    const unit = event.target.getAttribute("data-unit"); // Get the unit (if needed)
+  selectSize(e) {
+    this.sizeValue = e.target.value;
+    const selectedPrice = e.target.dataset.price; // Get the price from the selected size option
 
-    // Check if the target exists before updating
-    if (this.selectedSizeTarget) {
-      // Update the selected size display
-      this.selectedSizeTarget.innerText = `Selected Size: ${size} (${unit})`;
-      
-      // Store selected size, price, and unit in the element's dataset for later use
-      this.selectedSizeTarget.dataset.size = size;
-      this.selectedSizeTarget.dataset.price = price;
-      this.selectedSizeTarget.dataset.unit = unit;
-    }
+    const selectedSizeEl = document.getElementById("selected-size");
+    selectedSizeEl.innerText = `Selected Size: ${this.sizeValue}`;
+
+    this.updatePrice(selectedPrice); // Update the price when a new size is selected
   }
 
   selectUnit(e) {
