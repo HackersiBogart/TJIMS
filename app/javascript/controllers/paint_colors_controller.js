@@ -26,21 +26,21 @@ export default class extends Controller {
 
   initializeIds() {
     // Ensure color_idValue and product_idValue are defined
-    if (this.color_idValue == null || this.product_idValue == null) {
+    if (this.colorIdValue == null || this.productIdValue == null) {
       console.error("Color ID or Product ID is missing");
       alert("An error occurred while initializing data. Please refresh the page.");
     } else {
-      console.log("Color ID initialized:", this.color_idValue);
-      console.log("Product ID initialized:", this.product_idValue);
+      console.log("Color ID initialized:", this.colorIdValue);
+      console.log("Product ID initialized:", this.productIdValue);
     }
   }
 
   getColorId() {
-    return this.color_idValue;
+    return this.colorIdValue;
   }
 
   getProductId() {
-    return this.product_idValue;
+    return this.productIdValue;
   }
 
   addToCart() {
