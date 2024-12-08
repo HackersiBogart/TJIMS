@@ -43,41 +43,53 @@ export default class extends Controller {
     return this.productIdValue;
   }
 
-  addToCart() {
-    console.log("Adding to cart...");
-    console.log("Color ID:", this.getColorId());
-    console.log("Product ID:", this.getProductId());
-  
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  
-    const item = {
-      id: this.idValue,
-      name: this.nameValue,
-      code: this.codeValue,
-      price: this.priceValue,
-      size: this.sizeValue,
-      unit: this.unitValue,
-      color_id: this.getColorId(),
-      product_id: this.getProductId(),
-    };
-  
-    console.log("Item to be added:", item);
-  
-    // Add item to cart
-    const existingItemIndex = cart.findIndex(cartItem => 
-      cartItem.id === item.id && cartItem.size === item.size && cartItem.unit === item.unit
-    );
-  
-    if (existingItemIndex !== -1) {
-      cart[existingItemIndex].quantity += 1;
-    } else {
-      item.quantity = 1;
-      cart.push(item);
+  addToCart(event) {
+    event.preventDefault(); // Prevent the default button behavior
+
+    // Access data attributes from the clicked paint color element
+    const paintColorElement = event.target.closest('.paint-color-card');
+    const paintColorId = paintColorElement.dataset.paintColorId;
+    const name = paintColorElement.dataset.paintColorName;
+    const code = paintColorElement.dataset.paintColorCode;
+    const price = paintColorElement.dataset.paintColorPrice;
+    const colorId = paintColorElement.dataset.paintColorColorId;
+    const productId = paintColorElement.dataset.paintColorProductId;
+    const unitFromColor = paintColorElement.dataset.paintColorUnit; // Renamed to avoid conflict
+
+    const size = this.selectedSizeTarget.dataset.size;
+    const unitFromSize = this.selectedSizeTarget.dataset.unit; // Renamed to avoid conflict
+
+    if (!size) {
+      alert("Please select a size before adding to the cart.");
+      return;
     }
-  
+
+    // Create a cart item
+    const cartItem = {
+      id: paintColorId,
+      name: name,
+      code: code,
+      price: price,
+      color_id: colorId,
+      product_id: productId,
+      size: size,
+      unit: unitFromSize || unitFromColor, // Fallback to unitFromColor if unitFromSize is not available
+      quantity: 1 // Default to 1 for now, you can add a quantity field later
+    };
+
+    // Get the existing cart from localStorage
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Add the new item to the cart
+    cart.push(cartItem);
+
+    // Save the updated cart back to localStorage
     localStorage.setItem("cart", JSON.stringify(cart));
-    alert(`${item.name} (${item.size} ${item.unit}) added to cart!`);
-  }
+
+    // Optionally, show a confirmation or update the cart UI
+    alert(`${name} has been added to your cart.`);
+}
+
 
   removeFromCart(event) {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
