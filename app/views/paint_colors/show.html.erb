@@ -1,14 +1,11 @@
 <!-- Paint Color Details Section -->
-<div 
-  class="paint-color-card" 
-  data-paint-color-id="<%= @paint_color.id %>"
-  data-paint-color-name="<%= @paint_color.name %>"
-  data-paint-color-code="<%= @paint_color.code %>"
-  data-paint-color-price="<%= @paint_color.price %>"
-  data-paint-color-color-id="<%= @paint_color.color_id %>"
-  data-paint-color-product-id="<%= @paint_color.product_id %>"
-  data-paint-color-unit="<%= @paint_color.unit %>"
->
+<div data-controller="paint-colors"
+     data-paint-colors-id-value="<%= @paint_color.id %>"
+     data-paint-colors-name-value="<%= @paint_color.name %>"
+     data-paint-colors-code-value="<%= @paint_color.code %>"
+     data-paint-colors-price-value="<%= @paint_color.price %>"
+     data-paint-colors-color-id-value="<%= @paint_color.color_id %>"
+     data-paint-colors-product-id-value="<%= @paint_color.product_id %>">
   
   <div class="flex flex-col md:flex-row justify-center py-10 mt-20">
     <!-- Image Section -->
