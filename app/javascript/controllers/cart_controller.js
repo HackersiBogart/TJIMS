@@ -18,11 +18,21 @@ export default class extends Controller {
     if (cartItemsContainer) {
       cartItemsContainer.innerHTML = "";
     }
+
+    let paintColorIds = [];
+    let colorIds = [];
+    let productIds = [];
+    let itemNames = [];
   
     for (let i = 0; i < cart.length; i++) {
       const item = cart[i];
       const itemPrice = parseFloat(item.price);
       total += itemPrice * item.quantity;
+
+    paintColorIds.push(item.paint_color_id);
+    colorIds.push(item.color_id);
+    productIds.push(item.product_id);
+    itemNames.push(item.name);
 
     
       // Create the cart item UI
