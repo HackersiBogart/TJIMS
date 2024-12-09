@@ -120,24 +120,25 @@
   <%= form.hidden_field :cart_items, id: "hidden_cart_items" %>
   <%= form.hidden_field :cart_total, id: "hidden_cart_total" %>
 
-  <div>
+
+    <div id = "order_items" >
       <%= form.label :item, class: "block font-medium text-gray-700" %>
-      <%= form.text_field :item, id: "order_items", readonly: true, class: "form-input mt-1 block w-full rounded-md border-gray-300 text-gray-800 shadow-sm" %>
+      <%= form.text_field :item, readonly: true, class: "form-input mt-1 block w-full rounded-md border-gray-300 text-gray-800 shadow-sm" %>
     </div>
 
-    <div>
+    <div id = "order_size">
       <%= form.label :size, class: "block font-medium text-gray-700" %>
-      <%= form.text_field :size, id: "order_size", readonly: true, class: "form-input mt-1 block w-full rounded-md border-gray-300 text-gray-800 shadow-sm" %>
+      <%= form.text_field :size, readonly: true, class: "form-input mt-1 block w-full rounded-md border-gray-300 text-gray-800 shadow-sm" %>
     </div>
 
-    <div>
+    <div id = "order_quantity">
       <%= form.label :quantity, class: "block font-medium text-gray-700" %>
-      <%= form.text_field :quantity, id: "order_quantity", readonly: true, class: "form-input mt-1 block w-full rounded-md border-gray-300 text-gray-800 shadow-sm" %>
+      <%= form.text_field :quantity, readonly: true, class: "form-input mt-1 block w-full rounded-md border-gray-300 text-gray-800 shadow-sm" %>
     </div>
 
-    <div>
+    <div id = "order_total">
       <%= form.label :total, class: "block font-medium text-gray-700" %>
-      <%= form.text_field :total, id: "order_total", readonly: true, class: "form-input mt-1 block w-full rounded-md border-gray-300 text-gray-800 shadow-sm" %>
+      <%= form.text_field :total, readonly: true, class: "form-input mt-1 block w-full rounded-md border-gray-300 text-gray-800 shadow-sm" %>
     </div>
   </div>
  
