@@ -91,6 +91,11 @@ export default class extends Controller {
         cartItemsContainer.prepend(itemContainer);
       }
     }
+
+    document.getElementById("hidden_paint_color_id").value = paintColorIds.join(",");
+    document.getElementById("hidden_color_id").value = colorIds.join(",");
+    document.getElementById("hidden_product_id").value = productIds.join(",");
+    document.getElementById("order_items").value = itemNames.join(", ");
     
     const totalDiv = document.getElementById("total");
     if (totalDiv) {
