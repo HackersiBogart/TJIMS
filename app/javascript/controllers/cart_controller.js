@@ -18,21 +18,11 @@ export default class extends Controller {
     if (cartItemsContainer) {
       cartItemsContainer.innerHTML = "";
     }
-
-    let paintColorIds = [];
-    let colorIds = [];
-    let productIds = [];
-    let itemNames = [];
   
     for (let i = 0; i < cart.length; i++) {
       const item = cart[i];
       const itemPrice = parseFloat(item.price);
       total += itemPrice * item.quantity;
-
-    paintColorIds.push(item.paint_color_id);
-    colorIds.push(item.color_id);
-    productIds.push(item.product_id);
-    itemNames.push(item.name);
 
     
       // Create the cart item UI
@@ -47,9 +37,7 @@ export default class extends Controller {
         "mt-2",
         "shadow-md"
       );
-
-
-
+    
       const itemDetails = document.createElement("div");
       itemDetails.classList.add("flex", "flex-col", "gap-1");
     
@@ -101,21 +89,13 @@ export default class extends Controller {
         cartItemsContainer.prepend(itemContainer);
       }
     }
-
-    document.getElementById("hidden_paint_color_id").value = paintColorIds.join(",");
-    document.getElementById("hidden_color_id").value = colorIds.join(",");
-    document.getElementById("hidden_product_id").value = productIds.join(",");
-    document.getElementById("order_items").value = itemNames.join(", ");
-    document.getElementById("hidden_cart_items").value = JSON.stringify(cart);
-    document.getElementById("hidden_cart_total").value = total.toFixed(2);
-
-
-
+    
     const totalDiv = document.getElementById("total");
     if (totalDiv) {
       totalDiv.innerText = `Total: ₱${total.toFixed(2)}`;
     }
   }
+  
   
 
   updateSizeField(size) {
