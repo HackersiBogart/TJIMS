@@ -92,17 +92,17 @@ class CustomerOrdersController < ApplicationController
       reference_number: customer_order.reference_number,
       date_of_retrieval: customer_order.date_of_retrieval,
       order_total: customer_order.order_total,
-      cart_items:  customer_order.cart_items
-      cart_total: customer_order.cart_total
+      cart_items:  customer_order.cart_items,
+      cart_total: customer_order.cart_total,
       size: customer_order.size,
       quantity: customer_order.quantity,
       item: customer_order.item,
       fulfilled: false, # Ensure the order is marked as unfulfilled
       color_id: customer_order.color_id,
       product_id: customer_order.product_id,
-      paint_color_id: customer_order.paint_color_id
-      
+      paint_color_id: customer_order.paint_color_id,
     )
+
     admin_order.image.attach(customer_order.image.blob) if customer_order.image.attached?
     admin_order.save!
   end
