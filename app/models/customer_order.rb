@@ -9,9 +9,9 @@ class CustomerOrder < ApplicationRecord
   validates :reference_number, presence: true, uniqueness: true
   validates :image, presence: true
   validates :date_of_retrieval, presence: true
-  validates :color_id, presence: true
-  validates :product_id, presence: true
-  validates :order_total, presence: true, numericality: { greater_than: 0 }
+  # validates :color_id, presence: true
+  # validates :product_id, presence: true
+  # validates :order_total, presence: true, numericality: { greater_than: 0 }
 
 
   private
