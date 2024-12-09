@@ -114,7 +114,7 @@
     <div id="total" class="text-lg font-semibold text-gray-800">
       Total: ₱0.00
     </div>
-  </div>
+  
 
   <!-- Hidden Fields to Send Cart Data to Backend -->
   <%= form.hidden_field :cart_items, id: "hidden_cart_items" %>
@@ -139,6 +139,7 @@
       <%= form.label :total, class: "block font-medium text-gray-700" %>
       <%= form.text_field :total, id: "order_total", readonly: true, class: "form-input mt-1 block w-full rounded-md border-gray-300 text-gray-800 shadow-sm" %>
     </div>
+  </div>
   </div>
 
   <!-- Confirmation Section -->
