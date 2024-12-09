@@ -81,7 +81,7 @@ class CustomerOrdersController < ApplicationController
   # Only allow a list of trusted parameters through.
   def customer_order_params
     params.require(:customer_order).permit(:customer_email, :name, :phone_number, :reference_number, :date_of_retrieval, 
-      :total, :size, :quantity, :color_id, :product_id, :item, :image, :order_total, :cart_items, :cart_total, :paint_color_id)
+      :total, :size, :quantity, :color_id, :product_id, :item, :image, :order_total, :paint_color_id)
   end
 
   # Create the AdminOrder after CustomerOrder is saved
@@ -94,8 +94,6 @@ class CustomerOrdersController < ApplicationController
       date_of_retrieval: customer_order.date_of_retrieval,
       total: customer_order.total,
       order_total: customer_order.order_total,
-      cart_items:  customer_order.cart_items,
-      cart_total: customer_order.cart_total,
       size: customer_order.size,
       quantity: customer_order.quantity,
       item: customer_order.item,
