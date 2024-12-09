@@ -24,7 +24,6 @@ class CustomerOrdersController < ApplicationController
   # GET /customer_orders/new
   def new
     @customer_order = CustomerOrder.new
-    @colors = Color.all  # Ensure you have a Color model and fetch the colors
   end
 
   # GET /customer_orders/1/edit
