@@ -1,7 +1,7 @@
 class CustomerOrder < ApplicationRecord
   before_save :standardize_size
   has_one_attached :image
-  belongs_to :paint_color
+  # belongs_to :paint_color
 
   validates :customer_email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP, message: "must be a valid email address" }
   validates :name, presence: true, length: { minimum: 2, maximum: 50 }
@@ -11,7 +11,7 @@ class CustomerOrder < ApplicationRecord
   validates :date_of_retrieval, presence: true
   # validates :color_id, presence: true
   # validates :product_id, presence: true
-  # validates :order_total, presence: true, numericality: { greater_than: 0 }
+  validates :order_total, presence: true, numericality: { greater_than: 0 }
 
 
   private
