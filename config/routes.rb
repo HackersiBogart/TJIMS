@@ -107,7 +107,12 @@ Rails.application.routes.draw do
   resources :premadeproducts, only: [:show]
   resources :order_mail, only: [:new]
   resources :emails, only: [:new, :create]
-
+  resources :customer_orders do
+    collection do
+      get :fetch_products
+      get :fetch_paint_colors
+    end
+  end
   get 'reports', to: 'reports#index'
   get "admin" => "admin#index"
   get "mix" => "mix#index"

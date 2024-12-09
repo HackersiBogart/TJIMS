@@ -1,6 +1,17 @@
 class CustomerOrdersController < ApplicationController
   before_action :set_customer_order, only: %i[show edit update destroy]
 
+
+  def fetch_products
+    @products = Product.where(color_id: params[:color_id])
+    render json: @products
+  end
+  
+  # Fetch paint colors based on selected product
+  def fetch_paint_colors
+    @paint_colors = PaintColor.where(product_id: params[:product_id])
+    render json: @paint_colors
+  end
   # GET /customer_orders or /customer_orders.json
   def index
     @customer_orders = CustomerOrder.all

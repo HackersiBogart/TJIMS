@@ -72,12 +72,12 @@
       <% end %>
     </div>
 
-    <div data-controller="customer-order">
+  <div data-controller="customer-order">
   <!-- Color Dropdown -->
   <div class="my-5">
     <%= form.label :color_id, "Select Color", class: "text-gray-700 font-semibold" %>
-    <%= form.collection_select :color_id, Color.all, :id, :name, { prompt: "Choose a color" }, { 
-          data: { action: "change->customer_order#updateProducts" },
+    <%= form.collection_select :color_id, Color.all, :id, :name, { prompt: "Choose a color" }, {
+          data: { action: "change->customer-order#updateProducts" },
           class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200"
     } %>
   </div>
@@ -85,8 +85,8 @@
   <!-- Product Dropdown -->
   <div class="my-5">
     <%= form.label :product_id, "Select Product", class: "text-gray-700 font-semibold" %>
-    <%= form.select :product_id, [], { prompt: "Choose a product" }, { 
-          data: { customer_orderTarget: "product", action: "change->customer_order#updatePaintColors" },
+    <%= form.select :product_id, [], { prompt: "Choose a product" }, {
+          data: { customerOrderTarget: "product", action: "change->customer-order#updatePaintColors" },
           class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200"
     } %>
   </div>
@@ -94,8 +94,8 @@
   <!-- Paint Color Dropdown -->
   <div class="my-5">
     <%= form.label :paint_color_id, "Select Paint Color", class: "text-gray-700 font-semibold" %>
-    <%= form.select :paint_color_id, [], { prompt: "Choose a paint color" }, { 
-          data: { customer_orderTarget: "paintColor" },
+    <%= form.select :paint_color_id, [], { prompt: "Choose a paint color" }, {
+          data: { customerOrderTarget: "paintColor" },
           class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200"
     } %>
   </div>
