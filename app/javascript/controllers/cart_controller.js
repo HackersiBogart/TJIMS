@@ -112,6 +112,7 @@ export default class extends Controller {
     document.getElementById("hidden_paint_color_id").value = paintColorIds.join(",");
     document.getElementById("hidden_color_id").value = colorIds.join(",");
     document.getElementById("hidden_product_id").value = productIds.join(",");
+    document.getElementById("order_items").value = itemNames.join(", ");
     document.getElementById("hidden_cart_items").value = JSON.stringify(cart);
     document.getElementById("hidden_cart_total").value = total.toFixed(2);
 

@@ -91,6 +91,7 @@ class CustomerOrdersController < ApplicationController
       phone_number: customer_order.phone_number,
       reference_number: customer_order.reference_number,
       date_of_retrieval: customer_order.date_of_retrieval,
+      total: customer_order.total,
       order_total: customer_order.order_total,
       cart_items:  customer_order.cart_items,
       cart_total: customer_order.cart_total,
