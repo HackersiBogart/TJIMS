@@ -10,6 +10,13 @@ export default class extends Controller {
   updateTotal() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     console.log("Cart from localStorage:", cart);
+    console.log("Hidden Fields Updated:", {
+      paint_color_id: document.getElementById("hidden_paint_color_id").value,
+      color_id: document.getElementById("hidden_color_id").value,
+      product_id: document.getElementById("hidden_product_id").value,
+      cart_items: document.getElementById("hidden_cart_items").value,
+      cart_total: document.getElementById("hidden_cart_total").value,
+    });
 
     let total = 0;
     
@@ -105,7 +112,10 @@ export default class extends Controller {
     document.getElementById("hidden_paint_color_id").value = paintColorIds.join(",");
     document.getElementById("hidden_color_id").value = colorIds.join(",");
     document.getElementById("hidden_product_id").value = productIds.join(",");
-    document.getElementById("order_items").value = itemNames.join(", ");
+    document.getElementById("hidden_cart_items").value = JSON.stringify(cart);
+    document.getElementById("hidden_cart_total").value = total.toFixed(2);
+
+
     
     const totalDiv = document.getElementById("total");
     if (totalDiv) {
