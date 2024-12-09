@@ -7,18 +7,10 @@ export default class extends Controller {
     this.updateTotal();
   }
 
-  
-
   updateTotal() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const colors = JSON.parse(localStorage.getItem("colors")) || {}; // Store { id: name }
-    const products = JSON.parse(localStorage.getItem("products")) || {}; // Store { id: name }
-    console.log("Colors from localStorage:", colors);
-    console.log("Products from localStorage:", products);
     console.log("Cart from localStorage:", cart);
 
-
-    
     let total = 0;
     
     // Clear only the cart items container
@@ -31,9 +23,7 @@ export default class extends Controller {
       const item = cart[i];
       const itemPrice = parseFloat(item.price);
       total += itemPrice * item.quantity;
-    
-      const colorName = colors[item.color_id] || "Unknown";
-      const productName = products[item.product_id] || "Unknown";
+
     
       // Create the cart item UI
       const itemContainer = document.createElement("div");
@@ -51,14 +41,6 @@ export default class extends Controller {
       const itemDetails = document.createElement("div");
       itemDetails.classList.add("flex", "flex-col", "gap-1");
     
-      const itemColor = document.createElement("div");
-      itemColor.classList.add("text-sm", "text-gray-700");
-      itemColor.innerText = `Brand: ${colorName}`;
-    
-      const itemProduct = document.createElement("div");
-      itemProduct.classList.add("text-sm", "text-gray-700");
-      itemProduct.innerText = `Product: ${productName}`;
-    
       const itemName = document.createElement("div");
       itemName.classList.add("font-semibold", "text-lg", "text-[#1E3E62]");
       itemName.innerText = `Item: ${item.name}`;
@@ -71,8 +53,6 @@ export default class extends Controller {
       itemQuantity.classList.add("text-sm", "text-gray-700");
       itemQuantity.innerText = `Quantity: ${item.quantity}`;
     
-      itemDetails.appendChild(itemColor);
-      itemDetails.appendChild(itemProduct);
       itemDetails.appendChild(itemName);
       itemDetails.appendChild(itemPriceText);
       itemDetails.appendChild(itemQuantity);
@@ -132,24 +112,6 @@ export default class extends Controller {
       itemField.value = items.join(", "); // Join item names into a single string
     } else {
       console.error("Item field not found");
-    }
-  }
-
-  updateColorField(color_ids) {
-    const colorField = document.getElementById("order_colors");
-    if (colorField) {
-      colorField.value = color_ids.join(", "); // Join item names into a single string
-    } else {
-      console.error("Brand field not found");
-    }
-  }
-
-  updateProductField(product_ids) {
-    const productField = document.getElementById("order_products");
-    if (productField) {
-      productField.value = product_ids.join(", "); // Join item names into a single string
-    } else {
-      console.error("Product field not found");
     }
   }
 

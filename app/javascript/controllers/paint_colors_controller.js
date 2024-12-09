@@ -8,8 +8,6 @@ export default class extends Controller {
     price: Number,
     size: String,
     unit: String,
-    color_id: Number,
-    product_id: Number,
   };
 
   connect() {
@@ -20,33 +18,15 @@ export default class extends Controller {
     this.updatePrice(this.priceValue); // Set the default price
     this.updateUnit(this.unitValue); // Set the default unit
 
-    // Initialize color and product IDs
-    this.initializeIds();
   }
 
-  initializeIds() {
-    // Ensure color_idValue and product_idValue are defined
-    if (this.colorIdValue == null || this.productIdValue == null) {
-      console.error("Color ID or Product ID is missing");
-      alert("An error occurred while initializing data. Please refresh the page.");
-    } else {
-      console.log("Color ID initialized:", this.colorIdValue);
-      console.log("Product ID initialized:", this.productIdValue);
-    }
-  }
 
-  getColorId() {
-    return this.colorIdValue;
-  }
 
-  getProductId() {
-    return this.productIdValue;
-  }
+
 
   addToCart() {
     console.log("Adding to cart...");
-    console.log("Color ID:", this.getColorId());
-    console.log("Product ID:", this.getProductId());
+
   
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
   
@@ -57,8 +37,6 @@ export default class extends Controller {
       price: this.priceValue,
       size: this.sizeValue,
       unit: this.unitValue,
-      color_id: this.getColorId(),
-      product_id: this.getProductId(),
     };
   
     console.log("Item to be added:", item);
