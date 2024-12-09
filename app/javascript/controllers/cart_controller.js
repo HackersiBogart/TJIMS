@@ -108,8 +108,6 @@ export default class extends Controller {
     document.getElementById("order_items").value = itemNames.join(", ");
 
 
-
-    
     const totalDiv = document.getElementById("total");
     if (totalDiv) {
       totalDiv.innerText = `Total: ₱${total.toFixed(2)}`;
