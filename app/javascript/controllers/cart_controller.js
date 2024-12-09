@@ -45,6 +45,14 @@ export default class extends Controller {
       itemName.classList.add("font-semibold", "text-lg", "text-[#1E3E62]");
       itemName.innerText = `Item: ${item.name}`;
     
+      const itemProduct = document.createElement("div");  // Add product display
+      itemProduct.classList.add("text-sm", "text-gray-700");
+      itemProduct.innerText = `Product: ${item.product}`;
+    
+      const itemColor = document.createElement("div");  // Add color display
+      itemColor.classList.add("text-sm", "text-gray-700");
+      itemColor.innerText = `Color: ${item.color}`;
+    
       const itemPriceText = document.createElement("div");
       itemPriceText.classList.add("text-sm", "text-gray-700");
       itemPriceText.innerText = `Price: ₱${itemPrice.toFixed(2)}`;
@@ -54,6 +62,8 @@ export default class extends Controller {
       itemQuantity.innerText = `Quantity: ${item.quantity}`;
     
       itemDetails.appendChild(itemName);
+      itemDetails.appendChild(itemProduct);  // Append product
+      itemDetails.appendChild(itemColor);    // Append color
       itemDetails.appendChild(itemPriceText);
       itemDetails.appendChild(itemQuantity);
     

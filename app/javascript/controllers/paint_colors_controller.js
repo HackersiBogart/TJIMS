@@ -8,6 +8,8 @@ export default class extends Controller {
     price: Number,
     size: String,
     unit: String,
+    color: String,      // Add this for color
+    product: String,    // Add this for product
   };
 
   connect() {
@@ -19,10 +21,6 @@ export default class extends Controller {
     this.updateUnit(this.unitValue); // Set the default unit
 
   }
-
-
-
-
 
   addToCart() {
     console.log("Adding to cart...");
@@ -37,6 +35,8 @@ export default class extends Controller {
       price: this.priceValue,
       size: this.sizeValue,
       unit: this.unitValue,
+      color: this.colorValue,      // Pass the color value
+      product: this.productValue,  // Pass the product value
     };
   
     console.log("Item to be added:", item);
