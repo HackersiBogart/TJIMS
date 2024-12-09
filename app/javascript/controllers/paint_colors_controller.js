@@ -20,6 +20,9 @@ export default class extends Controller {
     this.updatePrice(this.priceValue); // Set the default price
     this.updateUnit(this.unitValue); // Set the default unit
 
+    console.log("Color value:", this.colorValue);  // This should print the color
+    console.log("Product value:", this.productValue);  // This should print the product
+
   }
 
   addToCart() {

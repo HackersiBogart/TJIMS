@@ -37,7 +37,9 @@ export default class extends Controller {
         "mt-2",
         "shadow-md"
       );
-    
+
+
+
       const itemDetails = document.createElement("div");
       itemDetails.classList.add("flex", "flex-col", "gap-1");
     
@@ -95,7 +97,6 @@ export default class extends Controller {
       totalDiv.innerText = `Total: ₱${total.toFixed(2)}`;
     }
   }
-  
   
 
   updateSizeField(size) {
