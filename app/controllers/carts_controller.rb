@@ -1,13 +1,13 @@
 class CartsController < ApplicationController
   def show
-    @paint_color = PaintColor.find_by(id: params[:id]) # Find the paint color by ID
-
-    if @paint_color
-      @color = @paint_color.color    # Retrieve associated color
-      @product = @paint_color.product # Retrieve associated product
-    else
-      flash[:error] = "Paint color not found"
-      redirect_to root_path # Or any fallback path
+    @paint_color = PaintColor.includes(:color, :product).find(params[:id]) # Eager load associations
+  
+    # Ensure associated IDs are set
+    if @paint_color.color_id.nil? && @paint_color.color.present?
+      @paint_color.color_id = @paint_color.color.id
     end
-  end
+  
+    if @paint_color.product_id.nil? && @paint_color.product.present?
+      @paint_color.product_id = @paint_color.product.id
+    end
 end
