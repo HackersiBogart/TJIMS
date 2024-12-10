@@ -14,6 +14,7 @@ export default class extends Controller {
     let total = 0;
     let totalQuantity = 0;
     let totalSize = [];
+    let itemIds = [];
     let itemNames = [];
     let itemColors = [];
     let itemProducts = [];
@@ -30,6 +31,7 @@ export default class extends Controller {
       total += itemPrice * item.quantity;
       totalQuantity += item.quantity; // Accumulate quantity
       totalSize += item.size; // Accumulate quantity
+      itemIds.push(item.id);
       itemNames.push(item.name); // Collect item names
       itemColors.push(item.color);
       itemProducts.push(item.product);
@@ -50,10 +52,14 @@ export default class extends Controller {
     
       const itemDetails = document.createElement("div");
       itemDetails.classList.add("flex", "flex-col", "gap-1");
+
+      const itemId = document.createElement("div");
+      itemId.classList.add("font-semibold", "text-lg", "text-[#1E3E62]");
+      itemId.innerText = `Item: ${item.id}`;
     
       const itemName = document.createElement("div");
       itemName.classList.add("font-semibold", "text-lg", "text-[#1E3E62]");
-      itemName.innerText = `Item: ${item.name}`;
+      itemName.innerText = `Color: ${item.name}`;
     
       const itemProduct = document.createElement("div");  // Add product display
       itemProduct.classList.add("text-sm", "text-gray-700");
@@ -75,6 +81,7 @@ export default class extends Controller {
       itemSize.classList.add("text-sm", "text-gray-700");
       itemSize.innerText = `Size: ${item.size}`;
     
+      itemDetails.appendChild(itemId);
       itemDetails.appendChild(itemName);
       itemDetails.appendChild(itemProduct);  // Append product
       itemDetails.appendChild(itemColor);    // Append color
@@ -130,6 +137,8 @@ export default class extends Controller {
     this.updateProductField(itemProducts);
 
     this.updateColorField(itemColors);
+
+    this.updateIdField(itemIds);
   }
 
   
@@ -167,7 +176,7 @@ export default class extends Controller {
     if (colorField) {
       colorField.value = colors.join(", "); // Join item names into a single string
     } else {
-      console.error("Item field not found");
+      console.error("Color field not found");
     }
   }
 
@@ -176,7 +185,16 @@ export default class extends Controller {
     if (productField) {
       productField.value = products.join(", "); // Join item names into a single string
     } else {
-      console.error("Item field not found");
+      console.error("Product field not found");
+    }
+  }
+
+  updateIdField(ids) {
+    const idsField = document.getElementById("order_ids");
+    if (idsField) {
+      idsField.value = ids.join(", "); // Join item names into a single string
+    } else {
+      console.error("Id field not found");
     }
   }
 

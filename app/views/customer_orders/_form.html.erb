@@ -83,7 +83,10 @@
       <div id="total" class="text-lg font-semibold text-gray-800">
       </div>
 
-    
+    <div>
+      <%= form.label :paint_color_id, "Color:" , class: "block font-medium text-gray-700" %>
+      <%= form.text_field :paint_color_id, id: "order_ids", readonly: true, class: "form-input mt-1 block w-full rounded-md border-gray-300 text-gray-800 shadow-sm" %>
+    </div>
     <div>
       <%= form.label :color_id, "Brand:" , class: "block font-medium text-gray-700" %>
       <%= form.text_field :color_id, id: "order_colors", readonly: true, class: "form-input mt-1 block w-full rounded-md border-gray-300 text-gray-800 shadow-sm" %>
