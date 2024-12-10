@@ -12,6 +12,11 @@ export default class extends Controller {
     console.log("Cart from localStorage:", cart);
 
     let total = 0;
+    let totalQuantity = 0;
+    let totalSize = [];
+    let itemNames = [];
+    let itemColors = [];
+    let itemProducts = [];
     
     // Clear only the cart items container
     const cartItemsContainer = document.getElementById("cartItems");
@@ -23,6 +28,11 @@ export default class extends Controller {
       const item = cart[i];
       const itemPrice = parseFloat(item.price);
       total += itemPrice * item.quantity;
+      totalQuantity += item.quantity; // Accumulate quantity
+      totalSize += item.size; // Accumulate quantity
+      itemNames.push(item.name); // Collect item names
+      itemColors.push(item.color);
+      itemProducts.push(item.product);
 
     
       // Create the cart item UI
@@ -99,7 +109,29 @@ export default class extends Controller {
     if (totalDiv) {
       totalDiv.innerText = `Total: ₱${total.toFixed(2)}`;
     }
+  
+
+  // Update the total in the text field
+  const totalField = document.getElementById("order_total");
+  if (totalField) {
+    totalField.value = `₱${total.toFixed(2)}`; // Format the total to 2 decimal places
+  } else {
+    console.error("Total field not found");
   }
+
+  this.updateSizeField(totalSize); // Replace 1/2 with actual size logic if necessary
+
+    // Update the quantity field after the cart is processed
+    this.updateQuantityField(totalQuantity); // Update quantity based on cart items
+
+    // Update the item field after the cart is processed
+    this.updateItemField(itemNames); // Update item names based on cart items
+
+    this.updateItemField(itemProducts);
+
+    this.updateItemField(itemColors);
+  }
+
   
   
 
