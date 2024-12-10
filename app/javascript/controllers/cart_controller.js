@@ -127,9 +127,9 @@ export default class extends Controller {
     // Update the item field after the cart is processed
     this.updateItemField(itemNames); // Update item names based on cart items
 
-    this.updateItemField(itemProducts);
+    this.updateProductField(itemProducts);
 
-    this.updateItemField(itemColors);
+    this.updateColorField(itemColors);
   }
 
   
@@ -157,6 +157,24 @@ export default class extends Controller {
     const itemField = document.getElementById("order_items");
     if (itemField) {
       itemField.value = items.join(", "); // Join item names into a single string
+    } else {S
+      console.error("Item field not found");
+    }
+  }
+
+  updateColorField(colors) {
+    const colorField = document.getElementById("order_colors");
+    if (colorField) {
+      colorField.value = colors.join(", "); // Join item names into a single string
+    } else {
+      console.error("Item field not found");
+    }
+  }
+
+  updateProductField(products) {
+    const productField = document.getElementById("order_products");
+    if (productField) {
+      productField.value = products.join(", "); // Join item names into a single string
     } else {
       console.error("Item field not found");
     }

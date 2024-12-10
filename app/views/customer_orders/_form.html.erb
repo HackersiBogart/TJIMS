@@ -85,6 +85,14 @@
 
     
     <div>
+      <%= form.label :color_id, "Brand:" , class: "block font-medium text-gray-700" %>
+      <%= form.text_field :color_id, id: "order_colors", readonly: true, class: "form-input mt-1 block w-full rounded-md border-gray-300 text-gray-800 shadow-sm" %>
+    </div>
+    <div>
+      <%= form.label :product_id, "Product:" , class: "block font-medium text-gray-700" %>
+      <%= form.text_field :product_id, id: "order_products", readonly: true, class: "form-input mt-1 block w-full rounded-md border-gray-300 text-gray-800 shadow-sm" %>
+    </div>
+    <div>
       <%= form.label :item, class: "block font-medium text-gray-700" %>
       <%= form.text_field :item, id: "order_items", readonly: true, class: "form-input mt-1 block w-full rounded-md border-gray-300 text-gray-800 shadow-sm" %>
     </div>
