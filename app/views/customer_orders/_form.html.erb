@@ -77,6 +77,12 @@
    <!-- Cart Summary Section -->
   <div class="mt-8 space-y-5" data-controller="cart">
     <h3 class="text-xl font-semibold text-gray-800">Cart Summary</h3>
+      <div id="cartItems" class="space-y-4">
+        <!-- Cart items will be dynamically populated by the cart Stimulus controller -->
+      </div>
+      <div id="total" class="text-lg font-semibold text-gray-800">
+      </div>
+
     
     <div>
       <%= form.label :item, class: "block font-medium text-gray-700" %>
