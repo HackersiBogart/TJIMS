@@ -31,8 +31,8 @@ export default class extends Controller {
       totalQuantity += item.quantity; // Accumulate quantity
       totalSize += item.size; // Accumulate quantity
       itemNames.push(item.name); // Collect item names
-      itemColors.push(item.color);
-      itemProducts.push(item.product);
+      itemColors.push(item.color.id);
+      itemProducts.push(item.product.id);
 
     
       // Create the cart item UI
