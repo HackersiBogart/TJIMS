@@ -130,6 +130,16 @@ export default class extends Controller {
     }
   }
 
+  updateFields(cart) {
+    document.getElementById("order_items").value = cart.map(item => item.name).join(", ");
+    document.getElementById("order_size").value = cart.map(item => item.size).join(", ");
+    document.getElementById("order_quantity").value = cart.reduce((acc, item) => acc + item.quantity, 0);
+    document.getElementById("paint_color_id").value = cart.map(item => item.paintColorId).join(", ");
+    document.getElementById("color_id").value = cart.map(item => item.colorId).join(", ");
+    document.getElementById("product_id").value = cart.map(item => item.productId).join(", ");
+  }
+  
+
   clear() {
     localStorage.removeItem("cart");
     window.location.reload();

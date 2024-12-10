@@ -82,11 +82,37 @@
       <div id="total" class="text-lg font-semibold text-gray-800">
 
       </div>
-      <!-- Hidden Fields to Send Cart Data to Backend -->
-      <%= form.hidden_field :item, id: "order_items" %>
-      <%= form.hidden_field :paint_color_id, id: "hidden_paint_color_id" %>
-      <%= form.hidden_field :color_id, id: "hidden_color_id" %>
-      <%= form.hidden_field :product_id, id: "hidden_product_id" %>
+      <!-- Read-only Text Fields to Display Cart Data -->
+      <div>
+        <label for="order_items">Items</label>
+        <%= form.text_field :item, id: "order_items", readonly: true, value: "" %>
+      </div>
+
+      <div>
+        <label for="order_size">Size</label>
+        <%= form.text_field :size, id: "order_size", readonly: true, value: "" %>
+      </div>
+
+      <div>
+        <label for="order_quantity">Quantity</label>
+        <%= form.text_field :quantity, id: "order_quantity", readonly: true, value: "" %>
+      </div>
+
+      <div>
+        <label for="paint_color_id">Paint Color ID</label>
+        <%= form.text_field :paint_color_id, id: "paint_color_id", readonly: true, value: "" %>
+      </div>
+
+      <div>
+        <label for="color_id">Color ID</label>
+        <%= form.text_field :color_id, id: "color_id", readonly: true, value: "" %>
+      </div>
+
+      <div>
+        <label for="product_id">Product ID</label>
+        <%= form.text_field :product_id, id: "product_id", readonly: true, value: "" %>
+      </div>
+
       
  </div> 
  
