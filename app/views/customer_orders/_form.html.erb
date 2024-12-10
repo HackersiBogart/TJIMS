@@ -73,15 +73,11 @@
     </div>
 
 
-  <!-- Cart Summary Section -->
+
+   <!-- Cart Summary Section -->
   <div class="mt-8 space-y-5" data-controller="cart">
     <h3 class="text-xl font-semibold text-gray-800">Cart Summary</h3>
-      <div id="cartItems" class="space-y-4">
-        <!-- Cart items will be dynamically populated by the cart Stimulus controller -->
-      </div>
-      <div id="total" class="text-lg font-semibold text-gray-800">
-        </div>
-
+    
     <div>
       <%= form.label :item, class: "block font-medium text-gray-700" %>
       <%= form.text_field :item, id: "order_items", readonly: true, class: "form-input mt-1 block w-full rounded-md border-gray-300 text-gray-800 shadow-sm" %>
@@ -101,7 +97,8 @@
       <%= form.label :total, class: "block font-medium text-gray-700" %>
       <%= form.text_field :total, id: "order_total", readonly: true, class: "form-input mt-1 block w-full rounded-md border-gray-300 text-gray-800 shadow-sm" %>
     </div>
- </div> 
+  </div>
+
  
 
   <!-- Confirmation Section -->
