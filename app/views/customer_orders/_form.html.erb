@@ -83,9 +83,9 @@
 
       </div>
       <!-- Read-only Text Fields to Display Cart Data -->
-      <div>
+      <div id = "order_items">
         <label for="order_items">Items</label>
-        <%= form.text_field :item, id: "order_items", readonly: true, value: "" %>
+        <%= form.text_field :item, readonly: true, value: "" %>
       </div>
 
       <div>
