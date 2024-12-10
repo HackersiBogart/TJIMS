@@ -10,11 +10,6 @@ export default class extends Controller {
   updateTotal() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     console.log("Cart from localStorage:", cart);
-    console.log({
-      paint_color_ids: paintColorIds,
-      color_ids: colorIds,
-      product_ids: productIds
-    });
 
     let total = 0;
     
