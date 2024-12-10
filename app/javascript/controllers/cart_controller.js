@@ -10,6 +10,11 @@ export default class extends Controller {
   updateTotal() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     console.log("Cart from localStorage:", cart);
+    console.log({
+      paint_color_ids: paintColorIds,
+      color_ids: colorIds,
+      product_ids: productIds
+    });
 
     let total = 0;
     
@@ -51,7 +56,7 @@ export default class extends Controller {
     
       const itemColor = document.createElement("div");  // Add color display
       itemColor.classList.add("text-sm", "text-gray-700");
-      itemColor.innerText = `Color: ${item.color}`;
+      itemColor.innerText = `Brand: ${item.color}`;
     
       const itemPriceText = document.createElement("div");
       itemPriceText.classList.add("text-sm", "text-gray-700");
@@ -60,12 +65,17 @@ export default class extends Controller {
       const itemQuantity = document.createElement("div");
       itemQuantity.classList.add("text-sm", "text-gray-700");
       itemQuantity.innerText = `Quantity: ${item.quantity}`;
+
+      const itemSize = document.createElement("div");
+      itemSize.classList.add("text-sm", "text-gray-700");
+      itemSize.innerText = `Size: ${item.size}`;
     
       itemDetails.appendChild(itemName);
       itemDetails.appendChild(itemProduct);  // Append product
       itemDetails.appendChild(itemColor);    // Append color
       itemDetails.appendChild(itemPriceText);
       itemDetails.appendChild(itemQuantity);
+      itemDetails.appendChild(itemSize);
     
       const deleteButton = document.createElement("button");
       deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
