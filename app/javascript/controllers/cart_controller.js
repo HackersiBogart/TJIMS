@@ -57,11 +57,11 @@ export default class extends Controller {
     
       const itemProduct = document.createElement("div");  // Add product display
       itemProduct.classList.add("text-sm", "text-gray-700");
-      itemProduct.innerText = `Product: ${item.product}`;
+      itemProduct.innerText = `Product: ${item.product.id}`;
     
       const itemColor = document.createElement("div");  // Add color display
       itemColor.classList.add("text-sm", "text-gray-700");
-      itemColor.innerText = `Brand: ${item.color}`;
+      itemColor.innerText = `Brand: ${item.color.id}`;
     
       const itemPriceText = document.createElement("div");
       itemPriceText.classList.add("text-sm", "text-gray-700");
