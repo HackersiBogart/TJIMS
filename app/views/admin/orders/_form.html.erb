@@ -16,18 +16,18 @@
   </div>
 
   <div class="mb-6 text-gray-800">
-    <%= form.label :color_id, "Select Brand", class: "text-gray-700 font-semibold" %>
-    <%= form.collection_select :color_id, Color.all, :id, :name, prompt: "Choose a Color", class: "block mt-2 w-full bg-white border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 px-3 py-2" %>
+    <%= form.label :color_id, "Brand", class: "text-gray-700 font-semibold" %>
+    <%= form.text_field :color_id, Color.all, :id, readonly: true, :name, prompt: "Choose a Color", class: "block mt-2 w-full bg-white border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 px-3 py-2" %>
   </div>
 
   <div class="mb-6 text-gray-800">
-    <%= form.label :product_id, "Select Product", class: "text-gray-700 font-semibold" %>
-    <%= form.collection_select :product_id, Product.all, :id, :name, prompt: "Choose a Product", class: "block mt-2 w-full bg-white border border-gray-300 text-gray-800 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 px-3 py-2" %>
+    <%= form.label :product_id, "Product", class: "text-gray-700 font-semibold" %>
+    <%= form.text_field :product_id, Product.all, :id, readonly: true, :name, prompt: "Choose a Product", class: "block mt-2 w-full bg-white border border-gray-300 text-gray-800 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 px-3 py-2" %>
   </div>
 
   <div class="mb-6 text-gray-800">
-    <%= form.label :paint_color_id, "Select Paint Color", class: "text-gray-700 font-semibold" %>
-    <%= form.collection_select :paint_color_id, PaintColor.all, :id, :name, prompt: "Choose a Paint Color", class: "block mt-2 w-full bg-white border border-gray-300 text-gray-800 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 px-3 py-2" %>
+    <%= form.label :paint_color_id, "Paint Color", class: "text-gray-700 font-semibold" %>
+    <%= form.text_field :paint_color_id, PaintColor.all, :id, readonly: true, :name, prompt: "Choose a Paint Color", class: "block mt-2 w-full bg-white border border-gray-300 text-gray-800 rounded-lg shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 px-3 py-2" %>
   </div>
 
   <div class="text-center mt-8">
