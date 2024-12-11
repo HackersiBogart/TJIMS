@@ -65,7 +65,7 @@
     </div>
 
     <div>
-      <%= form.label :date_of_retrieval, "Date of Retrieval", class: "block font-medium text-gray-700" %>
+      <%= form.label :date_of_retrieval, "Date of Pickup", class: "block font-medium text-gray-700" %>
       <%= form.date_field :date_of_retrieval, class: "form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 text-gray-800" %>
       <% if @customer_order.errors[:date_of_retrieval].any? %>
         <span class="text-red-500 text-sm"><%= @customer_order.errors[:date_of_retrieval].first %></span>
