@@ -30,7 +30,7 @@
         <td class="px-4 py-2 border-b"><%= order.reference_number %></td>
       </tr>
       <tr class="bg-gray-700 text-gray-300">
-        <td class="px-4 py-2 border-b">Reference Image</td>
+        <td class="px-4 py-2 border-b">Receipt Image</td>
         <td class="px-4 py-2 border-b">
           <%= order.image.attached? ? image_tag(order.image, size: "100x100", class: "rounded") : image_tag("https://via.placeholder.com/100", size: "100x100", class: "rounded") %>
         </td>

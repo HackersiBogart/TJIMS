@@ -17,7 +17,7 @@
 
   <!-- Products Under This Color -->
   <div class="w-full mt-6">
-    <h2 class="text-xl font-bold text-white mb-4">Products Under This Color</h2>
+    <h2 class="text-xl font-bold text-white mb-4">Products Under This Brand</h2>
     <% if @admin_color.products.any? %>
       <ul class="bg-[#0B192C] p-4 rounded-lg shadow-md">
         <% @admin_color.products.each do |product| %>
@@ -28,7 +28,7 @@
         <% end %>
       </ul>
     <% else %>
-      <p class="text-gray-400">No products are associated with this color.</p>
+      <p class="text-gray-400">No products are associated with this brand.</p>
     <% end %>
   </div>
 

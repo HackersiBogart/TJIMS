@@ -1,7 +1,7 @@
 <%= form_with(model: [:admin, admin_color], class: "space-y-6 p-6 bg-[#0B192C] rounded-lg shadow-md", local: true, html: { multipart: true }) do |form| %>
   <% if admin_color.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-4 py-3 font-medium rounded-lg">
-      <h2><%= pluralize(admin_color.errors.count, "error") %> prohibited this admin_color from being saved:</h2>
+      <h2><%= pluralize(admin_color.errors.count, "error") %> prohibited this brand from being saved:</h2>
       <ul class="list-disc pl-6">
         <% admin_color.errors.each do |error| %>
           <li><%= error.full_message %></li>
