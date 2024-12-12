@@ -7,10 +7,8 @@ class Order < ApplicationRecord
   has_many :products, class_name: 'Product', foreign_key: 'order_id', dependent: :destroy
   has_many :colors
   has_many :products
-  has_one :mixture
-  has_many :mixture_details
-  has_many :mixture_thirds
-  accepts_nested_attributes_for :mixture, allow_destroy: true
+
+
 
   has_one_attached :image # Assuming Active Storage is set up for receipt images
 
