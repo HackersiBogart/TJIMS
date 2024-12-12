@@ -42,7 +42,7 @@
                   <%= link_to admin_product.name, admin_product_path(admin_product), class: "underline text-[#FF6500] hover:text-[#E65B00]" %>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
-                  <%= admin_product.updated_at %>
+                  <%= admin_product.updated_at.in_time_zone('Asia/Manila').strftime("%B %d, %Y %I:%M %p")  %>
                 </td>
 
                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">

@@ -119,7 +119,7 @@
                                                 <%= p.quantity || 0 %>
                                             </td>
                                             <td class="px-2 md:px-6 py-2 whitespace-nowrap text-xs md:text-sm font-medium text-gray-300">
-                                                <%= p.updated_at.present? ? p.updated_at.strftime("%B %d, %Y %H:%M") : "N/A" %>
+                                                <%= p.updated_at.in_time_zone('Asia/Manila').strftime("%B %d, %Y %I:%M %p")  %>
                                             </td>
 
                                         </tr>
@@ -183,7 +183,7 @@
                                 <%= primary_color.stocks %>
                                 </td>
                                 <td class="px-2 md:px-6 py-2 whitespace-nowrap text-xs md:text-sm font-medium text-gray-300">
-                                <%= primary_color.updated_at.present? ? primary_color.updated_at.strftime("%B %d, %Y %H:%M") : "N/A" %>
+                                <%= primary_color.updated_at.in_time_zone('Asia/Manila').strftime("%B %d, %Y %I:%M %p")  %>
                                  </td>
 
                             </tr>

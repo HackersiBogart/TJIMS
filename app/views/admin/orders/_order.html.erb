@@ -37,7 +37,8 @@
       </tr>
       <tr class="bg-gray-800 text-gray-300">
         <td class="px-4 py-2 border-b">Date of Retrieval</td>
-        <td class="px-4 py-2 border-b"><%= order.date_of_retrieval %></td>
+        <td class="px-4 py-2 border-b"><%= order.date_of_retrieval.in_time_zone('Asia/Manila').strftime("%B %d, %Y %I:%M %p")  %></td>
+        
       </tr>
       <tr class="bg-gray-700 text-gray-300">
         <td class="px-4 py-2 border-b">Item</td>
