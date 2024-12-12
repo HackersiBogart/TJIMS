@@ -19,7 +19,11 @@
 <% else %>
   <%= image_tag("https://via.placeholder.com/80", class: "w-20 h-20 rounded-lg shadow") %>
 <% end %>
+
+     
+
       <p class="text-white font-semibold"><%= @admin_mixture.order.name %></p>
+       <%= f.hidden_field :order_id %>
     </div>
   </div>
 
