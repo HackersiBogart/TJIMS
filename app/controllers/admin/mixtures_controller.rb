@@ -20,8 +20,7 @@ class Admin::MixturesController < AdminController
   # GET /admin/mixtures/new
   def new
     @order = Order.find(params[:order_id]) if params[:order_id].present?
-   
-    @admin_mixture = Mixture.new
+    @admin_mixture = Mixture.new(order_id: params[:order_id])
     @admin_mixture.mixture_details.build
     @admin_mixture.mixture_thirds.build
    

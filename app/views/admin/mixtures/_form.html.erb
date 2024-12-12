@@ -11,14 +11,8 @@
   <% end %>
 
   <div class="my-5">
-    <%= f.label :order_id, "Select Order", class: "text-white font-semibold" %>
-    <% if @admin_mixture.errors[:order_id].any? %>
-      <div class="text-red-500 text-sm mb-1"><%= @admin_mixture.errors[:order_id].first %></div>
-    <% end %>
-    <%= f.collection_select :order_id, Order.all, :id, :name,
-                            { prompt: "Choose an order" },
-                            { class: "block shadow-md rounded-md border px-3 py-2 mt-2 w-full text-gray-800 outline-none focus:ring-2 transition duration-200 #{'border-red-500 focus:ring-red-500' if @admin_mixture.errors[:order_id].any?}" } %>
-  </div>
+  <p class="text-white font-semibold">Order: <%= @admin_mixture.order.name %></p>
+</div>
 
   <div id="mixture_details" class="space-y-4">
     <%= f.fields_for :mixture_details do |mixture_detail| %>
