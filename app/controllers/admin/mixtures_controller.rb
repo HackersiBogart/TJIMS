@@ -23,8 +23,15 @@ class Admin::MixturesController < AdminController
     @admin_mixture = Mixture.new(order_id: params[:order_id])
     @admin_mixture.mixture_details.build
     @admin_mixture.mixture_thirds.build
+
+    # Validate that the order exists and has a paint_color
+    unless @order&.paint_color
+      flash[:alert] = "Selected order is missing an associated paint color."
+      redirect_to admin_orders_path and return
+    end
    
   end
+
 
   # GET /admin/mixtures/1/edit
   def edit
@@ -33,7 +40,13 @@ class Admin::MixturesController < AdminController
   # POST /admin/mixtures or /admin/mixtures.json
   def create
     @admin_mixture = Mixture.new(admin_mixture_params)
-
+  
+    # Validate the presence of order and its associated paint_color
+    if @admin_mixture.order.nil? || @admin_mixture.order.paint_color.nil?
+      flash.now[:alert] = "Associated order or paint color is missing."
+      return render :new, status: :unprocessable_entity
+    end
+  
     respond_to do |format|
       if @admin_mixture.save
         format.html { redirect_to admin_mixture_url(@admin_mixture), notice: "Mixture was successfully created." }
