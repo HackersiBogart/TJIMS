@@ -51,11 +51,11 @@
   </div>
 
   <div class="my-5">
-    <%= form.label :color_id, "Select Color", class: "text-white font-semibold" %>
+    <%= form.label :color_id, "Select Brand", class: "text-white font-semibold" %>
     <% if admin_paint_color.errors[:color_id].any? %>
       <div class="text-red-500 text-sm mb-1"><%= admin_paint_color.errors[:color_id].first %></div>
     <% end %>
-    <%= form.collection_select :color_id, Color.all, :id, :name, { prompt: "Choose a color" }, { class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200 #{'border-red-500 focus:ring-red-500' if admin_paint_color.errors[:color_id].any?}" } %>
+    <%= form.collection_select :color_id, Color.all, :id, :name, { prompt: "Choose a brand" }, { class: "block shadow-md rounded-md border border-gray-600 text-gray-800 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-[#FF6500] transition duration-200 #{'border-red-500 focus:ring-red-500' if admin_paint_color.errors[:color_id].any?}" } %>
   </div>
 
   <div class="my-5">
