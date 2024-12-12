@@ -43,7 +43,7 @@
                     <%= o.name %>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
-                    <%= o.date_of_retrieval %>
+                    <%= o.date_of_retrieval.in_time_zone('Asia/Manila').strftime("%B %d, %Y %I:%M %p")  %>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
                     <%= o.order_total %>
@@ -108,7 +108,7 @@
                     <%= o.name %>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
-                    <%= o.date_of_retrieval %>
+                    <%= o.date_of_retrieval.in_time_zone('Asia/Manila').strftime("%B %d, %Y %I:%M %p")  %>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
                     <%= o.order_total %>
