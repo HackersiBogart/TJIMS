@@ -13,7 +13,7 @@
   <!-- Name Field -->
   <div class="my-5">
     <%= form.label :name, class: "text-white" %>
-    <%= form.text_field :name, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.text_field :name, class: "block shadow rounded-md border text-gray-800 border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
     <% if admin_primary_color.errors[:name].any? %>
       <div class="text-red-500 mt-2">
         <%= admin_primary_color.errors[:name].join(", ") %>
@@ -24,7 +24,7 @@
   <!-- Code Field -->
   <div class="my-5">
     <%= form.label :code, class: "text-white" %>
-    <%= form.text_field :code, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.text_field :code, class: "block shadow rounded-md border text-gray-800 border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
     <% if admin_primary_color.errors[:code].any? %>
       <div class="text-red-500 mt-2">
         <%= admin_primary_color.errors[:code].join(", ") %>
@@ -46,7 +46,7 @@
   <!-- Price Field -->
   <div class="my-5">
     <%= form.label :price, class: "text-white" %>
-    <%= form.text_field :price, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.text_field :price, class: "block shadow rounded-md text-gray-800 border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
     <% if admin_primary_color.errors[:price].any? %>
       <div class="text-red-500 mt-2">
         <%= admin_primary_color.errors[:price].join(", ") %>
@@ -57,7 +57,7 @@
   <!-- Stocks Field -->
   <div class="my-5">
     <%= form.label :stocks, class: "text-white" %>
-    <%= form.text_field :stocks, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.text_field :stocks, class: "block shadow rounded-md border text-gray-800 border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
     <% if admin_primary_color.errors[:stocks].any? %>
       <div class="text-red-500 mt-2">
         <%= admin_primary_color.errors[:stocks].join(", ") %>
