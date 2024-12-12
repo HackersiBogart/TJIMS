@@ -74,7 +74,7 @@
                 <%= order.name %>
               </td>
               <td class="px-6 py-4 border-b border-[#FF6500]">
-                <%= order.created_at.strftime("%B %d, %Y %H:%M") %>
+                <%= order.created_at.in_time_zone('Asia/Manila').strftime("%B %d, %Y %H:%M") %>
               </td>
               <td class="px-6 py-4 border-b border-[#FF6500]">
                 ₱<%= (order.order_total).to_s %>
