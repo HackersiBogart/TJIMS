@@ -5,7 +5,7 @@
             <button id="tab2" class="bg-[#1E3E62] text-gray-300 px-4 py-2 rounded focus:outline-none hover:bg-[#FF6500]">Added Stocks</button>
         </div>
 
-        <div id="tab1-content" class="tab-content active">
+    <div id="tab1-content" class="tab-content active">
     <div class="flex flex-col w-full mt-4">
         <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
             <div class="py-2 inline-block min-w-full">
@@ -31,20 +31,20 @@
                                             <%= o.id %>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
-                                            <%= o.mixture.primary_color.name %>
+                                            <%= o.mixture&.primary_color&.name || 'N/A' %>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
-                                            -<%= o.mixture.primary_color.amount %>
+                                            -<%= o.mixture&.primary_color&.amount || 'N/A' %>
                                         </td>
 
                                         <!-- Iterating over mixture_details -->
-                                        <% if o.mixture.mixture_details.any? %>
+                                        <% if o.mixture&.mixture_details&.any? %>
                                             <% o.mixture.mixture_details.each do |detail| %>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
-                                                    <%= detail.primary_color.name %>
+                                                    <%= detail.primary_color&.name || 'N/A' %>
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
-                                                    -<%= detail.primary_color.amount %>
+                                                    -<%= detail.primary_color&.amount || 'N/A' %>
                                                 </td>
                                             <% end %>
                                         <% else %>
@@ -52,13 +52,13 @@
                                         <% end %>
 
                                         <!-- Iterating over mixture_thirds -->
-                                        <% if o.mixture.mixture_thirds.any? %>
+                                        <% if o.mixture&.mixture_thirds&.any? %>
                                             <% o.mixture.mixture_thirds.each do |third| %>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
-                                                    <%= third.primary_color.name %>
+                                                    <%= third.primary_color&.name || 'N/A' %>
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
-                                                    -<%= third.primary_color.amount %>
+                                                    -<%= third.primary_color&.amount || 'N/A' %>
                                                 </td>
                                             <% end %>
                                         <% else %>
@@ -66,7 +66,7 @@
                                         <% end %>
 
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
-                                            <%= o.order_total %>
+                                            <%= o.order_total || 'N/A' %>
                                         </td>
                                     </tr>
                                 <% end %>
@@ -82,6 +82,7 @@
         </div>
     </div>
 </div>
+
 
 
         <div id="tab2-content" class="tab-content">

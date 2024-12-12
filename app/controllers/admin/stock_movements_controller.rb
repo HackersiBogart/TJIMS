@@ -3,41 +3,35 @@ class Admin::StockMovementsController < AdminController
 
   # GET /admin/stock_movements or /admin/stock_movements.json
   def index
-
     @admin_paint_colors = PaintColor.where(params[:paint_color_id])
     @admin_primary_colors = PrimaryColor.where(params[:primary_color_id])
-    
-    # Calculate previous stocks, added stocks, and current quantity
-
-      
-  
-    @not_fulfilled_pagy, @not_fulfilled_orders = pagy(Order.where(fulfilled: false).includes(:product, :primary_color, :paint_color).order(created_at: :desc))
-    @fulfilled_pagy, @fulfilled_orders = pagy(Order.where(fulfilled: true).includes(:product, :primary_color, :paint_color).order(created_at: :desc), page_param: :page_fulfilled)
   
     @query = params[:query]&.downcase
-
+  
     if @query.present?
       # Search logic for not fulfilled orders
       @not_fulfilled_orders = Order.where(fulfilled: false)
                                    .includes(:product, :primary_color, :paint_color, :color)
                                    .where("CAST(id AS TEXT) LIKE :search OR LOWER(name) LIKE :search OR CAST(date_of_retrieval AS TEXT) LIKE :search", search: "%#{@query}%")
                                    .order(created_at: :desc)
-
-        # Search logic for fulfilled orders
+  
+      # Search logic for fulfilled orders
       @fulfilled_orders = Order.where(fulfilled: true)
-                               .includes(:product, :primary_color, :paint_color, :color)
+                               .includes(:product, :primary_color, :paint_color, :color, :mixture)
+                               .where.not(mixture: nil)
                                .where("CAST(id AS TEXT) LIKE :search OR LOWER(name) LIKE :search OR CAST(date_of_retrieval AS TEXT) LIKE :search", search: "%#{@query}%")
                                .order(created_at: :desc)
     else
       # Default display if no search query is provided
       @not_fulfilled_orders = Order.where(fulfilled: false).includes(:product, :primary_color, :paint_color).order(created_at: :desc)
-      @fulfilled_orders = Order.where(fulfilled: true).includes(:product, :primary_color, :paint_color).order(created_at: :desc)
+      @fulfilled_orders = Order.where(fulfilled: true).includes(:product, :primary_color, :paint_color, :mixture).where.not(mixture: nil).order(created_at: :desc)
     end
-
+  
     # Paginate the results using Pagy
     @not_fulfilled_pagy, @not_fulfilled_orders = pagy(@not_fulfilled_orders, items: 10)
     @fulfilled_pagy, @fulfilled_orders = pagy(@fulfilled_orders, items: 10)
   end
+  
 
   # GET /admin/stock_movements/new
   def new
