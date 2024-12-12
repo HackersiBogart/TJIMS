@@ -8,6 +8,8 @@ class Order < ApplicationRecord
   has_many :colors
   has_many :products
   has_many :mixtures
+  has_many :mixture_details
+  has_many :mixture_thirds
 
   has_one_attached :image # Assuming Active Storage is set up for receipt images
 
