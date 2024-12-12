@@ -1,7 +1,7 @@
 class MixtureThird < ApplicationRecord
   belongs_to :mixture
   belongs_to :primary_color
-  belongs_to :order
+
   validates :mixture_id, presence: true
   validates :order_id, presence: true, numericality: { only_integer: true }
   validates :primary_color_id, presence: true, numericality: { only_integer: true }
