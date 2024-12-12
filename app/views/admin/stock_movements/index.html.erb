@@ -13,8 +13,6 @@
                             <table class="min-w-full bg-[#1E3E62] text-gray-300 border-collapse">
                                 <thead class="bg-[#1E3E62]">
                                     <tr>
-                                        <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Order ID</th>
-                                        <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Name</th>
                                         <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Brand</th>
                                         <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Product</th>
                                         <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Quantity</th>
@@ -25,12 +23,7 @@
                                     <% if @fulfilled_orders.present? %>
                                         <% @fulfilled_orders.each do |o| %>
                                             <tr class="bg-gray-800 border-b hover:bg-[#1E3E62] transition duration-200">
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300 underline">
-                                                    <%= link_to o.id, [:admin, o], class: 'underline text-[#FF6500] hover:text-[#E65B00]' %>
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
-                                                    <%= o.name %>
-                                                </td>
+                                               
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
                                                     <%= o.color.name %>
                                                 </td>
