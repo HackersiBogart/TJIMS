@@ -5,98 +5,68 @@
             <button id="tab2" class="bg-[#1E3E62] text-gray-300 px-4 py-2 rounded focus:outline-none hover:bg-[#FF6500]">Added Stocks</button>
         </div>
 
-       <div id="tab1-content" class="tab-content active">
-    <div class="flex flex-col w-full mt-4">
-        <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
-            <div class="py-2 inline-block min-w-full">
-                <div class="overflow-x-auto">
-                    <table class="min-w-full bg-[#1E3E62] text-gray-300 border-collapse">
-                        <thead class="bg-[#1E3E62]">
-                            <tr>
-                                <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Brand</th>
-                                <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Product</th>
-                                <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Primary Color</th>
-                                <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Quantity</th>
-                                <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% if @fulfilled_orders.present? %>
-                                <% @fulfilled_orders.each do |o| %>
-                                    <tr class="bg-gray-800 border-b hover:bg-[#1E3E62] transition duration-200">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
-                                            <%= o.color.name %>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
-                                            <%= o.product.present? ? o.product.name : "N/A" %>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
-                                            <%= o.primary_color.present? ? o.primary_color.name : "N/A" %>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
-                                            -<%= o.quantity %>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
-                                            <%= o.order_total %>
-                                        </td>
+        <div id="tab1-content" class="tab-content active">
+            <div class="flex flex-col w-full mt-4">
+                <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
+                    <div class="py-2 inline-block min-w-full">
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-[#1E3E62] text-gray-300 border-collapse">
+                                <thead class="bg-[#1E3E62]">
+                                    <tr>
+                                        <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Order ID</th>
+                                        <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Primary Color 1</th>
+                                        <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Quantity</th>
+                                        <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Primary Color 2</th>
+                                        <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Quantity</th>
+                                        <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Primary Color 3</th>
+                                        <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Quantity</th>
+                                        <th scope="col" class="text-sm font-medium text-gray-300 px-6 py-4 text-left">Total</th>
                                     </tr>
-                                    <% if o.mixture_details.any? %>
-                                        <tr class="bg-gray-700 border-b hover:bg-[#1E3E62] transition duration-200">
-                                            <td colspan="5" class="text-gray-300 pl-6">Mixture Details:</td>
-                                        </tr>
-                                        <% o.mixture_details.each do |detail| %>
+                                </thead>
+                                <tbody>
+                                    <% if @fulfilled_orders.present? %>
+                                        <% @fulfilled_orders.each do |o| %>
                                             <tr class="bg-gray-800 border-b hover:bg-[#1E3E62] transition duration-200">
-                                                <td class="px-6 py-4 text-sm font-medium text-gray-300">-</td>
-                                                <td class="px-6 py-4 text-sm font-medium text-gray-300">
-                                                    <%= detail.order_id %>
+
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
+                                                    <%= o.id %>
                                                 </td>
-                                                <td class="px-6 py-4 text-sm font-medium text-gray-300">
-                                                    <%= detail.primary_color_id %>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
+                                                    <%= o.mixture.primary_color.name %>
                                                 </td>
-                                                <td class="px-6 py-4 text-sm font-medium text-gray-300">
-                                                    <%= detail.amount %>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
+                                                    -<%= o.mixture.primary_color.amount %>
                                                 </td>
-                                                <td class="px-6 py-4 text-sm font-medium text-gray-300">
-                                                    <%= detail._destroy %>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
+                                                    <%= o.mixture.mixture_detail.primary_color.name %>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
+                                                    -<%= o.mixture.mixture_detail.primary_color.amount %>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
+                                                    <%= o.mixture.mixture_third.primary_color.name %>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
+                                                    -<%= o.mixture.mixture_third.primary_color.amount %>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-300">
+                                                    <%= o.order_total %>
                                                 </td>
                                             </tr>
                                         <% end %>
-                                    <% end %>
-                                    <% if o.mixture_thirds.any? %>
-                                        <tr class="bg-gray-700 border-b hover:bg-[#1E3E62] transition duration-200">
-                                            <td colspan="5" class="text-gray-300 pl-6">Mixture Thirds:</td>
+                                    <% else %>
+                                        <tr>
+                                            <td colspan="6" class="text-center text-gray-300">No fulfilled orders available.</td>
                                         </tr>
-                                        <% o.mixture_thirds.each do |third| %>
-                                            <tr class="bg-gray-800 border-b hover:bg-[#1E3E62] transition duration-200">
-                                                <td class="px-6 py-4 text-sm font-medium text-gray-300">-</td>
-                                                <td class="px-6 py-4 text-sm font-medium text-gray-300">
-                                                    <%= third.order_id %>
-                                                </td>
-                                                <td class="px-6 py-4 text-sm font-medium text-gray-300">
-                                                    <%= third.primary_color_id %>
-                                                </td>
-                                                <td class="px-6 py-4 text-sm font-medium text-gray-300">
-                                                    <%= third.amount %>
-                                                </td>
-                                                <td class="px-6 py-4 text-sm font-medium text-gray-300">
-                                                    <%= third._destroy %>
-                                                </td>
-                                            </tr>
-                                        <% end %>
                                     <% end %>
-                                <% end %>
-                            <% else %>
-                                <tr>
-                                    <td colspan="6" class="text-center text-gray-300">No fulfilled orders available.</td>
-                                </tr>
-                            <% end %>
-                        </tbody>
-                    </table>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+
         <div id="tab2-content" class="tab-content">
             <h2 class="text-xl text-[#FF6500] mt-6">Category</h2>
             <div class="nested-tabs mb-4 flex space-x-2 mt-4">
