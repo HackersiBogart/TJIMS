@@ -14,36 +14,28 @@
 
   <div class="my-5">
     <%= form.label :mixture_id, class: "text-white font-semibold" %>
-    <% if admin_mixture_third.errors[:mixture_id].any? %>
-      <div class="text-red-500 text-sm mb-1"><%= admin_mixture_third.errors[:mixture_id].first %></div>
-    <% end %>
+
     <%= form.text_field :mixture_id, 
                         class: "block shadow-md rounded-md border px-3 py-2 mt-2 w-full text-gray-800 outline-none focus:ring-2 transition duration-200 #{'border-red-500 focus:ring-red-500' if admin_mixture_third.errors[:mixture_id].any?}" %>
   </div>
 
   <div class="my-5">
     <%= form.label :order_id, class: "text-white font-semibold" %>
-    <% if admin_mixture_third.errors[:order_id].any? %>
-      <div class="text-red-500 text-sm mb-1"><%= admin_mixture_third.errors[:order_id].first %></div>
-    <% end %>
+
     <%= form.number_field :order_id, 
                           class: "block shadow-md rounded-md border px-3 py-2 mt-2 w-full text-gray-800 outline-none focus:ring-2 transition duration-200 #{'border-red-500 focus:ring-red-500' if admin_mixture_third.errors[:order_id].any?}" %>
   </div>
 
   <div class="my-5">
     <%= form.label :primary_color_id, class: "text-white font-semibold" %>
-    <% if admin_mixture_third.errors[:primary_color_id].any? %>
-      <div class="text-red-500 text-sm mb-1"><%= admin_mixture_third.errors[:primary_color_id].first %></div>
-    <% end %>
+
     <%= form.number_field :primary_color_id, 
                           class: "block shadow-md rounded-md border px-3 py-2 mt-2 w-full text-gray-800 outline-none focus:ring-2 transition duration-200 #{'border-red-500 focus:ring-red-500' if admin_mixture_third.errors[:primary_color_id].any?}" %>
   </div>
 
   <div class="my-5">
     <label class="block text-gray-700 font-medium" for="mixture_mixture_thirds_attributes_0_amount">Quantity</label>
-    <% if admin_mixture_third.errors[:amount].any? %>
-      <div class="text-red-500 text-sm mb-1"><%= admin_mixture_third.errors[:amount].first %></div>
-    <% end %>
+
     <%= form.text_field :amount, 
                         class: "block shadow-md rounded-md border px-3 py-2 mt-2 w-full text-gray-800 outline-none focus:ring-2 transition duration-200 #{'border-red-500 focus:ring-red-500' if admin_mixture_third.errors[:amount].any?}" %>
   </div>
