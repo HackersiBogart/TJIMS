@@ -10,35 +10,22 @@
     </div>
   <% end %>
 
-  <!-- Reference Image Section -->
   <div class="my-5">
-    <label class="block text-sm font-medium text-gray-300 mb-2">Reference Image:</label>
-    <div class="flex items-center space-x-4">
-      <% if @admin_mixture.order.paint_color.image.attached? %>
-        <%= image_tag(@admin_mixture.order.paint_color.image, class: "w-20 h-20 rounded-lg shadow") %>
-      <% else %>
-        <%= image_tag("https://via.placeholder.com/80", class: "w-20 h-20 rounded-lg shadow") %>
-      <% end %>
-      <p class="text-white font-semibold"><%= @admin_mixture.order.name %></p>
-      <%= f.hidden_field :order_id %>
-    </div>
-  </div>
+  <p class="text-white font-semibold">Order: <%= @admin_mixture.order.name %></p>
+</div>
 
-  <!-- Mixture Details -->
   <div id="mixture_details" class="space-y-4">
     <%= f.fields_for :mixture_details do |mixture_detail| %>
       <%= render "mixture_detail_fields", f: mixture_detail %>
     <% end %>
   </div>
 
-  <!-- Mixture Thirds -->
   <div id="mixture_thirds" class="space-y-4">
     <%= f.fields_for :mixture_thirds do |mixture_third| %>
       <%= render "mixture_third_fields", f: mixture_third %>
     <% end %>
   </div>
 
-  <!-- Primary Color Selector -->
   <div class="my-5">
     <%= f.label :primary_color_id, "Select Color", class: "text-white font-semibold" %>
     <% if @admin_mixture.errors[:primary_color_id].any? %>
@@ -49,7 +36,6 @@
                             { class: "block shadow-md rounded-md border px-3 py-2 mt-2 w-full text-gray-800 outline-none focus:ring-2 transition duration-200 #{'border-red-500 focus:ring-red-500' if @admin_mixture.errors[:primary_color_id].any?}" } %>
   </div>
 
-  <!-- Amount Field -->
   <div class="my-5">
     <%= f.label :amount, "Quantity", class: "text-white font-semibold" %>
     <% if @admin_mixture.errors[:amount].any? %>
@@ -59,7 +45,6 @@
                      class: "block shadow-md rounded-md border px-3 py-2 mt-2 w-full text-gray-800 outline-none focus:ring-2 transition duration-200 #{'border-red-500 focus:ring-red-500' if @admin_mixture.errors[:amount].any?}" %>
   </div>
 
-  <!-- Submit Button -->
   <div class="flex justify-end space-x-2 mt-4">
     <%= f.submit "Submit", class: "rounded-lg py-3 px-5 bg-[#FF6500] hover:bg-[#E65B00] text-white inline-block font-medium cursor-pointer transition duration-200 flex items-center space-x-2" do %>
       <i class="fas fa-save"></i>
