@@ -6,8 +6,8 @@ class Mixture < ApplicationRecord
   before_save :check_and_deduct_stock_vthree
   has_many :mixture_details, dependent: :destroy
   has_many :mixture_thirds, dependent: :destroy
-  accepts_nested_attributes_for :mixture_details, allow_destroy: true, reject_if: :all_blank
-  accepts_nested_attributes_for :mixture_thirds, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :mixture_details, allow_destroy: true
+  accepts_nested_attributes_for :mixture_thirds, allow_destroy: true
   
 
   validates :order_id, presence: true, numericality: { only_integer: true, message: "must be a valid number" }
