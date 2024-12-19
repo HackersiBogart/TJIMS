@@ -80,6 +80,7 @@
                                         <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Product</th>
                                         <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Previous Stocks</th>
                                         <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Added Stocks</th>
+                                        <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Deducted Stocks</th>
                                         <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Current Stocks</th>
                                         <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Updated At</th>
 
@@ -116,6 +117,9 @@
                                                 +<%= p.added_stocks || 0 %>
                                             </td>
                                             <td class="px-2 md:px-6 py-2 whitespace-nowrap text-xs md:text-sm font-medium text-gray-300">
+                                                +<%= p.deducted_stocks_stocks || 0 %>
+                                            </td>
+                                            <td class="px-2 md:px-6 py-2 whitespace-nowrap text-xs md:text-sm font-medium text-gray-300">
                                                 <%= p.quantity || 0 %>
                                             </td>
                                             <td class="px-2 md:px-6 py-2 whitespace-nowrap text-xs md:text-sm font-medium text-gray-300">
@@ -145,6 +149,7 @@
                             <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Product</th>
                             <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Previous Stock</th>
                             <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Added Stock</th>
+                            <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Deducted Stock</th>
                             <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Quantity</th>
                             <th scope="col" class="text-xs md:text-sm font-medium text-gray-300 px-2 md:px-6 py-2 text-left">Updated At</th>
                             </tr>
@@ -178,6 +183,9 @@
                                  </td>
                                  <td class="px-2 md:px-6 py-2 whitespace-nowrap text-xs md:text-sm font-medium text-gray-300">
                                  +<%= primary_color.added_stocks || 0 %>
+                                </td>
+                                <td class="px-2 md:px-6 py-2 whitespace-nowrap text-xs md:text-sm font-medium text-gray-300">
+                                 -<%= primary_color.deducted_stocks || 0 %>
                                 </td>
                                 <td class="px-2 md:px-6 py-2 whitespace-nowrap text-xs md:text-sm font-medium text-gray-300">
                                 <%= primary_color.stocks %>

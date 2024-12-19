@@ -61,10 +61,12 @@ class Admin::StockMovementsController < AdminController
   # PATCH/PUT /admin/stock_movements/1
   def update
     @admin_paint_color = PaintColor.find(params[:id])
-
+    @order = Order.find(params[:id])
+    deducted_quantity = @order.quantity
     previous_quantity = @admin_paint_color.quantity
       new_quantity = params[:paint_color][:quantity].to_i
-      
+
+      @admin_paint_color.deducted_stocks = deducted_quantity
       @admin_paint_color.previous_stocks = previous_quantity
       @admin_paint_color.added_stocks = new_quantity - previous_quantity
       @admin_paint_color.quantity = new_quantity
@@ -76,6 +78,7 @@ class Admin::StockMovementsController < AdminController
     previous_quantity = @admin_primary_color.stocks
     new_stocks = params[:primary_color][:stocks].to_i
     
+    @admin_primary_color.deducted_stocks = deducted_quantity
     @admin_primary_color.previous_stocks = previous_stocks
     @admin_primary_color.added_stocks = new_stocks - previous_stocks
     @admin_primary_color.stocks = new_stocks
