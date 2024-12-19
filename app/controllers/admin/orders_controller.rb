@@ -71,6 +71,8 @@ class Admin::OrdersController < AdminController
       if @admin_order.update(admin_order_params)
         # Automatically send email if the order has been fulfilled
         if @admin_order.fulfilled
+          # Deduct stock
+          deduct_stock(@admin_order)
           send_email(@admin_order)
         end
         format.html { redirect_to admin_order_url(@admin_order), notice: "Order was successfully updated." }
@@ -102,6 +104,21 @@ class Admin::OrdersController < AdminController
     # Use callbacks to share common setup or constraints between actions.
     def set_admin_order
       @admin_order = Order.find(params[:id])
+    end
+
+    def deduct_stock(order)
+      paint_color = order.paint_color
+      return unless paint_color # Ensure the paint color exists
+    
+      # Deduct the quantity from the paint color stock
+      stock = paint_color.stocks.find_by(size: order.size)
+      return unless stock # Ensure the stock for the selected size exists
+    
+      if stock.quantity >= order.quantity
+        stock.update!(quantity: stock.quantity - order.quantity)
+      else
+        flash[:alert] = "Insufficient stock for #{paint_color.name} in size #{order.size}."
+      end
     end
 
     # Only allow a list of trusted parameters through.
