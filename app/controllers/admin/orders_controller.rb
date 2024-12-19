@@ -110,14 +110,10 @@ class Admin::OrdersController < AdminController
       paint_color = order.paint_color
       return unless paint_color # Ensure the paint color exists
     
-      # Deduct the quantity from the paint color stock
-      stock = paint_color.stocks.find_by(size: order.size)
-      return unless stock # Ensure the stock for the selected size exists
-    
-      if stock.quantity >= order.quantity
-        stock.update!(quantity: stock.quantity - order.quantity)
+      if paint_color.quantity >= order.quantity
+        paint_color.update!(quantity: paint_color.quantity - order.quantity)
       else
-        flash[:alert] = "Insufficient stock for #{paint_color.name} in size #{order.size}."
+        flash[:alert] = "Insufficient stock for #{paint_color.name}."
       end
     end
 
