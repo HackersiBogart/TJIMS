@@ -120,7 +120,7 @@
                                                 -<%= p.deducted_stocks || 0 %>
                                             </td>
                                             <td class="px-2 md:px-6 py-2 whitespace-nowrap text-xs md:text-sm font-medium text-gray-300">
-                                                <%= p.stocks.amount || 0 %>
+                                                <%= p.quantity || 0 %>
                                             </td>
                                             <td class="px-2 md:px-6 py-2 whitespace-nowrap text-xs md:text-sm font-medium text-gray-300">
                                                 <%= p.updated_at.in_time_zone('Asia/Manila').strftime("%B %d, %Y %I:%M %p")  %>
