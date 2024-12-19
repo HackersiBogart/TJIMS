@@ -36,15 +36,17 @@ class Admin::PaintColorsController < AdminController
   end
 
   # PATCH/PUT /admin/paint_colors/1 or /admin/paint_colors/1.json
+
   def update
     @admin_paint_color = PaintColor.find(params[:id])
     
-    # Calculate previous stocks, added stocks, and current quantity
+    # Calculate previous stocks, added stocks, deducted stocks, and current quantity
     previous_quantity = @admin_paint_color.quantity
     new_quantity = params[:paint_color][:quantity].to_i
     
     @admin_paint_color.previous_stocks = previous_quantity
-    @admin_paint_color.added_stocks = new_quantity - previous_quantity
+    @admin_paint_color.added_stocks = new_quantity > previous_quantity ? new_quantity - previous_quantity : 0
+    @admin_paint_color.deducted_stocks = new_quantity < previous_quantity ? previous_quantity - new_quantity : 0
     @admin_paint_color.quantity = new_quantity
     @admin_paint_color.updated_at = Time.current # This might be automatically handled by Rails, depending on your setup.
   
